@@ -3,27 +3,11 @@ import Cuisine from "../models/Cuisine";
 
 // Hämtar alla Rätter
 
-// export const getAllCuisines = async (req: Request, res: Response) => {
-//   try {
-//     const cuisines = await Cuisine.find();
-//     res.json(cuisines);
-//   } catch (error) {
-//     res.status(500).json({ message: (error as any).message });
-//   }
-// };
-
 export const getAllCuisines = async (req: Request, res: Response) => {
-  console.log("Received request to get all cuisines"); // Logga inkommande förfrågan
-
   try {
     const cuisines = await Cuisine.find();
-
-    // Logga resultatet eller statusen av sökningen
-    console.log(`Found ${cuisines.length} cuisines`);
-
     res.json(cuisines);
   } catch (error) {
-    console.error("Error fetching cuisines:", error); // Logga fel
     res.status(500).json({ message: (error as any).message });
   }
 };
@@ -65,9 +49,15 @@ export const createCuisine = async (req: Request, res: Response) => {
   });
   try {
     const newCuisine = await cuisine.save();
-    res.status(201).json(newCuisine);
+    res.status(201).json({
+      message: "A new cuisine has been created",
+      cuisine: newCuisine,
+    });
   } catch (error) {
-    res.status(400).json({ message: error as any });
+    res.status(400).json({
+      message: "Something whent wrong when trying to create a new cuisine",
+      cuisine: error as any,
+    });
   }
 };
 

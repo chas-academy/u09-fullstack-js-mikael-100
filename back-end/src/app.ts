@@ -8,23 +8,19 @@ const app: Express = express();
 // Detta måste göras för att datan skall kunna skickas runt genom den expressapp.
 app.use(express.json());
 
-// Middleware för att logga inkommande förfrågningar
-app.use((req: Request, res: Response, next: NextFunction) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-  next();
-});
+// Konfigurera CORS
+// Denna kod kommer att ställa in cors till att ta emot endast CRUD begäran. Samt låta data som är json komma igenom samt token.
+const corsOptions = {
+  // Lista över godkända portar eller domäner
+  origin: ["http://localhost:3000", "SKRIV IN DIN NETLYFY ADRESS HÄR SEN"],
+  // Står för metoderna som får skickas
+  methods: "GET,POST,PUT,DELETE",
+  // Står för att json format och token får skickas. Om authorization inte hade stått med hade
+  // man inte fått skicka med token i headers. Där emot är det inte ett måste i begäran.
+  allowedHeaders: "Content-Type,Authorization",
+};
 
-// Middleware för att logga svarstider
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const start = Date.now();
-  res.on("finish", () => {
-    const duration = Date.now() - start;
-    console.log(`${req.method} ${req.url} - ${res.statusCode} ${duration}ms`);
-  });
-  next();
-});
-
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");

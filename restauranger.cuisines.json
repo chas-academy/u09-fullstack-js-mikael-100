@@ -1,0 +1,266 @@
+[{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef88"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "STEKT KYCKLINGFILE MED KRÄMIG SPENATSÅS OCH BASMATRIS.",
+  "information": "Stekt kycklingbröstfile med krämig spenatsås gjord på creme fraiche, smaksatt med örter.",
+  "allergies": [
+    "Glutenfri",
+    "Fläskfri",
+    "Laktosfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef87"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "KRYDDSTEKT KYCKLINGLÅRFILE MED KRÄMIG POTATISGRATÄNG OCH CITRONKOKT RÖDBETSSALLAD",
+  "information": "Smakrik kryddstekt kycklinglårfile med oregano, paprika och koriander.",
+  "allergies": [
+    "Glutenfri",
+    "Fläskfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef85"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "KÖTTFÄRSÅS MED SPAGETTI OCH UNGSTEKTA MORÖTTER",
+  "information": "Smakrik köttfärsås som är tillagad på blandfärs och vegetarisk färs.",
+  "allergies": [
+    "Laktosfri",
+    "Mjölkproteinfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef84"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "KÖTTBULLAR MED POTATISMOS LINGONGRÄDDSÅS OCH ÅNGKOKTA GRÖNSAKER",
+  "information": "Klassiska köttbullar och gräddsås smaksatt med lingon. Serveras med potatismos och ångkokta grönsaker.",
+  "allergies": [
+    "Glutenfri",
+    "Fläskfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef83"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "KORV STROGANOFF",
+  "information": "Korv Stroganoff med falukorv, vitkål, tomatpure och grädde. Serveras med ris.",
+  "allergies": [
+    "Glutenfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef94"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "MEXIKANSK TACOGRATÄNG MED SVARTA BÖNOR OCH BASMATRIS",
+  "information": "Tacogratäng med vegetarisk färs, svarta bönor, majs, klassisk texmex-kryddning och ost.",
+  "allergies": [
+    "Fläskfri",
+    "Glutenfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef93"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "SVAMPRISOTTO MED SMAK AV TIMJAN OCH CITRON, FÄRSK BLOMKÅL MED SOJABÖNOR",
+  "information": "Risotto med champinjoner, lagrad ost, timjan och citron. Serveras med färsk blomkål och sojabönor.",
+  "allergies": [
+    "Fläskfri",
+    "Glutenfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef92"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "MOUSSAKA MED POTATISMOS, GRÖNA LINSER OCH TOMATSALSA",
+  "information": "Vegetarisk moussaka med potatis, aubergine, gröna linser och lagrad ost. Serveras med tomatsalsa.",
+  "allergies": [
+    "Fläskfri",
+    "Glutenfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef91"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "VEGETARISK LASAGE",
+  "information": "Vegetarisk lasange gjord på sojafärs och röda linser. Serveras med vitlöksbröd.",
+  "allergies": [
+    "Fläskfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef90"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "INDISK BLOMKÅLSGRYTA MED SMAK AV CURRY OCH INGEFÄRA",
+  "information": "Vegansk indisk blomkålsgryta smaksatt med kokos, curry, lime och ingefära.",
+  "allergies": [
+    "Fläskfri",
+    "Laktosfri",
+    "Mjölkproteinfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef89"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "COQ AU VIN MED KYCKLING, POTATISMOS OCH ÅNGKOKTA BRYTBÖNOR",
+  "information": "En variant på den klassiska franska grytan med kycklingfile, tärnad bacon, rödvin och grönsaker.",
+  "allergies": [
+    "Glutenfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef86"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "KOLPUDDING MED POTATISMOS MED LINGONGRÄDDSÅS OCH UNGSSTEKTA MORÖTTER",
+  "information": "Kålpudding som är tillagad på blandfärs och vegetarisk färs. Serveras med potatismos, lingongräddsås och ugnsstekta morötter.",
+  "allergies": [
+    "Glutenfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef82"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "KOKT VIT FISKT MED DILLSÅS, POTATISMOS OCH GRÖNA ÄRTOR",
+  "information": "Kokt sej med dillsås gjord på grädde, creme fraiche och dill. Serveras med potatismos och gröna ärtor.",
+  "allergies": [
+    "Glutenfri",
+    "Fläskfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+},
+{
+  "_id": {
+    "$oid": "668bd853b1892d2fec70ef81"
+  },
+  "createdAt": {
+    "$date": "2023-07-08T12:34:56.789Z"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "VIT FISKT I KRYDDSTARK KOKOSSSÅS BASMATRIS SAMT ROSTADE GRÖNSAKER",
+  "information": "Vit fisk med kokossås gjord på kokkosgrädde och smaksatt med chili.",
+  "allergies": [
+    "Glutenfri",
+    "Fläskfri",
+    "Laktosfri",
+    "Mjölkproteinfri"
+  ],
+  "image": "",
+  "price": 90,
+  "options": "Kylda Portionsrätter",
+  "quantity": 100
+}]
