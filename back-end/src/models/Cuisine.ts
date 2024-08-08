@@ -26,8 +26,9 @@ const CuisineSchema: Schema<ICuisine> = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-// Här är den skapade modellen som sedan exporteras och tas in av controllern
+// Här är den skapade modellen som sedan exporteras och tas in av controllern. Den första "Cuisine" visar på att detta är namnet på Collectionen i databasen om inte en Collection redan skulle ha detta namn i plural skulle den ha skapats.
+// Men om det redan finns en collection som du vill använda bör du skriva det namet som ett tredje argument i skapandet av modellen altså "cuisines".
 
-const Cuisine = mongoose.model<ICuisine>("Cuisine", CuisineSchema);
+const Cuisine = mongoose.model<ICuisine>("Cuisine", CuisineSchema, "cuisines");
 
 export default Cuisine;

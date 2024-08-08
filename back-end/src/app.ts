@@ -1,6 +1,7 @@
 import express, { Express, NextFunction, Request, Response } from "express";
 import cuisineRouter from "./routes/cuisineRoutes";
 import cors from "cors";
+import orderRouter from "./routes/orderRoutes";
 
 const app: Express = express();
 
@@ -26,6 +27,8 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
 
+// Här nedan länkas de olika Routers endpoints som kan användas för get och post.
 app.use("/api/cuisines", cuisineRouter);
+app.use("/api/orders", orderRouter);
 
 export default app;
