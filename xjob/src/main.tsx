@@ -1,10 +1,40 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Home from "./pages/Home/Home.tsx";
+import Dish from "./pages/Dish/Dish.tsx";
+import ShoppingCart from "./pages/ShoppingCart/ShoppingCart.tsx";
+import AdminLogin from "./pages/AdminLogin/AdminLogin.tsx";
+import AdminMenu from "./pages/AdminMenu/AdminMenu.tsx";
+import AdminUpdateDish from "./pages/AdminUpdateDish/AdminUpdateDish.tsx";
+import AdminUploadDish from "./pages/AdminUploadDish/AdminUploadDish.tsx";
+import AdminStatestics from "./pages/AdminStatistics/AdminStatistics.tsx";
+import Payment from "./pages/Payment/Payment.tsx";
+import Menu from "./pages/Menu/Menu.tsx";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      { path: "", element: <Home /> },
+      { path: "dish", element: <Dish /> },
+      { path: "menu", element: <Menu /> },
+      { path: "shoppingCart", element: <ShoppingCart /> },
+      { path: "payment", element: <Payment /> },
+      { path: "adminLogin", element: <AdminLogin /> },
+      { path: "adminMenu", element: <AdminMenu /> },
+      { path: "adminUpdateDish", element: <AdminUpdateDish /> },
+      { path: "adminUploadDish", element: <AdminUploadDish /> },
+      { path: "adminStatistics", element: <AdminStatestics /> },
+    ],
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
