@@ -3,6 +3,7 @@ import Admin from "../models/Admin";
 import bcrypt from "bcrypt";
 
 // Skapa en ny Admin
+//
 
 export const createAdmin = async (req: Request, res: Response) => {
   try {
