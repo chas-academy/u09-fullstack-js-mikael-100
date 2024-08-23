@@ -13,6 +13,7 @@ export const getAllCuisines = async (req: Request, res: Response) => {
 };
 
 // Hämta en specifik
+//
 
 export const getCuisineById = async (req: Request, res: Response) => {
   try {
