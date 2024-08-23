@@ -1,9 +1,7 @@
+// Import "dotenv" laddar in variablerna innan app laddas in detta gör dem tillgägliga för hela appen.
+import "dotenv/config";
 import app from "./app";
-import dotenv from "dotenv";
 import connectDB from "./config/db";
-
-// Ladda miljövariabler från .env-fil
-dotenv.config();
 
 const port = process.env.PORT || 3000;
 

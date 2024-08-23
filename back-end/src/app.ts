@@ -2,6 +2,8 @@ import express, { Express, NextFunction, Request, Response } from "express";
 import cuisineRouter from "./routes/cuisineRoutes";
 import cors from "cors";
 import orderRouter from "./routes/orderRoutes";
+import adminRouter from "./routes/adminRoutes";
+import authRouter from "./routes/authRoutes";
 
 const app: Express = express();
 
@@ -30,5 +32,7 @@ app.get("/", (req: Request, res: Response) => {
 // Här nedan länkas de olika Routers endpoints som kan användas för get och post.
 app.use("/api/cuisines", cuisineRouter);
 app.use("/api/orders", orderRouter);
+app.use("/api/admins", adminRouter);
+app.use("/api/auth", authRouter);
 
 export default app;
