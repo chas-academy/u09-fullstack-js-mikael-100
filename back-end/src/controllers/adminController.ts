@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Admin from "../models/Admin";
+import bcrypt from "bcrypt";
 
 // Skapa en ny Admin
 
@@ -7,10 +8,13 @@ export const createAdmin = async (req: Request, res: Response) => {
   try {
     const { name, password, hospital, role } = req.body;
 
+    // Hasha lösenordet
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     // Skapa en Admin
     const newAdmin = new Admin({
       name,
-      password,
+      password: hashedPassword,
       hospital,
       role,
     });

@@ -3,6 +3,7 @@ import cuisineRouter from "./routes/cuisineRoutes";
 import cors from "cors";
 import orderRouter from "./routes/orderRoutes";
 import adminRouter from "./routes/adminRoutes";
+import authRouter from "./routes/authRoutes";
 
 const app: Express = express();
 
@@ -32,5 +33,6 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/cuisines", cuisineRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/admins", adminRouter);
+app.use("/api/auth", authRouter);
 
 export default app;
