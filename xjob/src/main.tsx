@@ -13,6 +13,7 @@ import AdminUploadDish from "./pages/AdminUploadDish/AdminUploadDish.tsx";
 import AdminStatestics from "./pages/AdminStatistics/AdminStatistics.tsx";
 import Payment from "./pages/Payment/Payment.tsx";
 import Menu from "./pages/Menu/Menu.tsx";
+import { Logout } from "./components/Navbar/Logout/Logout.tsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: "adminUpdateDish", element: <AdminUpdateDish /> },
       { path: "adminUploadDish", element: <AdminUploadDish /> },
       { path: "adminStatistics", element: <AdminStatestics /> },
+      { path: "logout", element: <Logout /> },
     ],
   },
 ]);
