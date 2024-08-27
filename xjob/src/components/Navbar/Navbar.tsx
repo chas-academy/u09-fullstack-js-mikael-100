@@ -27,11 +27,13 @@ export const Navbar = () => {
               color="black" // valfritt, kan vara red, blue, black, eller default
               className="w-24"
             />
-            <img
-              src="/src/assets/images/vastraGotalandsregionen.png"
-              alt="Västra Götalandsregionen Logo"
-              className="h-12 mx-auto"
-            />
+            <Link to={"/"}>
+              <img
+                src="/src/assets/images/vastraGotalandsregionen.png"
+                alt="Västra Götalandsregionen Logo"
+                className="h-12 mx-auto"
+              />
+            </Link>
             {/* Komponent på knapp ska in här */}
             {/* <button className="bg-white-600 text-black border border-black  rounded-md px-4 py-2 hover:bg-black hover:text-white hover:border-white transition-colors duration-500">
               Logga ut
