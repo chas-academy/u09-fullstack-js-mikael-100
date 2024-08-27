@@ -33,10 +33,7 @@ export const Button: React.FC<ButtonProps> = ({
   const sizeClass = sizeClasses[appliedSizeClass] || sizeClasses.medium;
 
   return (
-    <button
-      className={`rounded ${colorClass} ${sizeClass} focus:outline-none focus:ring-2 focus:ring-opacity-50`}
-      onClick={onClick}
-    >
+    <button className={`rounded ${colorClass} ${sizeClass}`} onClick={onClick}>
       {children}
     </button>
   );
