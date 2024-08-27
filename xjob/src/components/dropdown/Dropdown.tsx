@@ -7,7 +7,6 @@ interface DropdownProps {
   onSelect: (item: string) => void; // Callback-funktion som triggas när ett alternativ väljs
   size?: "small" | "medium" | "large"; // Storleken på dropdown-knappen
   color?: "red" | "blue" | "black" | "default"; // Färg för dropdown-knappen
-  disabled?: boolean; // Om knappen ska vara inaktiverad
   className?: string; // Extra CSS-klasser som ska läggas till
 }
 
@@ -18,22 +17,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
   onSelect,
   size = "medium",
   color = "default",
-  disabled = false,
   className = "",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
-    if (!disabled) {
-      setIsOpen(!isOpen);
-    }
-  };
-
-  const handleSelect = (item: string) => {
-    if (!disabled) {
-      onSelect(item);
-      setIsOpen(false);
-    }
+    setIsOpen(!isOpen);
   };
 
   // Definiera storlekar
@@ -61,10 +50,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     <div className={`relative inline-block text-left ${className}`}>
       <button
         onClick={toggleDropdown}
-        className={`rounded ${appliedSizeClass} ${appliedColorClass} ${
-          disabled ? "cursor-not-allowed" : ""
-        } focus:outline-none flex items-center`}
-        disabled={disabled}
+        className={`rounded ${appliedSizeClass} ${appliedColorClass} focus:outline-none flex items-center`}
       >
         {label}
         <svg
@@ -88,7 +74,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
           {items.map((item, index) => (
             <li
               key={index}
-              onClick={() => handleSelect(item)}
+              onClick={() => {
+                onSelect(item);
+                setIsOpen(false);
+              }}
               className="cursor-pointer hover:bg-black hover:text-white px-4 py-2"
             >
               {item}

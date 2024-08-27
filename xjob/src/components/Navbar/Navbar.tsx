@@ -82,7 +82,7 @@ export const Navbar = () => {
             onSelect={handleSelect}
             size="medium"
             color="black"
-            className="w-20"
+            className="w-20 z-10"
           ></Dropdown>
 
           <img
@@ -126,11 +126,14 @@ export const Navbar = () => {
           {/* Menu för mobil */}
 
           <ul
-            className={`absolute block top-16 left-0 w-full ${
+            className={`absolute block top-16 left-0 w-full bg-white ${
               isOpen ? "block" : "hidden"
             } md:hidden`}
           >
-            <li className="w-full text-center mt-4">
+            <li
+              className="w-full text-center mt-4"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
@@ -139,7 +142,10 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li className="w-full text-center hover:text-blue-600">
+            <li
+              className="w-full text-center hover:text-blue-600"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/menu"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
@@ -148,7 +154,10 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li className="w-full text-center">
+            <li
+              className="w-full text-center"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/shoppingCart"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
@@ -157,7 +166,10 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li className="w-full text-center">
+            <li
+              className="w-full text-center"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/adminStatistics"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
@@ -166,7 +178,10 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li className="w-full text-center">
+            <li
+              className="w-full text-center"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/adminLogin"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
@@ -175,7 +190,10 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li className="w-full text-center">
+            <li
+              className="w-full text-center"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/adminLoadDish"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
@@ -184,7 +202,10 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li className="w-full text-center">
+            <li
+              className="w-full text-center"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/logout"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
