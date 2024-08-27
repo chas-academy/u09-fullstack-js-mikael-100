@@ -84,14 +84,16 @@ export const Navbar = () => {
             onSelect={handleSelect}
             size="medium"
             color="black"
-            className="w-20 z-10"
+            className="w-20 z-20"
           ></Dropdown>
 
-          <img
-            src="/src/assets/images/vastraGotalandsregionen.png"
-            alt="Västra Götalandsregionen Logo"
-            className="h-12 mr-6"
-          />
+          <Link to={""}>
+            <img
+              src="/src/assets/images/vastraGotalandsregionen.png"
+              alt="Västra Götalandsregionen Logo"
+              className="h-12 mr-6"
+            />
+          </Link>
           <button onClick={toggleMenu} className="md:hidden">
             {isOpen ? (
               <svg
@@ -128,7 +130,7 @@ export const Navbar = () => {
           {/* Menu för mobil */}
 
           <ul
-            className={`absolute block top-16 left-0 w-full bg-white ${
+            className={`absolute block top-16 left-0 w-full bg-white z-10 ${
               isOpen ? "block" : "hidden"
             } md:hidden`}
           >
