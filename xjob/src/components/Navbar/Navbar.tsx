@@ -1,19 +1,32 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../button/button";
+import { Dropdown } from "../dropdown/Dropdown";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  const [language, setLanguage] = useState("swe");
+  const handleSelect = (item: string) => {
+    setLanguage(item);
+    console.log(`Selected Language ${language}`);
+  };
+
   return (
     <>
       <nav className="p-4">
         <div className="hidden sm:block">
           <div className="container mx-auto flex justify-between items-center my-2">
-            <button>Dropdown ska in</button>
-            {/* Dropdown med språk ska vara en gegen komponent som skall in här */}
+            <Dropdown
+              label={language}
+              items={["Swe", "Eng", "Arabic"]}
+              onSelect={handleSelect}
+              size="medium" // valfritt, kan vara small, medium, eller large
+              color="black" // valfritt, kan vara red, blue, black, eller default
+              className="w-24"
+            />
             <img
               src="/src/assets/images/vastraGotalandsregionen.png"
               alt="Västra Götalandsregionen Logo"
@@ -61,26 +74,21 @@ export const Navbar = () => {
             </ul>
           </div>
         </div>
-        <div className="block sm:hidden flex justify-center items-center w-full">
+        <div className="block sm:hidden flex justify-center items-center w-full justify-between">
           {/* Detta ska vara dropdownen med språk */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
-            />
-          </svg>
+          <Dropdown
+            label={language}
+            items={["Swe", "Eng", "Arabic"]}
+            onSelect={handleSelect}
+            size="medium"
+            color="black"
+            className="w-20 z-10"
+          ></Dropdown>
+
           <img
             src="/src/assets/images/vastraGotalandsregionen.png"
             alt="Västra Götalandsregionen Logo"
-            className="h-12 mx-auto"
+            className="h-12 mr-6"
           />
           <button onClick={toggleMenu} className="md:hidden">
             {isOpen ? (
@@ -118,11 +126,14 @@ export const Navbar = () => {
           {/* Menu för mobil */}
 
           <ul
-            className={`absolute block top-16 left-0 w-full ${
+            className={`absolute block top-16 left-0 w-full bg-white ${
               isOpen ? "block" : "hidden"
             } md:hidden`}
           >
-            <li className="w-full text-center mt-4">
+            <li
+              className="w-full text-center mt-4"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
@@ -131,7 +142,10 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li className="w-full text-center hover:text-blue-600">
+            <li
+              className="w-full text-center hover:text-blue-600"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/menu"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
@@ -140,7 +154,10 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li className="w-full text-center">
+            <li
+              className="w-full text-center"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/shoppingCart"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
@@ -149,7 +166,10 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li className="w-full text-center">
+            <li
+              className="w-full text-center"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/adminStatistics"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
@@ -158,7 +178,10 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li className="w-full text-center">
+            <li
+              className="w-full text-center"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/adminLogin"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
@@ -167,7 +190,10 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li className="w-full text-center">
+            <li
+              className="w-full text-center"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/adminLoadDish"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
@@ -176,7 +202,10 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li className="w-full text-center">
+            <li
+              className="w-full text-center"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Link
                 to={"/logout"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
