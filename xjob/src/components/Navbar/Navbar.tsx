@@ -16,7 +16,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="p-4">
+      <nav className="p-4 font-roboto">
         <div className="hidden sm:block">
           <div className="container mx-auto flex justify-between items-center my-2">
             <Dropdown
