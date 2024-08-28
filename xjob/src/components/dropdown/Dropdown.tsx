@@ -42,11 +42,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
     blue: "bg-blue-500 text-white hover:bg-blue-700",
     black: "bg-white text-black hover:bg-black hover:text-white duration-500",
     default:
-      "border border-black bg-white text-black hover:bg-black hover:text-white duration-500 mx-auto  w-[70%] md:w-[50%] text-center",
+      "border border-black bg-white text-black hover:bg-black hover:text-white duration-500 mx-auto  w-[70%] md:w-[30%] text-center",
   };
 
   const ulSize = {
-    large: "w-[70%] md:w-[50%]",
+    large: "w-[70%] md:w-[30%] duration-500",
     default: "",
   };
 
