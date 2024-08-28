@@ -39,7 +39,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     red: "bg-red-500 text-white hover:bg-red-700",
     blue: "bg-blue-500 text-white hover:bg-blue-700",
     black: "bg-white text-black hover:bg-black hover:text-white duration-500",
-    default: "bg-gray-300 text-black hover:bg-gray-500",
+    default:
+      "border border-black bg-white text-black hover:bg-black hover:text-white duration-500 mx-auto  w-[70%] md:w-[50%] text-center",
   };
 
   // Hämta applicerad färg och storlek
@@ -47,10 +48,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const appliedSizeClass = sizeClasses[size] || sizeClasses.medium;
 
   return (
-    <div className={`relative inline-block text-left ${className}`}>
+    <div className={`relative ${className} font-roboto`}>
       <button
         onClick={toggleDropdown}
-        className={`rounded ${appliedSizeClass} ${appliedColorClass} focus:outline-none flex items-center`}
+        className={`rounded ${appliedSizeClass} ${appliedColorClass} focus:outline-none flex items-center justify-center mt-6`}
       >
         {label}
         <svg
