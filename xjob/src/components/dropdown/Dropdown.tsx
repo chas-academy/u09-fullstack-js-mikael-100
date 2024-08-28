@@ -8,6 +8,7 @@ interface DropdownProps {
   size?: "small" | "medium" | "large"; // Storleken på dropdown-knappen
   color?: "red" | "blue" | "black" | "default"; // Färg för dropdown-knappen
   className?: string; // Extra CSS-klasser som ska läggas till
+  dropdownWidth?: "large" | "default";
 }
 
 // Dropdown-komponenten
@@ -18,6 +19,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   size = "medium",
   color = "default",
   className = "",
+  dropdownWidth = "default",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -43,6 +45,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
       "border border-black bg-white text-black hover:bg-black hover:text-white duration-500 mx-auto  w-[70%] md:w-[50%] text-center",
   };
 
+  const ulSize = {
+    large: "w-[70%] md:w-[50%]",
+    default: "",
+  };
+
+  const sizeUl = ulSize[dropdownWidth];
   // Hämta applicerad färg och storlek
   const appliedColorClass = colorClasses[color] || colorClasses.default;
   const appliedSizeClass = sizeClasses[size] || sizeClasses.medium;
@@ -71,7 +79,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
       </button>
 
       {isOpen && (
-        <ul className="absolute left-0 mt-2 w-full rounded-md border border-black bg-white">
+        <ul
+          className={`absolute left-1/2 transform -translate-x-1/2 mt-2 rounded-md border border-black bg-white text-center ${sizeUl}`}
+        >
           {items.map((item, index) => (
             <li
               key={index}

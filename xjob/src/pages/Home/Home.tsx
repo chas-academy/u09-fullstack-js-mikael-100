@@ -32,6 +32,7 @@ const Home = () => {
         size="large"
         color="default"
         onSelect={handleSelect}
+        dropdownWidth="large"
       ></Dropdown>
       <DialogBox
         h1Text="Rubrik"
