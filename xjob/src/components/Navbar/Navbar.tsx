@@ -25,7 +25,7 @@ export const Navbar = () => {
               onSelect={handleSelect}
               size="medium" // valfritt, kan vara small, medium, eller large
               color="black" // valfritt, kan vara red, blue, black, eller default
-              className="w-24"
+              className=""
             />
             <Link to={"/"}>
               <img
@@ -34,10 +34,6 @@ export const Navbar = () => {
                 className="h-12 mx-auto"
               />
             </Link>
-            {/* Komponent på knapp ska in här */}
-            {/* <button className="bg-white-600 text-black border border-black  rounded-md px-4 py-2 hover:bg-black hover:text-white hover:border-white transition-colors duration-500">
-              Logga ut
-            </button> */}
             <Button appliedColorClass="black">Logga Ut</Button>
           </div>
           <hr className="border-black my-4 w-[90%] mx-auto" />
@@ -76,7 +72,7 @@ export const Navbar = () => {
             </ul>
           </div>
         </div>
-        <div className="block sm:hidden flex justify-center items-center w-full justify-between">
+        <div className="block sm:hidden flex justify-center items-center w-full justify-between ">
           {/* Detta ska vara dropdownen med språk */}
           <Dropdown
             label={language}

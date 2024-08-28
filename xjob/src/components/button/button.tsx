@@ -5,11 +5,12 @@ interface ButtonProps {
   appliedColorClass?: "red" | "blue" | "black" | "default";
   onClick?: () => void;
   children?: React.ReactNode;
+  className?: string;
 }
 
 const colorClasses = {
   red: "bg-red-500 text-white border-red-500 hover:bg-red-700 hover:border-red-700",
-  blue: "bg-blue-500 text-white border-blue-500 hover:bg-blue-700 hover:border-blue-700",
+  blue: "bg-knapp-bla text-white hover:bg-black",
   black:
     "bg-white text-black border-black hover:bg-black hover:text-white duration-500",
   default:
@@ -19,7 +20,7 @@ const colorClasses = {
 const sizeClasses = {
   small: "px-2 py-1 text-sm",
   medium: "px-4 py-2 text-base",
-  large: "px-6 py-3 text-lg",
+  large: "w-[50%] sm:w-[20%] text-3xl h-20 px-6 py-3 text-lg",
 };
 
 // Namngiven export
@@ -28,13 +29,20 @@ export const Button: React.FC<ButtonProps> = ({
   appliedColorClass = "default",
   onClick,
   children,
+  className = "",
 }) => {
   const colorClass = colorClasses[appliedColorClass] || colorClasses.default;
   const sizeClass = sizeClasses[appliedSizeClass] || sizeClasses.medium;
+  const buttonSize = className;
 
   return (
-    <button className={`rounded ${colorClass} ${sizeClass}`} onClick={onClick}>
-      {children}
-    </button>
+    <div className="flex items-center justify-center">
+      <button
+        className={`rounded ${colorClass} ${sizeClass} ${buttonSize}`}
+        onClick={onClick}
+      >
+        {children}
+      </button>
+    </div>
   );
 };
