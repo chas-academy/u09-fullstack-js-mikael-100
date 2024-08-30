@@ -28,6 +28,7 @@ export const Cover: React.FC<coverProps> = ({
       medium: "sm:h-[30vh] h-[20vh]",
       large: "sm:h-[40vh] h-[30vh]",
     }[divSize] || "sm:h-[20vh] h-[10vh]";
+
   return (
     <>
       <div className={`w-full overflow-hidden ${divSizeClasses}`}>

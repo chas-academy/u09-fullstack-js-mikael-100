@@ -17,14 +17,14 @@ export const DialogBox: React.FC<dialogBoxProps> = ({
 }) => {
   const styleDiv =
     {
-      desktop: "w-[80vw] mx-auto font-roboto bg-dialogBox rounded-xl mb-8 mt-8",
+      bigBox: "w-[80vw] mx-auto font-roboto bg-dialogBox rounded-xl mb-8 mt-8",
     }[divStyle] || "";
   const styleH1 = {
-    desktop:
+    bigBox:
       "text-center font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl p-5 mt-4",
   }[h1Style];
   const styleP = {
-    desktop: "p-5 text-center text-sm md:text-base lg:text-lg",
+    bigBox: "p-5 text-center text-sm md:text-base lg:text-lg",
   }[pStyle];
   return (
     <>
