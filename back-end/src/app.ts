@@ -11,6 +11,8 @@ const app: Express = express();
 // Detta måste göras för att datan skall kunna skickas runt genom den expressapp.
 app.use(express.json());
 
+// Detta middleware används för att tolka inkommande application/x-www-form-urlencoded data, vanligtvis skickad från HTML-formulär, och omvandla det till ett JavaScript-objekt som kan användas i min Express-applikation.
+app.use(express.urlencoded({ extended: true }));
 // Konfigurera CORS
 // Denna kod kommer att ställa in cors till att ta emot endast CRUD begäran. Samt låta data som är json komma igenom samt token.
 const corsOptions = {
