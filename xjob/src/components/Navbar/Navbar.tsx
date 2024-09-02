@@ -195,7 +195,7 @@ export const Navbar = () => {
               onClick={() => setIsOpen(!isOpen)}
             >
               <Link
-                to={"/adminLoadDish"}
+                to={"/adminUploadDish"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
               >
                 Lägg Till Maträtt
