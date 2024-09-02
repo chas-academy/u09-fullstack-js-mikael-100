@@ -21,7 +21,7 @@ const corsOptions = {
   // Står för metoderna som får skickas
   methods: "GET,POST,PUT,DELETE",
   // Står för att json format och token får skickas. Om authorization inte hade stått med hade
-  // man inte fått skicka med token i headers. Där emot är det inte ett måste i begäran.
+  // man inte fått skicka med token i headers. Där emot är det inte ett måste i begäran. h
   allowedHeaders: "Content-Type,Authorization",
 };
 
