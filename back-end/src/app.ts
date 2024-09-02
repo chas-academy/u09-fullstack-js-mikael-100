@@ -4,6 +4,7 @@ import cors from "cors";
 import orderRouter from "./routes/orderRoutes";
 import adminRouter from "./routes/adminRoutes";
 import authRouter from "./routes/authRoutes";
+import uploadConfigRoutes from "./routes/uploadConfigRoutes";
 
 const app: Express = express();
 
@@ -36,5 +37,6 @@ app.use("/api/cuisines", cuisineRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/admins", adminRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/uploads", uploadConfigRoutes);
 
 export default app;
