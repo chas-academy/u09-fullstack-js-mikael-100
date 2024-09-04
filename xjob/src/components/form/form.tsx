@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Form } from "react-router-dom";
 
 export interface FormValues {
   [key: string]: string | number | File | boolean | undefined;
@@ -65,22 +64,26 @@ const FlexibleForm: React.FC<FlexibleFormProps> = ({
     "/images/defaultBild.png"
   );
 
-  //   Denna useeffekt sätter imagePrewiev till en defaultbild.
-  //  Den triggas när en ny bild läggs in i values
-  useEffect(() => {
-    // Uppdatera imagePreview när filen i values ändras
-    const file = values["Välj Fil"] as File | undefined;
-    if (file) {
-      // Här skapas en temporät URL som kan förhandsgranska bilden
-      const objectUrl = URL.createObjectURL(file);
-      setImagePreview(objectUrl);
+  //     Denna useeffekt sätter imagePrewiev till en defaultbild.
+  //    Den triggas när en ny bild läggs in i values
 
-      // Rensa objekt-URL:n när komponenten unmountas eller när en ny fil väljs
+  useEffect(() => {
+    updateImagePreview(values["Välj Fil"]);
+  }, [values]);
+
+  function updateImagePreview(
+    value: string | number | boolean | File | undefined
+  ) {
+    if (value instanceof File) {
+      const objectUrl = URL.createObjectURL(value);
+      setImagePreview(objectUrl);
       return () => URL.revokeObjectURL(objectUrl);
     } else {
       setImagePreview("/images/defaultBild.png");
     }
-  }, [values]);
+  }
+
+  // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
 
   const handleChange: React.ChangeEventHandler<
     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement

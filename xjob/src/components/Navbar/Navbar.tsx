@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../button/button";
 import { Dropdown } from "../dropdown/Dropdown";
@@ -29,7 +29,7 @@ export const Navbar = () => {
             />
             <Link to={"/"}>
               <img
-                src="/src/assets/images/vastraGotalandsregionen.png"
+                src="/images/vastraGotalandsregionen.png"
                 alt="Västra Götalandsregionen Logo"
                 className="h-12 mx-auto"
               />
