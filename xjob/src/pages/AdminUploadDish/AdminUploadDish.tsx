@@ -15,10 +15,39 @@ const formFields: FormField[] = [
     type: "file",
     inputClassName: "hidden",
   },
-  { name: "Rubrik", label: "Rubrik", type: "text", placeholder: "..." },
-  { name: "Info", label: "Information", type: "text", placeholder: "..." },
-  { name: "Pris", label: "Pris", type: "text", placeholder: "..." },
-  { name: "Antal", label: "Antal", type: "text", placeholder: "..." },
+  {
+    name: "Rubrik",
+    label: "Rubrik:",
+    type: "textarea",
+    labelClassName: "block font-roboto",
+    inputClassName: "w-full border border-black rounded",
+    rows: 3,
+  },
+  {
+    name: "Info",
+    label: "Information",
+    type: "textarea",
+    placeholder: "",
+    labelClassName: "block",
+    inputClassName: "w-full border border-black rounded",
+    rows: 7,
+  },
+  {
+    name: "Pris",
+    label: "Pris",
+    type: "text",
+    placeholder: "",
+    inputClassName: " border border-black rounded w-[100%]",
+    containerClassName: " w-[100%] h-[20vw] sticky",
+  },
+  {
+    name: "Antal",
+    label: "Antal",
+    type: "text",
+    placeholder: "...",
+    inputClassName: " border border-black rounded w-[100%]",
+    containerClassName: " w-[100%] h-[20vw] sticky",
+  },
   {
     name: "Alternativ",
     label: "Alternativ",
@@ -33,25 +62,80 @@ const formFields: FormField[] = [
       "Läsk",
       "Övrigt",
     ],
+    inputClassName: " border border-black rounded w-[100%]",
+    containerClassName: " w-[100%] h-[20vw] sticky",
   },
   {
     name: "Finns I Lager",
     label: "Finns I Lager",
     type: "select",
     options: ["Ja", "Nej"],
+    inputClassName: " border border-black rounded w-[100%]",
+    containerClassName: " w-[100%] h-[20vw] sticky",
   },
   {
     name: "Sjukhus",
     label: "Sjukhus",
     type: "select",
-    options: ["Skaraborgs Sjukhus", "Allingsås"],
+    options: [
+      "Alingsås lasarett",
+      "Angereds Närsjukhus",
+      "Frölunda specialistsjukhus",
+      "Kungälvs sjukhus",
+      "Skaraborgs Sjukhus",
+      "Södra Älvsborgs Sjukhus",
+    ],
+    inputClassName: " border border-black rounded w-[100%]",
+    containerClassName: " w-[100%] h-[20vw] sticky",
   },
-  { name: "Glutenfri", label: "Glutenfri", type: "checkbox" },
-  { name: "Laktosfri", label: "Laktosfri", type: "checkbox" },
-  { name: "Fläskfri", label: "Fläskfri", type: "checkbox" },
-  { name: "Vegetarisk", label: "Vegetarisk", type: "checkbox" },
-  { name: "Mjölkproteinfri", label: "Mjölkproteinfri", type: "checkbox" },
-  { name: "Vegan", label: "Vegan", type: "checkbox" },
+  {
+    name: "Glutenfri",
+    label: "Glutenfri",
+    type: "checkbox",
+    inputClassName: "flex mx-auto w-[30%]",
+    containerClassName: " inline-block w-1/3 mt-4",
+    labelClassName: "flex justify-center",
+  },
+  {
+    name: "Laktosfri",
+    label: "Laktosfri",
+    type: "checkbox",
+    inputClassName: "flex mx-auto w-[30%]",
+    containerClassName: " inline-block w-1/3",
+    labelClassName: "flex justify-center",
+  },
+  {
+    name: "Fläskfri",
+    label: "Fläskfri",
+    type: "checkbox",
+    inputClassName: "flex mx-auto w-[30%]",
+    containerClassName: " inline-block w-1/3",
+    labelClassName: "flex justify-center",
+  },
+  {
+    name: "Vegetarisk",
+    label: "Vegetarisk",
+    type: "checkbox",
+    inputClassName: "flex mx-auto w-[30%]",
+    containerClassName: " inline-block w-1/3 mt-4",
+    labelClassName: "flex justify-center",
+  },
+  {
+    name: "Mjölkproteinfri",
+    label: "Mjölkproteinfri",
+    type: "checkbox",
+    inputClassName: "flex mx-auto w-[30%]",
+    containerClassName: " inline-block w-1/3",
+    labelClassName: "flex justify-center",
+  },
+  {
+    name: "Vegan",
+    label: "Vegan",
+    type: "checkbox",
+    inputClassName: "flex mx-auto w-[30%]",
+    containerClassName: " inline-block w-1/3",
+    labelClassName: "flex justify-center",
+  },
 ];
 
 // Här defineras värdenna när formen laddas så kommer denna att genom {initialValues} på komponenten
@@ -78,16 +162,21 @@ const initialValues: FormValues = {
 const validationSchema: ValidationSchema = {
   Rubrik: (value) => (!value ? "rubrik is required" : null),
   Info: (value) => (!value ? "Info is required" : null),
-  Pris: (value) => (!value ? "Pris is required" : null),
+  Pris: (value) =>
+    !value
+      ? "Is required"
+      : isNaN(Number(value))
+      ? "Pris must be a number"
+      : null,
   Antal: (value) =>
     !value
-      ? "Antal is required"
+      ? "Is required"
       : isNaN(Number(value))
       ? "Antal must be a number"
       : null,
-  Alternativ: (value) => (!value ? "Alternativ is required" : null),
-  "Finns I Lager": (value) => (!value ? "Finns I Lager is required" : null),
-  Sjukhus: (value) => (!value ? "Sjukhus is required" : null),
+  Alternativ: (value) => (!value ? "Is required" : null),
+  "Finns I Lager": (value) => (!value ? "Is required" : null),
+  Sjukhus: (value) => (!value ? "Is required" : null),
 };
 
 const AdminUploadDish: React.FC = () => {
@@ -97,7 +186,7 @@ const AdminUploadDish: React.FC = () => {
 
   return (
     <>
-      <div className="mx-auto border border-black sm:w-[70vw] md:w-[50vw] xl:w-[40vw]">
+      <div className="mx-auto sm:w-[70vw] md:w-[50vw] xl:w-[40vw] p-5">
         <FlexibleForm
           fields={formFields}
           initialValues={initialValues}
