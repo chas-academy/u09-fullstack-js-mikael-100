@@ -10,7 +10,14 @@ export interface ValidationSchema {
   ) => string | null;
 }
 
-type FieldType = "text" | "email" | "number" | "select" | "checkbox" | "file";
+type FieldType =
+  | "text"
+  | "email"
+  | "number"
+  | "select"
+  | "checkbox"
+  | "file"
+  | "textarea";
 
 export interface FormField {
   name: string;
@@ -21,6 +28,7 @@ export interface FormField {
   containerClassName?: string; // Klass för att styla fältets container
   labelClassName?: string; // Klass för att styla etiketten
   inputClassName?: string; // Klass för att styla själva input-elementet
+  rows?: number;
 }
 
 interface FlexibleFormProps {
@@ -34,19 +42,19 @@ interface Errors {
   [key: string]: string;
 }
 
-// Här nedan finn några type Guards som hjälper till att kolla typerna
-const isFileInput = (target: EventTarget | null): target is HTMLInputElement =>
-  target instanceof HTMLInputElement && target.type === "file";
+// // Här nedan finn några type Guards som hjälper till att kolla typerna
+// const isFileInput = (target: EventTarget | null): target is HTMLInputElement =>
+//   target instanceof HTMLInputElement && target.type === "file";
 
-const isCheckboxInput = (
-  target: EventTarget | null
-): target is HTMLInputElement =>
-  target instanceof HTMLInputElement && target.type === "checkbox";
+// const isCheckboxInput = (
+//   target: EventTarget | null
+// ): target is HTMLInputElement =>
+//   target instanceof HTMLInputElement && target.type === "checkbox";
 
-const isSelectOrTextarea = (
-  target: EventTarget | null
-): target is HTMLSelectElement | HTMLTextAreaElement =>
-  target instanceof HTMLSelectElement || target instanceof HTMLTextAreaElement;
+// const isSelectOrTextarea = (
+//   target: EventTarget | null
+// ): target is HTMLSelectElement | HTMLTextAreaElement =>
+//   target instanceof HTMLSelectElement || target instanceof HTMLTextAreaElement;
 
 //   Huvud komponenten
 const FlexibleForm: React.FC<FlexibleFormProps> = ({
@@ -83,32 +91,52 @@ const FlexibleForm: React.FC<FlexibleFormProps> = ({
     }
   }
 
-  // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
-
+  // Handlechange kollar vilken typ av input som har valts och efter den hittat rätt så knyter den nyckel och värdet och lägger det i values.
   const handleChange: React.ChangeEventHandler<
     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
   > = (event) => {
     const target = event.target;
 
-    if (isFileInput(target)) {
-      const { name, files } = target;
-      if (files && files.length > 0) {
+    // Kontrollera att target är en HTMLInputElement
+    if (target instanceof HTMLInputElement) {
+      const { name, type, value, checked, files } = target;
+
+      if (type === "file" && files) {
+        // Hantera filinmatning
+        if (files.length > 0) {
+          setValues((prevValues) => ({
+            ...prevValues,
+            [name]: files[0],
+          }));
+        }
+      } else if (type === "checkbox") {
+        // Hantera checkbox
         setValues((prevValues) => ({
           ...prevValues,
-          [name]: files[0],
+          [name]: checked,
+        }));
+      } else if (type === "number") {
+        // Hantera nummerinmatning
+        setValues((prevValues) => ({
+          ...prevValues,
+          [name]: Number(value),
+        }));
+      } else {
+        // Hantera textinmatning (text, email, etc.)
+        setValues((prevValues) => ({
+          ...prevValues,
+          [name]: value,
         }));
       }
-    } else if (isSelectOrTextarea(target)) {
+    } else if (
+      target instanceof HTMLSelectElement ||
+      target instanceof HTMLTextAreaElement
+    ) {
+      // Hantera select eller textarea
       const { name, value } = target;
       setValues((prevValues) => ({
         ...prevValues,
         [name]: value,
-      }));
-    } else if (isCheckboxInput(target)) {
-      const { name, checked } = target;
-      setValues((prevValue) => ({
-        ...prevValue,
-        [name]: checked,
       }));
     }
   };
@@ -149,98 +177,129 @@ const FlexibleForm: React.FC<FlexibleFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {fields.map((field) => (
-        <div key={field.name} className={field.containerClassName}>
-          <label htmlFor={field.name} className={field.labelClassName}>
-            {field.label}
-          </label>
-          {field.type === "select" && field.options ? (
-            <select
-              id={field.name}
-              name={field.name}
-              value={(values[field.name] as string) || ""}
-              onChange={handleChange}
-              className={field.inputClassName}
-            >
-              <option value="">{field.label}</option>
-              {field.options.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          ) : field.type === "file" ? (
-            // I denna Div används hidden för att dölja input elementet och istället har jag använt en SVG knapp.
-            // I diven inannför denna har jag lagt en onClick  som appliseras på hela diven och länkat till funktionen handleSvgClick
-            // handleClick kör  fileInputRef.current.click(); som triggar en klickhändelse på den inputen och filen kan väljas.
-            // i inputen kan du se att attributet  ref={fileInputRef} finns för att trigga just den inputen.
-            <div className="flex flex-col items-center">
-              {imagePreview && (
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  className="w-full h-[30vh] object-cover border border-gray-300"
+    <div className="bg-black bg-opacity-15 p-10 rounded">
+      <form onSubmit={handleSubmit}>
+        {fields.map((field) => (
+          <div key={field.name} className={field.containerClassName}>
+            <label htmlFor={field.name} className={field.labelClassName}>
+              {field.label}
+            </label>
+            {field.type === "select" && field.options ? (
+              <select
+                id={field.name}
+                name={field.name}
+                value={(values[field.name] as string) || ""}
+                onChange={handleChange}
+                className={field.inputClassName}
+              >
+                <option value="">{field.label}</option>
+                {field.options.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            ) : field.type === "file" ? (
+              // I denna Div används hidden för att dölja input elementet och istället har jag använt en SVG knapp.
+              // I diven inannför denna har jag lagt en onClick  som appliseras på hela diven och länkat till funktionen handleSvgClick
+              // handleClick kör  fileInputRef.current.click(); som triggar en klickhändelse på den inputen och filen kan väljas.
+              // i inputen kan du se att attributet  ref={fileInputRef} finns för att trigga just den inputen.
+              <div className="flex flex-col items-center">
+                {imagePreview && (
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="w-full h-[30vh] object-cover border border-gray-300"
+                  />
+                )}
+                <input
+                  id={field.name}
+                  name={field.name}
+                  type="file"
+                  onChange={handleChange}
+                  className="hidden"
+                  ref={fileInputRef}
                 />
-              )}
+                <div
+                  onClick={handleSvgClick}
+                  className="flex ml-auto items-center justify-center w-[10vh] cursor-pointer flex justify-left"
+                >
+                  <svg
+                    viewBox="0 0 1024 1024"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#000000"
+                    className="w-1/2 h-1/2 ml-auto p-1"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        fill="#000000"
+                        d="M96 896a32 32 0 0 1-32-32V160a32 32 0 0 1 32-32h832a32 32 0 0 1 32 32v704a32 32 0 0 1-32 32H96zm315.52-228.48-68.928-68.928a32 32 0 0 0-45.248 0L128 768.064h778.688l-242.112-290.56a32 32 0 0 0-49.216 0L458.752 665.408a32 32 0 0 1-47.232 2.112zM256 384a96 96 0 1 0 192.064-.064A96 96 0 0 0 256 384z"
+                      />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            ) : field.type === "checkbox" ? (
               <input
                 id={field.name}
                 name={field.name}
-                type="file"
+                type="checkbox"
+                checked={!!values[field.name]}
                 onChange={handleChange}
-                className="hidden"
-                ref={fileInputRef}
+                className={field.inputClassName}
               />
-              <div
-                onClick={handleSvgClick}
-                className="flex ml-auto items-center justify-center w-[10vh] cursor-pointer flex justify-left"
-              >
-                <svg
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="#000000"
-                  className="w-1/2 h-1/2 ml-auto p-1"
-                >
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></g>
-                  <g id="SVGRepo_iconCarrier">
-                    <path
-                      fill="#000000"
-                      d="M96 896a32 32 0 0 1-32-32V160a32 32 0 0 1 32-32h832a32 32 0 0 1 32 32v704a32 32 0 0 1-32 32H96zm315.52-228.48-68.928-68.928a32 32 0 0 0-45.248 0L128 768.064h778.688l-242.112-290.56a32 32 0 0 0-49.216 0L458.752 665.408a32 32 0 0 1-47.232 2.112zM256 384a96 96 0 1 0 192.064-.064A96 96 0 0 0 256 384z"
-                    />
-                  </g>
-                </svg>
-              </div>
-            </div>
-          ) : field.type === "checkbox" ? (
-            <input
-              id={field.name}
-              name={field.name}
-              type="checkbox"
-              checked={!!values[field.name]}
-              onChange={handleChange}
-              className={field.inputClassName}
-            />
-          ) : (
-            <input
-              id={field.name}
-              name={field.name}
-              type={field.type || "text"}
-              placeholder={field.placeholder}
-              value={(values[field.name] as string) || ""}
-              onChange={handleChange}
-              className={field.inputClassName}
-            />
-          )}
-          {errors[field.name] && <p className="error">{errors[field.name]}</p>}
+            ) : field.type === "textarea" ? (
+              <textarea
+                id={field.name}
+                name={field.name}
+                placeholder={field.placeholder}
+                value={(values[field.name] as string) || ""}
+                onChange={handleChange}
+                className={field.inputClassName}
+                rows={field.rows}
+              />
+            ) : field.type === "number" ? (
+              <input
+                id={field.name}
+                name={field.name}
+                type="number"
+                placeholder={field.placeholder}
+                value={values[field.name] as number}
+                onChange={handleChange}
+                className={field.inputClassName}
+              />
+            ) : (
+              <input
+                id={field.name}
+                name={field.name}
+                type={field.type || "text"}
+                placeholder={field.placeholder}
+                value={(values[field.name] as string) || ""}
+                onChange={handleChange}
+                className={field.inputClassName}
+              />
+            )}
+            {errors[field.name] && (
+              <p className="error">{errors[field.name]}</p>
+            )}
+          </div>
+        ))}
+        <div className="w-full flex justify-center mt-10">
+          <button
+            type="submit"
+            className="bg-knapp-bla text-white hover:bg-black w-[50%] w-[70%] text-3xl h-20 px-6 py-3 text-lg rounded"
+          >
+            Lägg Till Maträtt
+          </button>
         </div>
-      ))}
-      <button type="submit">Submit</button>
-    </form>
+      </form>
+    </div>
   );
 };
 

@@ -85,7 +85,7 @@ export const Navbar = () => {
 
           <Link to={""}>
             <img
-              src="/src/assets/images/vastraGotalandsregionen.png"
+              src="/images/vastraGotalandsregionen.png"
               alt="Västra Götalandsregionen Logo"
               className="h-12 mr-6"
             />
