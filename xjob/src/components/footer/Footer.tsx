@@ -21,7 +21,7 @@ export const Footer = () => {
           </ul>
           <Link to={"/"} className="flex-1 flex justify-center">
             <img
-              src="src/assets/images/Footer.png"
+              src="/images/Footer.png"
               alt="Vastra Gotaland Logga"
               className="h-10 "
             />
