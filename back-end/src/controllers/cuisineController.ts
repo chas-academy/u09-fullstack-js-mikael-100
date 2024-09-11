@@ -28,6 +28,8 @@ export const getCuisineById = async (req: Request, res: Response) => {
 // Skapa en rätt
 
 export const createCuisine = async (req: Request, res: Response) => {
+  // Logga mottagna data för felsökning
+  console.log("Request body:", req.body);
   const {
     hospital,
     dish,

@@ -7,10 +7,9 @@ export interface ICuisine extends Document {
   allergies: string[];
   image: string;
   price: number;
-  options: string;
+  options: string[];
   quantity: number;
   createdAt?: Date;
-  img: string;
 }
 
 // Detta är Mongoose Scheme
@@ -20,12 +19,11 @@ const CuisineSchema: Schema<ICuisine> = new Schema({
   dish: { type: String, required: true },
   information: { type: String, required: true },
   allergies: { type: [String], required: true },
-  image: { type: String, default: "" },
+  image: { type: String, default: "", required: false },
   price: { type: Number, required: true },
-  options: { type: String, required: true },
+  options: { type: [String], required: true },
   quantity: { type: Number, required: true },
   createdAt: { type: Date, default: Date.now },
-  img: { type: String, default: "", required: true },
 });
 
 // Här är den skapade modellen som sedan exporteras och tas in av controllern. Den första "Cuisine" visar på att detta är namnet på Collectionen i databasen om inte en Collection redan skulle ha detta namn i plural skulle den ha skapats.

@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 // Denna kod kommer att ställa in cors till att ta emot endast CRUD begäran. Samt låta data som är json komma igenom samt token.
 const corsOptions = {
   // Lista över godkända portar eller domäner
-  origin: ["http://localhost:3000", "SKRIV IN DIN NETLYFY ADRESS HÄR SEN"],
+  origin: ["http://localhost:5173", "SKRIV IN DIN NETLYFY ADRESS HÄR SEN"],
   // Står för metoderna som får skickas
   methods: "GET,POST,PUT,DELETE",
   // Står för att json format och token får skickas. Om authorization inte hade stått med hade

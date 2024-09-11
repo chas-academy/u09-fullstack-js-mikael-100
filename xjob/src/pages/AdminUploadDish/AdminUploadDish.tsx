@@ -35,18 +35,18 @@ const formFields: FormField[] = [
   {
     name: "Pris",
     label: "Pris",
-    type: "text",
+    type: "number",
     placeholder: "",
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[20vw] sticky",
+    containerClassName: " w-[100%] h-[10vw] sticky",
   },
   {
     name: "Antal",
     label: "Antal",
-    type: "text",
+    type: "number",
     placeholder: "...",
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[20vw] sticky",
+    containerClassName: " w-[100%] h-[10vw] sticky",
   },
   {
     name: "Alternativ",
@@ -63,7 +63,7 @@ const formFields: FormField[] = [
       "Övrigt",
     ],
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[20vw] sticky",
+    containerClassName: " w-[100%] h-[10vw] sticky",
   },
   {
     name: "Finns I Lager",
@@ -71,7 +71,7 @@ const formFields: FormField[] = [
     type: "select",
     options: ["Ja", "Nej"],
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[20vw] sticky",
+    containerClassName: " w-[100%] h-[10vw] sticky",
   },
   {
     name: "Sjukhus",
@@ -86,7 +86,7 @@ const formFields: FormField[] = [
       "Södra Älvsborgs Sjukhus",
     ],
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[20vw] sticky",
+    containerClassName: " w-[100%] h-[10vw] sticky",
   },
   {
     name: "Glutenfri",
@@ -181,7 +181,16 @@ const validationSchema: ValidationSchema = {
 
 const AdminUploadDish: React.FC = () => {
   const handleSubmit = (values: FormValues) => {
+    console.log("detta är värreen", values);
     console.log("Form Sumbittet", values);
+    fetch("http://localhost:5000/api/cuisines", {
+      // Pekar direkt till backend
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
   };
 
   return (
