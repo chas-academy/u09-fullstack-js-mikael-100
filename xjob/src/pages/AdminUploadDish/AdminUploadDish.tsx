@@ -35,18 +35,18 @@ const formFields: FormField[] = [
   {
     name: "Pris",
     label: "Pris",
-    type: "text",
+    type: "number",
     placeholder: "",
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[20vw] sticky",
+    containerClassName: " w-[100%] h-[10vw] sticky",
   },
   {
     name: "Antal",
     label: "Antal",
-    type: "text",
+    type: "number",
     placeholder: "...",
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[20vw] sticky",
+    containerClassName: " w-[100%] h-[10vw] sticky",
   },
   {
     name: "Alternativ",
@@ -63,7 +63,7 @@ const formFields: FormField[] = [
       "Övrigt",
     ],
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[20vw] sticky",
+    containerClassName: " w-[100%] h-[10vw] sticky",
   },
   {
     name: "Finns I Lager",
@@ -71,7 +71,7 @@ const formFields: FormField[] = [
     type: "select",
     options: ["Ja", "Nej"],
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[20vw] sticky",
+    containerClassName: " w-[100%] h-[10vw] sticky",
   },
   {
     name: "Sjukhus",
@@ -86,7 +86,7 @@ const formFields: FormField[] = [
       "Södra Älvsborgs Sjukhus",
     ],
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[20vw] sticky",
+    containerClassName: " w-[100%] h-[10vw] sticky",
   },
   {
     name: "Glutenfri",
@@ -180,8 +180,51 @@ const validationSchema: ValidationSchema = {
 };
 
 const AdminUploadDish: React.FC = () => {
-  const handleSubmit = (values: FormValues) => {
-    console.log("Form Sumbittet", values);
+  const handleSubmit = (
+    values: FormValues
+    // fileInput: HTMLInputElement | null
+  ) => {
+    const formData = new FormData();
+    console.log("Selected file:", values["Välj Fil"]);
+
+    // Lägg till varje fält från values till formData
+    Object.keys(values).forEach((key) => {
+      const value = values[key];
+
+      if (typeof value === "boolean") {
+        formData.append(key, value ? "true" : "false");
+      } else if (key === "Välj Fil") {
+        formData.append("image", value as File);
+      } else {
+        formData.append(key, value as string);
+      }
+    });
+
+    // Lägg till filen till formData om det finns en filinmatning
+    if (values["Välj Fil"]) {
+      // console.log("Selected file:", fileInput.files[0]);
+      console.log("Selected file:", values["Välj Fil"]);
+
+      // formData.append("Välj Fil", fileInput.files[0]);
+      // formData.append("image", values["Välj Fil"] as File);
+    } else {
+      console.log("No file selected or file input is null");
+    }
+
+    // Debugga innehållet i formData
+    console.log("FormData entries:", Array.from(formData.entries()));
+
+    fetch("http://localhost:5000/api/cuisines", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
