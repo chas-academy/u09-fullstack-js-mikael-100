@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Cuisine from "../models/Cuisine";
+import { request } from "http";
 
 // Hämtar alla Rätter
 
@@ -30,26 +31,46 @@ export const getCuisineById = async (req: Request, res: Response) => {
 export const createCuisine = async (req: Request, res: Response) => {
   // Logga mottagna data för felsökning
   console.log("Request body:", req.body);
-  const {
-    hospital,
-    dish,
-    information,
-    allergies,
-    image,
-    price,
-    options,
-    quantity,
-  } = req.body;
+  console.log("Request File", req.file);
+
+  // Konvertera price och quantity till nummer
+  // const {
+  //   hospital,
+  //   dish,
+  //   information,
+  //   allergies,
+  //   image,
+  //   price,
+  //   options,
+  //   quantity,
+  // } = req.body;
+
+  const hospital = req.body.Sjukhus;
+  const dish = req.body.Rubrik;
+  const information = req.body.Info;
+  const allergies = [
+    req.body.Glutenfri,
+    req.body.Laktosfri,
+    req.body.Fläskfri,
+    req.body.Vegetarisk,
+    req.body.Mjölkproteinfri,
+    req.body.Vegan,
+  ];
+  const price = req.body.Pris;
+  const options = req.body.Alternativ;
+  const quantity = req.body.Antal;
+
   const cuisine = new Cuisine({
     hospital,
     dish,
     information,
     allergies,
-    image,
+    image: req.file?.path,
     price,
     options,
     quantity,
   });
+
   try {
     const newCuisine = await cuisine.save();
     res.status(201).json({
@@ -58,7 +79,7 @@ export const createCuisine = async (req: Request, res: Response) => {
     });
   } catch (error) {
     res.status(400).json({
-      message: "Something whent wrong when trying to create a new cuisine",
+      message: "Something went wrong when trying to create a new cuisine",
       cuisine: error as any,
     });
   }
