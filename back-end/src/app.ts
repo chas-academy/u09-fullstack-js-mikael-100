@@ -6,6 +6,7 @@ import orderRouter from "./routes/orderRoutes";
 import adminRouter from "./routes/adminRoutes";
 import authRouter from "./routes/authRoutes";
 import uploadConfigRoutes from "./routes/uploadConfigRoutes";
+import path from "path";
 
 const app: Express = express();
 
@@ -36,6 +37,12 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+// Vägen till uploads-mappen utanför src
+const uploadsPath = path.join(__dirname, "..", "uploads");
+
+// Middleware för att servera statiska filer
+app.use("/uploads", express.static(uploadsPath));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
