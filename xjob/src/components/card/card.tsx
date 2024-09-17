@@ -8,13 +8,13 @@ interface CardProps {
 
 const styleDiv = {
   small:
-    "p-4 mt-4 mb-4 block border-2 border-black flex items-center mx-auto rounded-lg sm:flex-col space-between cursor-pointer",
+    "shadow-2xl p-4 mt-4 mb-4 block border-2 border-black flex items-center mx-auto rounded-lg sm:flex-col space-between cursor-pointer transform hover:scale-105 transition-transform duration-300",
   medium: "p-6 border border-gray-300 bg-white",
   large: "p-8 border border-gray-500 bg-gray-200",
 };
 
 const styleImg = {
-  small: "w-24 h-24 object-cover sm:w-[100%] w-[40%] h-full",
+  small: "w-full h-[200px] object-cover sm:w-[100%] w-[40%]",
   medium: "w-48 h-48 object-cover",
   large: "w-72 h-72 object-cover",
 };

@@ -4,10 +4,29 @@ import { request } from "http";
 
 // Hämtar alla Rätter
 
+// export const getAllCuisines = async (req: Request, res: Response) => {
+//   try {
+//     const cuisines = await Cuisine.find();
+
+//     res.json(cuisines);
+//   } catch (error) {
+//     res.status(500).json({ message: (error as any).message });
+//   }
+// };
+
 export const getAllCuisines = async (req: Request, res: Response) => {
   try {
-    const cuisines = await Cuisine.find();
+    const filterParam = req.query.filter as string;
+    const filters = filterParam ? filterParam.split(",") : [];
 
+    // Bygg frågan för att filtrera på 'allergies'
+    const query: any = {};
+    if (filters.length > 0) {
+      // Använd $all för att matcha alla filtervärden i 'allergies'
+      query.allergies = { $all: filters.map((f) => new RegExp(f, "i")) };
+    }
+
+    const cuisines = await Cuisine.find(query);
     res.json(cuisines);
   } catch (error) {
     res.status(500).json({ message: (error as any).message });

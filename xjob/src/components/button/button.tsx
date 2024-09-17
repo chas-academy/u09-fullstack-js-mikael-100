@@ -20,7 +20,7 @@ const colorClasses = {
 const sizeClasses = {
   small: "px-2 py-1 text-sm",
   medium: "px-4 py-2 text-base",
-  large: "w-[50%] sm:w-[20%] text-3xl h-20 px-6 py-3 text-lg",
+  large: "w-[50%] sm:w-[20%] text-3xl h-20 px-6 py-3 text-lg sm:text-4xl block",
 };
 
 // Namngiven export
