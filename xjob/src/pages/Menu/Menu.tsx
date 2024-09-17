@@ -6,11 +6,13 @@ import FilterButton from "../../components/filterButton/FilterButton";
 interface MenuItems {
   img: string;
   titel: string;
+  id: string;
 }
 
 interface ApiData {
   image: string;
   dish: string;
+  _id: string;
 }
 
 const Menu = () => {
@@ -18,7 +20,7 @@ const Menu = () => {
   // Button Usestate
   const [buttonVal, setButtonVal] = useState<string[]>([]);
   console.log("Ökar?", buttonVal);
-  // Håller kolla på knapppar och dess Cssregler och skickar tillbaka de booleanskavärdet till FilterButton som ändrar css regler.
+  // Håller kolla på knapppar och dess Cssregler och skickar tillbaka de booleanskavärdet till FilterButton som ändrar css.
   const [activeFilters, setActiveFilters] = useState<{
     [key: string]: boolean;
   }>({
@@ -40,9 +42,10 @@ const Menu = () => {
       const data: ApiData[] = await response.json();
 
       // Extrahera bara de nödvändiga fälten
-      const simplifiedData: MenuItems[] = data.map(({ image, dish }) => ({
+      const simplifiedData: MenuItems[] = data.map(({ _id, image, dish }) => ({
         img: `${apiURL}/${image.replace(/\\/g, "/")}`, // Konvertera sökvägen och bygg fullständig URL
         titel: dish,
+        id: _id,
       }));
 
       setCardItem(simplifiedData);
@@ -90,7 +93,7 @@ const Menu = () => {
         {cardItem.map((item, index) => (
           <Link
             key={index}
-            to={`/details/${item.titel}`} // Anpassa sökvägen här om nödvändigt
+            to={`/dish/${item.id}`} // Anpassa sökvägen här om nödvändigt
             className="sm:flex-wrap w-full sm:w-[30%] mx-auto"
           >
             <Card
