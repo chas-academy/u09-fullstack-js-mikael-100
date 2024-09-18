@@ -26,7 +26,7 @@ export const Cover: React.FC<coverProps> = ({
     {
       small: "sm:h-[20vh] h-[10vh]",
       medium: "sm:h-[30vh] h-[20vh]",
-      large: "sm:w-[40vw] sm:h-[40vw]",
+      large: "sm:w-[40vw] sm:h-[30vw]",
     }[divSize] || "sm:h-[20vh] h-[10vh]";
 
   return (

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Card } from "../../components/card/card";
 import { DialogBox } from "../../components/dialogBox/DialogBox";
 import { Button } from "../../components/button/button";
+import NumberSelector from "../../components/antalselector/antalSelector";
 
 interface dishProps {
   image: string;
