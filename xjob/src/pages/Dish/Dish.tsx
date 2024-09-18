@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { Card } from "../../components/card/card";
 import { DialogBox } from "../../components/dialogBox/DialogBox";
 import { Button } from "../../components/button/button";
+import NumberSelector from "../../components/antalselector/antalSelector";
+import AntalSelector from "../../components/antalselector/antalSelector";
 
 interface dishProps {
   image: string;
@@ -59,6 +61,9 @@ const Dish = () => {
               h1Style={"smalBox"}
               pStyle={"smalBox"}
             ></DialogBox>
+          </div>
+          <div>
+            <AntalSelector></AntalSelector>
           </div>
           <div className="mb-8 mt-3">
             <Button appliedColorClass="blue" appliedSizeClass="large">
