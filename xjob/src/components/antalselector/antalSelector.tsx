@@ -5,6 +5,7 @@ interface AntalProps {
   min?: number;
   max?: number;
   step?: number;
+  onValueChange?: (value: number) => void;
 }
 
 const AntalSelector: React.FC<AntalProps> = ({
@@ -12,21 +13,28 @@ const AntalSelector: React.FC<AntalProps> = ({
   min = 0,
   max = 100,
   step = 1,
+  onValueChange,
 }) => {
   const [value, setValue] = useState(initialValue);
 
   const minska = () => {
-    setValue((prev: number) => Math.max(prev - step, min));
+    const newValue = Math.max(value - step, min); // Beräkna det nya värdet
+    setValue(newValue); // Uppdatera det lokala tillståndet
+    if (onValueChange) onValueChange(newValue); // Skicka det nya värdet till föräldrakomponenten
   };
 
   const oka = () => {
-    setValue((prev) => Math.min(prev + step, max));
+    const newValue = Math.min(value + step, max); // Beräkna det nya värdet
+    setValue(newValue); // Uppdatera det lokala tillståndet
+    if (onValueChange) onValueChange(newValue); // Skicka det nya värdet till föräldrakomponenten
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(event.target.value);
     if (!isNaN(newValue)) {
-      setValue(Math.max(Math.min(newValue, max), min));
+      const clampedValue = Math.max(Math.min(newValue, max), min); // Begränsa värdet mellan min och max
+      setValue(clampedValue); // Uppdatera det lokala tillståndet
+      if (onValueChange) onValueChange(clampedValue); // Skicka det nya värdet till föräldrakomponenten
     }
   };
 
