@@ -1,0 +1,18 @@
+{
+    "name": "Sjukhus-Beställning",
+    "short_name": "Mat Beställningar",
+    "description": "Beställ mat från Västra Götalands sjukhus enkelt med vår app. Välj måltider, betala med Swish och få snabb leverans. Användarvänligt gränssnitt och stöd för specialkost gör din matbeställning smidig och bekväm.",
+    "theme_color": "#ffffff",
+    "icons": [
+        {
+            "src": "pwa-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "pwa-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

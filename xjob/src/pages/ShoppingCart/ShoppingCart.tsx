@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import { useVarukorgStore } from "../../stores/varukorgStore";
 import { Card } from "../../components/card/card";
 
