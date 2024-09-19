@@ -14,7 +14,7 @@ const styleDiv = {
 };
 
 const styleImg = {
-  small: "w-full h-[200px] object-cover sm:w-[100%] w-[40%]",
+  small: "w-40 h-[200px] object-cover sm:w-[100%] w-[40%]",
   medium: "w-48 h-48 object-cover",
   large: "w-72 h-72 object-cover",
 };
