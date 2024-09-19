@@ -12,7 +12,7 @@ export const useVarukorgStore = create<VarukorgState>((set) => ({
     set((state) => ({
       items: {
         ...state.items,
-        [idDish]: antal,
+        [idDish]: (state.items[idDish] || 0) + antal, // Addera det nya antalet till det befintliga
       },
     })),
   removeItem: (idDish) =>
