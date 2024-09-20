@@ -7,12 +7,14 @@ interface MenuItems {
   img: string;
   titel: string;
   id: string;
+  price: string;
 }
 
 interface ApiData {
   image: string;
   dish: string;
   _id: string;
+  price: string;
 }
 
 const Menu = () => {
@@ -42,11 +44,14 @@ const Menu = () => {
       const data: ApiData[] = await response.json();
 
       // Extrahera bara de nödvändiga fälten
-      const simplifiedData: MenuItems[] = data.map(({ _id, image, dish }) => ({
-        img: `${apiURL}/${image.replace(/\\/g, "/")}`, // Konvertera sökvägen och bygg fullständig URL
-        titel: dish,
-        id: _id,
-      }));
+      const simplifiedData: MenuItems[] = data.map(
+        ({ _id, image, dish, price }) => ({
+          img: `${apiURL}/${image.replace(/\\/g, "/")}`, // Konvertera sökvägen och bygg fullständig URL
+          titel: dish,
+          id: _id,
+          price: price,
+        })
+      );
 
       setCardItem(simplifiedData);
     };
@@ -57,15 +62,6 @@ const Menu = () => {
     // Logga när cardItem uppdateras
     console.log("datan yaaw", cardItem);
   }, [cardItem]); // Lägg till cardItem som beroende
-
-  // const onFilterChange2 = (filter: string) => {
-  //   if (filter === buttonVal) {
-  //     return setButtonVal("");
-  //   } else {
-  //     setButtonVal(filter);
-  //     return console.log("Du har tryckt på", filter);
-  //   }
-  // };
 
   const onFilterChange2 = (filter: string) => {
     setButtonVal((prevFilters) => {
@@ -100,6 +96,7 @@ const Menu = () => {
               key={index}
               img={item.img}
               titel={item.titel}
+              price={`${item.price}:-`}
               divSize={"small"}
               imgSize={"small"}
               h2Size={"small"}

@@ -1,6 +1,7 @@
 interface CardProps {
   img: string;
   titel: string;
+  price?: string;
   divSize: "small" | "medium" | "large";
   imgSize: "small" | "medium" | "large";
   h2Size: "small" | "medium" | "large";
@@ -20,13 +21,14 @@ const styleImg = {
 };
 
 const styleH2 = {
-  small: "text-lg p-8 sm:h-60 md:h-25 sm:w-[100%]",
+  small: "text-lg p-3 sm:h-60 md:h-25 sm:w-[100%]",
   medium: "text-xl",
   large: "text-2xl",
 };
 export const Card: React.FC<CardProps> = ({
   img = "",
   titel = "",
+  price = "",
   divSize,
   imgSize,
   h2Size,
@@ -37,8 +39,11 @@ export const Card: React.FC<CardProps> = ({
   return (
     <>
       <div className={divSizeClass}>
-        <img src={img} alt="" className={imgSizeClass} />
-        <h2 className={h2SizeClass}>{titel}</h2>
+        <div className="flex sm:flex-col">
+          <img src={img} alt="" className={imgSizeClass} />
+          <h2 className={h2SizeClass}>{titel}</h2>
+        </div>
+        <p className="font-bold mt-auto">{price}</p>
       </div>
     </>
   );
