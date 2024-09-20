@@ -7,9 +7,11 @@ interface fetch {
   id: Key | null | undefined;
   image: string;
   dish: string;
+  amount?: number;
 }
 const ShoppingCart = () => {
   const { items } = useVarukorgStore();
+
   // I denna usestate sparas varje rätt och dess värden efter fetchData.
   const [itemVarukorg, setItemVarukorg] = useState<fetch[]>([]);
   useEffect(() => {
@@ -39,15 +41,37 @@ const ShoppingCart = () => {
       }
     };
     fetchData();
+    handleUpdate();
   }, [items]); // Lägg till 'items' som dependency
+
+  // Funktion för att uppdatera antal för en specifik dish
+  const adderaAntalTillDish = (key: number, amount: number) => {
+    setItemVarukorg((prevData) => ({
+      ...prevData,
+      [key]: prevData[key] || 0,
+      amount,
+    }));
+  };
+
+  // Exempel på att använda funktionen, här adderas varje items-värde
+  const handleUpdate = () => {
+    // Loopa genom items och konvertera key till number
+    Object.entries(items).forEach(([key, value]) => {
+      // Konvertera key till ett nummer
+      const numericKey = Number(key); // eller parseInt(key)
+      // Anropa adderaAntalTillDish med nyckeln som ett nummer
+      adderaAntalTillDish(numericKey, value);
+      console.log("heheheh", itemVarukorg);
+    });
+  };
+  console.log("heheheh", itemVarukorg);
 
   return (
     <>
-      {/* // Jag fick ett fel meddelande om att inte key för elementen var unikt för att kunna lösa detta problem var jag tvungen att använda både item och index i map
-    item tar nyckeln i arrayen och gör den till identifierare för elementet. Som fallback om nyckeln inte är unik används index som är det andra argumentet i map och är ett heltal som representerar positionen för det aktuella elementet i listan */}
+      {/* Kommentaren är förklarande och kan tas bort om det inte behövs */}
       {Array.isArray(itemVarukorg) && itemVarukorg.length > 0 ? (
         itemVarukorg.map((item, index) => (
-          // Om inte ett unik nyckel för key finns så mappas ett index värde istället för varje element.
+          // Använd item.id som key, men fall tillbaka på index om item.id inte är tillgängligt
           <div key={item.id || index}>
             <Card
               img={item.image}
@@ -59,7 +83,7 @@ const ShoppingCart = () => {
           </div>
         ))
       ) : (
-        <p key="no-item">No items to display</p>
+        <div>No items to display</div> // Fallback när inga objekt finns
       )}
     </>
   );
