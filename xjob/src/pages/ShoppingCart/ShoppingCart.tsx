@@ -1,6 +1,7 @@
 import { Key, useEffect, useState } from "react";
 import { useVarukorgStore } from "../../stores/varukorgStore";
 import { Card } from "../../components/card/card";
+import { Button } from "../../components/button/button";
 
 interface fetch {
   title: string;
@@ -9,7 +10,7 @@ interface fetch {
   dish: string;
   amount?: number;
   price?: number;
-  _id: number;
+  _id: string;
 }
 const ShoppingCart = () => {
   const { items, removeItem } = useVarukorgStore();
@@ -31,7 +32,16 @@ const ShoppingCart = () => {
           if (!response.ok) {
             throw new Error(`Failed to fetch data for id ${id}`);
           }
-          return response.json(); // Returnera data här
+          const data = await response.json();
+
+          // Denna if kollar om image finns med i datan om den gör det så ändras bakåt slash till frammåt. Steg två är att apiURL ett slash och data.image görs till en
+          // giltig url så bilden kan hämtas från backend.
+          if (data.image) {
+            data.image = data.image.replace(/\\/g, "/"); // Byt ut \ mot /
+            data.image = `${apiUrl}/${data.image}`; // Lägg till bas-URL
+          }
+
+          return data; // Returnera den uppdaterade datan
         });
 
         // Vänta på att alla fetch-anrop ska avslutas och uppdatera itemVarukorg
@@ -53,6 +63,7 @@ const ShoppingCart = () => {
 
         // Här uppdateras usestate varukorg med fetch-anropen som sedan kan genereras ut i return.
         setItemVarukorg(updatedResults);
+        console.log("IAMMAGE", updatedResults);
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
       }
@@ -83,6 +94,8 @@ const ShoppingCart = () => {
     return itemVarukorg.reduce((sum, item) => {
       const antal = item.amount ?? 0; // Om amount är undefined, sätt det till 0
       const pris = item.price ?? 0; // Om price är undefined, sätt det till 0
+      console.log("Antal", antal);
+      console.log("Pris", pris);
 
       // Summera det aktuella totalpriset till den ackumulerade summan
       return sum + antal * pris;
@@ -93,25 +106,11 @@ const ShoppingCart = () => {
   const totalPris = totalSumma();
 
   // Funktion för att ta bort en rätt
-  const removeDish = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    _id: number
-  ) => {
+  const removeDish = (_id: string) => {
     console.log("Titta kolla", _id);
-    const numberID = Number(_id);
-    event.preventDefault(); // Förhindra standardbeteende
-    removeItem(numberID); // Ta bort rättens ID från stor
-    console.log("Storren deletad?", items); // Logga nuvarande state
-    console.log("ID att ta bort:", numberID);
-    console.log("Nuvarande items:", items);
-    console.log(typeof numberID); // Ska vara 'string'
-    console.log(typeof items[_id]); // Ska vara 'number'
+    removeItem(_id); // Ta bort rättens ID från stor
   };
-
-  // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
-
-  // Fixa så du kan deleta rätt men removedish och att den uppdateras i usestate och raderas från zustand
-
+  console.log("varukorg", itemVarukorg);
   return (
     <>
       {/* Kontrollera att itemVarukorg är en array och inte är tom */}
@@ -127,16 +126,22 @@ const ShoppingCart = () => {
               h2Size="small"
               amount={`Antal: ${item.amount}`}
             />
-            {/* Säkerställ att item._id finns innan anrop till removeDish */}
-            <button
-              onClick={(event) => item._id && removeDish(event, item._id)}
+            <Button
+              appliedColorClass="red"
+              appliedSizeClass="small"
+              onClick={() => item._id && removeDish(item._id)}
             >
-              Minus
-            </button>
+              Ta bort vara
+            </Button>
           </div>
         ))
       ) : (
-        <p>Varukorgen är tom.</p>
+        <p className="flex justify-center p-4">Varukorgen är tom......</p>
+      )}
+      {totalPris > 0 && (
+        <p className="flex justify-end font-bold font-roboto p-4">
+          Summa: {totalPris}
+        </p>
       )}
     </>
   );

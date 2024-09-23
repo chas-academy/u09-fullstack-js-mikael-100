@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
 interface VarukorgState {
-  items: Record<number, number>; // En map från dish id till antal
-  addOrUpdateItem: (idDish: number, antal: number) => void;
-  removeItem: (idDish: number) => void;
+  items: Record<string, number>; // En map från dish id till antal
+  addOrUpdateItem: (idDish: string, antal: number) => void;
+  removeItem: (idDish: string) => void;
 }
 
 export const useVarukorgStore = create<VarukorgState>((set) => ({
