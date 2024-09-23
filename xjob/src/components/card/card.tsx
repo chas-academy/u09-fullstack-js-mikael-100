@@ -1,7 +1,10 @@
+import React from "react";
+
 interface CardProps {
   img: string;
   titel: string;
   price?: string;
+  amount?: number | string;
   divSize: "small" | "medium" | "large";
   imgSize: "small" | "medium" | "large";
   h2Size: "small" | "medium" | "large";
@@ -29,6 +32,7 @@ export const Card: React.FC<CardProps> = ({
   img = "",
   titel = "",
   price = "",
+  amount,
   divSize,
   imgSize,
   h2Size,
@@ -39,11 +43,18 @@ export const Card: React.FC<CardProps> = ({
   return (
     <>
       <div className={divSizeClass}>
-        <div className="flex sm:flex-col">
-          <img src={img} alt="" className={imgSizeClass} />
-          <h2 className={h2SizeClass}>{titel}</h2>
+        <div>
+          <div className="flex sm:flex-col">
+            <img src={img} alt="" className={imgSizeClass} />
+            <h2 className={h2SizeClass}>{titel}</h2>
+          </div>
+          <p className="font-bold mt-auto flex justify-end">{price}</p>
+          <div>
+            <div className="flex justify-end font-roboto font-bold">
+              <p>{amount}</p>
+            </div>
+          </div>
         </div>
-        <p className="font-bold mt-auto">{price}</p>
       </div>
     </>
   );

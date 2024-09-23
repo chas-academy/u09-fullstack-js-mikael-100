@@ -18,9 +18,10 @@ export const useVarukorgStore = create<VarukorgState>((set) => ({
     })),
   removeItem: (idDish) =>
     set((state) => {
-      const newItems = { ...state.items }; // Skapa en kopia av det nuvarande state.items
+      const newItems = { ...state.items };
+      console.log("Före borttagning:", newItems); // Logga state innan borttagning
       delete newItems[idDish]; // Ta bort objektet med nyckeln idDish
-      // return { items: newItems } menas att man returnerar ett nytt object och i detta fall kopian av newItems där idDish nyckelvärdepar är bortaget.
+      console.log("Efter borttagning: detta är IdDish", newItems[idDish]); // Logga state efter borttagning
       return { items: newItems }; // Returnera det uppdaterade state
     }),
 }));
