@@ -3,7 +3,7 @@ import React from "react";
 interface ButtonProps {
   appliedSizeClass?: "small" | "medium" | "large";
   appliedColorClass?: "red" | "blue" | "black" | "default";
-  onClick?: () => void;
+  onClick?: (event: string) => void;
   children?: React.ReactNode;
   className?: string;
 }
