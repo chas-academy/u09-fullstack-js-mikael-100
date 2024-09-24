@@ -27,7 +27,7 @@ const corsOptions = {
   origin: [
     "http://localhost:5173", // För Vite eller React dev server
     "http://localhost:3000", // port för frontend
-    "https://din-netlify-adress.netlify.app", // Din Netlify-adress när du deployar
+    "https://u09mikael.netlify.app", // Din Netlify-adress när du deployar
     "http://localhost:4173", // Denna är tillagd för att när man kör npm run preview så använder den denna port
   ],
   // Står för metoderna som får skickas
