@@ -1,9 +1,9 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
 interface ButtonProps {
   appliedSizeClass?: "small" | "medium" | "large";
   appliedColorClass?: "red" | "blue" | "black" | "default";
-  onClick?: (event: string) => void;
+  onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
   children?: React.ReactNode;
   className?: string;
 }

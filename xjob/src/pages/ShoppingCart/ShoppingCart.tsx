@@ -47,7 +47,10 @@ const ShoppingCart = () => {
         // Vänta på att alla fetch-anrop ska avslutas och uppdatera itemVarukorg
         const results = await Promise.all(fetchPromises);
 
-        // Koppla amount från items till de fetched data
+        // Results är den fetchade datan, denna data mappas igenom. varje id i den datan som ska gås igenom från fetchen binds till itemId.
+        // dessa id sätts in i items för att matcha fetchade id med id från storen om id matchar binds värdet från items id från storen till amount
+        // Det som sparas i storen är _id och antalet som användaren väljer så på detta sätt kommer amount med de användaren väljer till itemsVarukorg.
+
         const updatedResults = results.map((item) => {
           // itemId är id:et från den fetchade datan, _id används som nyckel för att matcha med items
           const itemId = item._id;

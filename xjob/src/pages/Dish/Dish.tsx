@@ -10,7 +10,7 @@ interface dishProps {
   image: string;
   dish: string;
   information: string;
-  _id: number;
+  _id: string;
   price: string;
 }
 
