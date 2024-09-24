@@ -3,14 +3,31 @@ import { Cover } from "../../components/cover/Cover";
 import { DialogBox } from "../../components/dialogBox/DialogBox";
 import { Dropdown } from "../../components/dropdown/Dropdown";
 import { Button } from "../../components/button/button";
+import { useVarukorgStore } from "../../stores/varukorgStore";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const valAvSjukhus = useVarukorgStore((state) => state.setSjukhus);
+
+  // För att kunna använda navigate binds den funktionen till navigate
+  const navigate = useNavigate();
+
   // Denna har en usestate som håller kolla på vilket sjukhus som valts handleSelect sätter det valda stringen till usestatet sedan loggas även resultatet.
   const [hospital, setHospital] = useState("Välj Sjukhus");
   const handleSelect = (item: string) => {
     setHospital(item);
-    console.log(`Selected Hospital ${hospital}`);
+    console.log("Valtsjukhus", item);
+    valAvSjukhus(item);
+    console.log("Storen är uppdaterad med", item);
   };
+
+  // Denna funktion är kopplad till knappen och låter endast kunde gå vidare till menu så länge inte "Välj Sjukhus" är valt.
+  const handleSubmit = () => {
+    if (hospital !== "Välj Sjukhus") {
+      navigate("menu");
+    }
+  };
+
   return (
     <>
       <Cover
@@ -39,6 +56,7 @@ const Home = () => {
         appliedColorClass="blue"
         appliedSizeClass="large"
         className="mt-4"
+        onClick={handleSubmit}
       >
         Beställ
       </Button>
