@@ -4,10 +4,14 @@ interface VarukorgState {
   items: Record<string, number>; // En map från dish id till antal
   addOrUpdateItem: (idDish: string, antal: number) => void;
   removeItem: (idDish: string) => void;
+  sjukhus: string | null;
+  setSjukhus: (value: string | null) => void;
 }
 
 export const useVarukorgStore = create<VarukorgState>((set) => ({
   items: {}, // Initialt tomt objekt
+  sjukhus: null,
+  setSjukhus: (value) => set({ sjukhus: value }),
   addOrUpdateItem: (idDish, antal) =>
     set((state) => ({
       items: {

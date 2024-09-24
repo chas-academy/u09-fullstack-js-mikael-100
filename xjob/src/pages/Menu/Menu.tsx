@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "../../components/card/card";
 import { Link } from "react-router-dom";
 import FilterButton from "../../components/filterButton/FilterButton";
+import { useVarukorgStore } from "../../stores/varukorgStore";
 
 interface MenuItems {
   img: string;
@@ -18,6 +19,9 @@ interface ApiData {
 }
 
 const Menu = () => {
+  // Här hämtas värdet från variabeln sjukhus från storen
+  const { sjukhus } = useVarukorgStore();
+
   const [cardItem, setCardItem] = useState<MenuItems[]>([]);
   // Button Usestate
   const [buttonVal, setButtonVal] = useState<string[]>([]);
@@ -35,11 +39,12 @@ const Menu = () => {
   });
   useEffect(() => {
     const fetchData = async () => {
+      const valtSjukhus = sjukhus;
       // För att kunna beta från localhoast till netlify senare så gjorde jag en miljövariabel av http//localhoast:5000 och importerade den istället
       const apiURL = import.meta.env.VITE_API_URL;
       const filterQuery = buttonVal.join(","); // Om ditt API accepterar filter som en kommaseparerad sträng
       const response = await fetch(
-        `${apiURL}/api/cuisines/?filter=${filterQuery}`
+        `${apiURL}/api/cuisines/?filter=${filterQuery}&hospital=${valtSjukhus}`
       );
       const data: ApiData[] = await response.json();
 
@@ -85,6 +90,12 @@ const Menu = () => {
         divSize={"small"}
         activeFilters={activeFilters}
       ></FilterButton>
+      <p className="font-roboto font-bold p-6 flex justify-center text-xl sm:text-2xl md:text-3xl">
+        {sjukhus === null
+          ? "Gå till startsidan och välj Sjukhus för att kunna se dina måltidsalternativ"
+          : `${sjukhus} Måltider`}{" "}
+        {/* Visa sjukhusets måltider om ett sjukhus har valts */}
+      </p>
       <div className="mx-auto flex items-center flex-wrap w-[95%] sm:w-[90%]">
         {cardItem.map((item, index) => (
           <Link

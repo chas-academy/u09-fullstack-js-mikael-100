@@ -19,6 +19,16 @@ export const getAllCuisines = async (req: Request, res: Response) => {
     const filterParam = req.query.filter as string;
     const filters = filterParam ? filterParam.split(",") : [];
 
+    // Hämta valt sjukhus från query-parametrar som jag skickar från frontend
+    const valtSjukhus = req.query.hospital as string;
+
+    // Om inget sjukhus är valt, returnera en tom array eller ett meddelande
+    if (!valtSjukhus) {
+      // return res.json(["Inget sjukhus Valt..."]); // Returnera en tom array om inget sjukhus är valt
+      // Alternativt kan du skicka ett meddelande:
+      return res.status(400).json({ message: "Vänligen välj ett sjukhus." });
+    }
+
     // Bygg frågan för att filtrera på 'allergies'
     const query: any = {};
     if (filters.length > 0) {
@@ -26,6 +36,12 @@ export const getAllCuisines = async (req: Request, res: Response) => {
       query.allergies = { $all: filters.map((f) => new RegExp(f, "i")) };
     }
 
+    // Om valtsjukhus skickas med så binds det värdet in i query.hospital
+    if (valtSjukhus) {
+      query.hospital = valtSjukhus;
+    }
+
+    // Här skickas sedan alla quey förfrågningar in i find som tar fram alla önskade förfrågningar
     const cuisines = await Cuisine.find(query);
     res.json(cuisines);
   } catch (error) {
