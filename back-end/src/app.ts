@@ -23,18 +23,16 @@ app.use(express.urlencoded({ extended: true }));
 // Konfigurera CORS
 // Denna kod kommer att ställa in cors till att ta emot endast CRUD begäran. Samt låta data som är json komma igenom samt token.
 const corsOptions = {
-  // Lista över godkända portar eller domäner
   origin: [
     "http://localhost:5173", // För Vite eller React dev server
     "http://localhost:3000", // port för frontend
     "https://u09mikael.netlify.app", // Din Netlify-adress när du deployar
-    "http://localhost:4173", // Denna är tillagd för att när man kör npm run preview så använder den denna port
+    "http://localhost:4173", // För npm run preview
   ],
-  // Står för metoderna som får skickas
-  methods: "GET,POST,PUT,DELETE",
-  // Står för att json format och token får skickas. Om authorization inte hade stått med hade
-  // man inte fått skicka med token i headers. Där emot är det inte ett måste i begäran. h
-  allowedHeaders: "Content-Type,Authorization",
+  methods: ["GET", "POST", "PUT", "DELETE"], // Använd array för metoder
+  allowedHeaders: ["Content-Type", "Authorization"], // Använd array för headers
+  credentials: true, // Tillåt cookies och autentisering
+  optionsSuccessStatus: 200, // För att hantera äldre webbläsare
 };
 
 app.use(cors(corsOptions));
