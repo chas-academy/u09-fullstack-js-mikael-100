@@ -2,6 +2,7 @@ import { Key, useEffect, useState } from "react";
 import { useVarukorgStore } from "../../stores/varukorgStore";
 import { Card } from "../../components/card/card";
 import { Button } from "../../components/button/button";
+import { useNavigate } from "react-router-dom";
 
 interface fetch {
   title: string;
@@ -14,6 +15,8 @@ interface fetch {
 }
 const ShoppingCart = () => {
   const { items, removeItem } = useVarukorgStore();
+
+  const navigera = useNavigate();
 
   // I denna usestate sparas varje rätt och dess värden efter fetchData.
   const [itemVarukorg, setItemVarukorg] = useState<fetch[]>([]);
@@ -145,6 +148,23 @@ const ShoppingCart = () => {
         <p className="flex justify-end font-bold font-roboto p-4">
           Summa: {totalPris}
         </p>
+      )}{" "}
+      {Array.isArray(itemVarukorg) && itemVarukorg.length > 0 && (
+        <>
+          <div className="mb-4">
+            <Button appliedColorClass="blue" appliedSizeClass="large">
+              Betala
+            </Button>
+          </div>
+          <div className="mb-7 mt-7">
+            <p
+              onClick={() => navigera("/menu")}
+              className="cursor-pointer text-black-500 underline font-bold flex justify-center md:text-2xl transition-transform duration-300 transform hover:scale-105"
+            >
+              Klicka här för att handla fler saker från Menyn
+            </p>
+          </div>
+        </>
       )}
     </>
   );

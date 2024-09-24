@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Cover } from "../../components/cover/Cover";
 import { useEffect, useState } from "react";
 import { DialogBox } from "../../components/dialogBox/DialogBox";
@@ -17,6 +17,8 @@ interface dishProps {
 const Dish = () => {
   // Hämtar id från Urlen på sidan. Detta id behövs för att kunna göra en fetch med detta id för att hämta all annan information om just denna rätt.
   const { id } = useParams<{ id: string }>();
+
+  const navigera = useNavigate();
 
   // Denna useeffekt gör en fetch när
   useEffect(() => {
@@ -60,6 +62,7 @@ const Dish = () => {
   const skickaVardenTillStorePaSubmit = () => {
     if (dish?._id) {
       addOrUpdateItem(dish._id, selectedValue);
+      navigera("/shoppingCart");
     }
   };
 
