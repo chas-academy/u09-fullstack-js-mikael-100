@@ -6,6 +6,7 @@ interface VarukorgState {
   removeItem: (idDish: string) => void;
   sjukhus: string | null;
   setSjukhus: (value: string | null) => void;
+  clear: () => void;
 }
 
 export const useVarukorgStore = create<VarukorgState>((set) => ({
@@ -28,4 +29,5 @@ export const useVarukorgStore = create<VarukorgState>((set) => ({
       console.log("Efter borttagning: detta är IdDish", newItems[idDish]); // Logga state efter borttagning
       return { items: newItems }; // Returnera det uppdaterade state
     }),
+  clear: () => set({ items: {}, sjukhus: null }),
 }));

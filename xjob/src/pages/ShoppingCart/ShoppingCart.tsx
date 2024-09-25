@@ -22,6 +22,8 @@ const ShoppingCart = () => {
   const [itemVarukorg, setItemVarukorg] = useState<fetch[]>([]);
   useEffect(() => {
     console.log("storen i shopping", items);
+    console.log("storen i shopping jajajaj", itemVarukorg);
+
     const apiUrl: string = import.meta.env.VITE_API_URL;
 
     const fetchData = async () => {
@@ -152,14 +154,18 @@ const ShoppingCart = () => {
       {Array.isArray(itemVarukorg) && itemVarukorg.length > 0 && (
         <>
           <div className="mb-4">
-            <Button appliedColorClass="blue" appliedSizeClass="large">
+            <Button
+              appliedColorClass="blue"
+              appliedSizeClass="large"
+              onClick={() => navigera("/payment", { state: itemVarukorg })}
+            >
               Betala
             </Button>
           </div>
           <div className="mb-7 mt-7">
             <p
               onClick={() => navigera("/menu")}
-              className="cursor-pointer text-black-500 underline font-bold flex justify-center md:text-2xl transition-transform duration-300 transform hover:scale-105"
+              className="cursor-pointer text-black-500 font-bold flex justify-center md:text-2xl hover:underline"
             >
               Klicka här för att handla fler saker från Menyn
             </p>
