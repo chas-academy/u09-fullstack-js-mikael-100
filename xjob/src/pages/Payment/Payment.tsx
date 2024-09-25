@@ -18,18 +18,19 @@ const Payment = () => {
     amount: string;
   }
 
-  const itemVarukorg: Item[] = location.state || {}; // Hämta den skickade datan
+  // const itemVarukorg: Item[] = location.state || {}; // Hämta den skickade datan
+
+  // Update the destructuring to provide a default value
+  const { itemVarukorg, totalPris = 0 } = location.state || {}; // Set default to 0
+
+  console.log("Location state:", location.state);
+  console.log("Totalpris på betalningssidan:", totalPris);
 
   // Mappa ut rättens namn och antal
-  const nyttObjekt = itemVarukorg.map((item) => ({
+  const nyttObjekt = itemVarukorg.map((item: Item) => ({
     dish: item.dish,
     amount: item.amount,
   }));
-
-  console.log("JAJAJA", nyttObjekt);
-
-  console.log("Lennart", typeof nyttObjekt);
-  console.log("Komigen då", itemVarukorg);
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -63,9 +64,6 @@ const Payment = () => {
       PhoneNumber: formData.phoneNumber,
       Department: formData.department,
     };
-
-    // Logga orderData
-    console.log("Order data som skickas:", JSON.stringify(orderData, null, 2)); // Använd JSON.stringify för bättre läsbarhet
 
     // Logga orderData
     console.log("Order data som skickas:", orderData);
@@ -105,8 +103,7 @@ const Payment = () => {
 
   return (
     <>
-      betala
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-10 mb-20">
         <div className="w-[70%] sm:w-[50%] md:w-[50%] lg:w-[30%]">
           <form action="" onSubmit={handlePayment}>
             <TextInput
@@ -149,6 +146,10 @@ const Payment = () => {
               labelStyle={"small"}
               required={true}
             ></TextInput>
+            <div className="flex justify-center">
+              <hr className="border-t border-black mt-20 w-[80%]" />
+            </div>
+            <p className="font-roboto text-center mt-3">{`Att betala: ${totalPris}:-`}</p>
             <Button
               appliedColorClass="blue"
               appliedSizeClass="medium"

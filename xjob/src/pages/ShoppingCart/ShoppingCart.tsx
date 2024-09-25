@@ -19,6 +19,9 @@ const ShoppingCart = () => {
   const navigera = useNavigate();
 
   // I denna usestate sparas varje rätt och dess värden efter fetchData.
+  const [totalPris, setTotalPris] = useState<number>(0);
+
+  // I denna usestate sparas varje rätt och dess värden efter fetchData.
   const [itemVarukorg, setItemVarukorg] = useState<fetch[]>([]);
   useEffect(() => {
     console.log("storen i shopping", items);
@@ -97,21 +100,21 @@ const ShoppingCart = () => {
 
   // TOTALSUMMA
 
-  const totalSumma = () => {
-    // Använd reduce för att summera totalpriset av alla objekt
-    return itemVarukorg.reduce((sum, item) => {
-      const antal = item.amount ?? 0; // Om amount är undefined, sätt det till 0
-      const pris = item.price ?? 0; // Om price är undefined, sätt det till 0
-      console.log("Antal", antal);
-      console.log("Pris", pris);
+  useEffect(() => {
+    const totalSumma = () => {
+      return itemVarukorg.reduce((sum, item) => {
+        const antal = item.amount ?? 0;
+        const pris = item.price ?? 0;
+        return sum + antal * pris;
+      }, 0);
+    };
 
-      // Summera det aktuella totalpriset till den ackumulerade summan
-      return sum + antal * pris;
-    }, 0); // Börja med en summa på 0
-  };
+    // Beräkna totalpris
+    const beraknatTotalPris = totalSumma();
+    setTotalPris(beraknatTotalPris); // Uppdatera totalPris state
 
-  // Exempel på att använda funktionen och logga resultatet
-  const totalPris = totalSumma();
+    console.log("TotalPris innan navigering:", beraknatTotalPris);
+  }, [itemVarukorg]);
 
   // Funktion för att ta bort en rätt
   const removeDish = (_id: string) => {
@@ -157,7 +160,14 @@ const ShoppingCart = () => {
             <Button
               appliedColorClass="blue"
               appliedSizeClass="large"
-              onClick={() => navigera("/payment", { state: itemVarukorg })}
+              onClick={() =>
+                navigera("/payment", {
+                  state: {
+                    itemVarukorg,
+                    totalPris,
+                  },
+                })
+              }
             >
               Betala
             </Button>
