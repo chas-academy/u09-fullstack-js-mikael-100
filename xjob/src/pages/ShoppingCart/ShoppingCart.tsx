@@ -152,14 +152,18 @@ const ShoppingCart = () => {
       {Array.isArray(itemVarukorg) && itemVarukorg.length > 0 && (
         <>
           <div className="mb-4">
-            <Button appliedColorClass="blue" appliedSizeClass="large">
+            <Button
+              appliedColorClass="blue"
+              appliedSizeClass="large"
+              onClick={() => navigera("/payment")}
+            >
               Betala
             </Button>
           </div>
           <div className="mb-7 mt-7">
             <p
               onClick={() => navigera("/menu")}
-              className="cursor-pointer text-black-500 underline font-bold flex justify-center md:text-2xl transition-transform duration-300 transform hover:scale-105"
+              className="cursor-pointer text-black-500 font-bold flex justify-center md:text-2xl hover:underline"
             >
               Klicka här för att handla fler saker från Menyn
             </p>

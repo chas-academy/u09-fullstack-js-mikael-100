@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card } from "../../components/card/card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FilterButton from "../../components/filterButton/FilterButton";
 import { useVarukorgStore } from "../../stores/varukorgStore";
 
@@ -19,6 +19,9 @@ interface ApiData {
 }
 
 const Menu = () => {
+  // För att navigera på sidan
+  const navigera = useNavigate();
+
   // Här hämtas värdet från variabeln sjukhus från storen
   const { sjukhus } = useVarukorgStore();
 
@@ -90,7 +93,7 @@ const Menu = () => {
         divSize={"small"}
         activeFilters={activeFilters}
       ></FilterButton>
-      <p className="font-roboto font-bold p-6 flex justify-center text-xl sm:text-2xl md:text-3xl">
+      <p className="font-roboto font-bold p-6 text-center w-full text-xl md:text-3xl sm:text-2xl">
         {sjukhus === null
           ? "Gå till startsidan och välj Sjukhus för att kunna se dina måltidsalternativ"
           : `${sjukhus} Måltider`}{" "}
@@ -115,6 +118,14 @@ const Menu = () => {
           </Link>
         ))}
       </div>
+      <p
+        className="cursor-pointer  hover:underline text-center mb-4"
+        onClick={() => navigera("/")}
+      >
+        {cardItem.length === 0
+          ? "Klicka här för att återvända till startsidan och göra ett nytt val av sjukhus"
+          : ""}
+      </p>
     </>
   );
 };
