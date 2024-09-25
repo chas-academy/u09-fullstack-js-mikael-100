@@ -22,6 +22,8 @@ const ShoppingCart = () => {
   const [itemVarukorg, setItemVarukorg] = useState<fetch[]>([]);
   useEffect(() => {
     console.log("storen i shopping", items);
+    console.log("storen i shopping jajajaj", itemVarukorg);
+
     const apiUrl: string = import.meta.env.VITE_API_URL;
 
     const fetchData = async () => {
@@ -155,7 +157,7 @@ const ShoppingCart = () => {
             <Button
               appliedColorClass="blue"
               appliedSizeClass="large"
-              onClick={() => navigera("/payment")}
+              onClick={() => navigera("/payment", { state: itemVarukorg })}
             >
               Betala
             </Button>

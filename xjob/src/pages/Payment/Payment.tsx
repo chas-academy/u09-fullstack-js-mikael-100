@@ -1,10 +1,37 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../components/button/button";
 import TextInput from "../../components/input/input";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useVarukorgStore } from "../../stores/varukorgStore";
 
 const Payment = () => {
   const navigera = useNavigate();
+
+  const { clear } = useVarukorgStore();
+
+  // Dessa två rader tillåter att jag skickar med data från varukorg och hämtar den hit och binder till itemsvarukorg.
+  const location = useLocation();
+  interface Item {
+    dish: string;
+    amount: string;
+  }
+
+  const itemVarukorg: Item[] = location.state || {}; // Hämta den skickade datan
+
+  // Mappa ut rättens namn och antal
+  const nyttObjekt = itemVarukorg.map((item) => ({
+    dish: item.dish,
+    amount: item.amount,
+  }));
+
+  console.log("JAJAJA", nyttObjekt);
+
+  console.log("Lennart", typeof nyttObjekt);
+  console.log("Komigen då", itemVarukorg);
+
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -23,14 +50,58 @@ const Payment = () => {
     console.log("Formadatannnn", formData);
   };
 
-  const handlePayment: React.FormEventHandler<HTMLFormElement> = (e) => {
+  // Denna funktion visar ett tostify meddelande och efter 5.5 sek så cleras allt i useVarukorgStoren och användaren skickas till första sidan
+  const handlePayment: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
-    alert("Dit Beställning är Skickad");
-    // Här kan du hantera betalningen
+    // Mappa formulärdata till backend-förväntade nycklar
+    const orderData = {
+      Orders: nyttObjekt,
+      Hospital: useVarukorgStore.getState().sjukhus,
+      FirstName: formData.firstName, // Använd rätt namn för nycklarna
+      LastName: formData.lastName,
+      PhoneNumber: formData.phoneNumber,
+      Department: formData.department,
+    };
 
-    navigera("/");
+    // Logga orderData
+    console.log("Order data som skickas:", JSON.stringify(orderData, null, 2)); // Använd JSON.stringify för bättre läsbarhet
+
+    // Logga orderData
+    console.log("Order data som skickas:", orderData);
+
+    try {
+      const response = await fetch(`${apiUrl}/api/orders/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Något gick fel");
+      }
+
+      const responseData = await response.json();
+      console.log("Beställning mottagen:", responseData);
+
+      // Visa toast-meddelande för framgång
+      toast.success("Din beställning är skickad!");
+
+      // Navigera efter 5 sekunder
+      setTimeout(() => {
+        clear(); // Rensa varukorgen
+        navigera("/"); // Navigera till hemsidan
+      }, 5500);
+    } catch (error) {
+      console.error("Fel vid beställning:", error);
+      // Visa toast-meddelande för fel
+      toast.error("Kunde inte skicka beställningen, försök igen!");
+    }
   };
+
+  // const notify = () => toast("Wow so easy!");
 
   return (
     <>
@@ -85,6 +156,7 @@ const Payment = () => {
             >
               Betala
             </Button>
+            <ToastContainer />
           </form>
         </div>
       </div>
