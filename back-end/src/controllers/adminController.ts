@@ -8,9 +8,11 @@ import bcrypt from "bcrypt";
 export const createAdmin = async (req: Request, res: Response) => {
   try {
     const { name, password, hospital, role } = req.body;
+    console.log("Lösenordet", password);
 
     // Hasha lösenordet
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("hashat lösenord", hashedPassword);
 
     // Skapa en Admin
     const newAdmin = new Admin({

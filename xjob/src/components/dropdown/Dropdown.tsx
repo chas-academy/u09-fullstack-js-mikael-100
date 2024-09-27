@@ -9,6 +9,7 @@ interface DropdownProps {
   color?: "red" | "blue" | "black" | "default"; // Färg för dropdown-knappen
   className?: string; // Extra CSS-klasser som ska läggas till
   dropdownWidth?: "large" | "default";
+  name?: string;
 }
 
 // Dropdown-komponenten
