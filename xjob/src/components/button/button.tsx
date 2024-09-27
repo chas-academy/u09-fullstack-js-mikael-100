@@ -6,6 +6,7 @@ interface ButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
   children?: React.ReactNode;
   className?: string;
+  type: string;
 }
 
 const colorClasses = {
