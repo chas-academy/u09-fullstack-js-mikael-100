@@ -3,6 +3,8 @@ import { Card } from "../../components/card/card";
 import { Link, useNavigate } from "react-router-dom";
 import FilterButton from "../../components/filterButton/FilterButton";
 import { useVarukorgStore } from "../../stores/varukorgStore";
+import { Button } from "../../components/button/button";
+import Cookies from "js-cookie";
 
 interface MenuItems {
   img: string;
@@ -85,6 +87,23 @@ const Menu = () => {
     }));
   };
 
+  // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
+
+  // Denna ska föröska känna av om token finns och visa buttons om den finns
+  const [token, setToken] = useState(true);
+  useEffect(() => {
+    // Hämta token från cookies
+    const token = Cookies.get("token");
+
+    console.log("Token finns:", token);
+    if (token) {
+      setToken(true);
+      console.log("jarrrå");
+    } else {
+      setToken(false);
+    }
+  }, []); // Lämna arrayen tom för att köra bara en gång vid komponentens montering
+
   return (
     <>
       <FilterButton
@@ -101,21 +120,49 @@ const Menu = () => {
       </p>
       <div className="mx-auto flex items-center flex-wrap w-[95%] sm:w-[90%]">
         {cardItem.map((item, index) => (
-          <Link
-            key={index}
-            to={`/dish/${item.id}`} // Anpassa sökvägen här om nödvändigt
-            className="sm:flex-wrap w-full sm:w-[30%] mx-auto"
-          >
-            <Card
-              key={index}
-              img={item.img}
-              titel={item.titel}
-              price={`${item.price}:-`}
-              divSize={"small"}
-              imgSize={"small"}
-              h2Size={"small"}
-            ></Card>
-          </Link>
+          <>
+            <div className="flex-wrap w-[100%] sm:w-[50%] md:w-[50%] xl:w-[30%] mx-auto">
+              <Link
+                key={index}
+                to={`/dish/${item.id}`} // Anpassa sökvägen här om nödvändigt
+              >
+                <Card
+                  key={index}
+                  img={item.img}
+                  titel={item.titel}
+                  price={`${item.price}:-`}
+                  divSize={"small"}
+                  imgSize={"small"}
+                  h2Size={"small"}
+                ></Card>
+              </Link>
+              {token === false && (
+                <div>
+                  <div className="flex flex-row justify-center mb-10">
+                    <div className="mr-6">
+                      <Button
+                        type="submit"
+                        appliedColorClass="blue"
+                        appliedSizeClass="small"
+                        onClick={() => navigera(`/adminUpdateDish/${item.id}`)}
+                      >
+                        Uppdatera
+                      </Button>
+                    </div>
+                    <div className="block-inline ml-6">
+                      <Button
+                        type="submit"
+                        appliedColorClass="red"
+                        appliedSizeClass="small"
+                      >
+                        Ta bort
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </>
         ))}
       </div>
       <p

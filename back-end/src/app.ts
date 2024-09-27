@@ -7,6 +7,7 @@ import adminRouter from "./routes/adminRoutes";
 import authRouter from "./routes/authRoutes";
 import uploadConfigRoutes from "./routes/uploadConfigRoutes";
 import path from "path";
+import cookieParser from "cookie-parser";
 
 const app: Express = express();
 
@@ -36,6 +37,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+// Middleware för att hantera cookies
+app.use(cookieParser());
 
 // Vägen till uploads-mappen utanför src
 const uploadsPath = path.join(__dirname, "..", "uploads");

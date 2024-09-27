@@ -2,6 +2,8 @@ import { useState } from "react";
 import TextInput from "../../components/input/input";
 import { Button } from "../../components/button/button";
 import { Dropdown } from "../../components/dropdown/Dropdown";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
   interface FormData {
@@ -34,11 +36,14 @@ const AdminLogin = () => {
     }));
   };
 
+  const navigera = useNavigate();
+
   // Ändra namnet på denna funktion till handleSubmit och ta med eventparameter
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Detta ärttttt ", formData);
+    e.preventDefault(); // Förhindra standardbeteendet för formulär
+    console.log("Formulärdata:", formData); // Logga den aktuella formulärdatat
 
+    // Samla in data som ska skickas till servern
     const dataToSend = {
       name: formData.name,
       password: formData.password,
@@ -46,97 +51,112 @@ const AdminLogin = () => {
       role: formData.role,
     };
 
-    console.log("Sending data:", dataToSend);
+    console.log("Skickar data:", dataToSend); // Logga data som ska skickas
 
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL; // API-url
 
     try {
-      const response = await fetch(`${apiUrl}/api/auth/`, {
+      // Skicka en POST-begäran till servern
+      const response = await fetch(`${apiUrl}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSend),
+        credentials: "include", // Viktigt för att skicka cookies
       });
-
-      // Logga svaret för att se vad servern returnerar
-      const textResponse = await response.text(); // Hämta svaret som text
-      console.log("Svaret:", textResponse); // Logga svaret för felsökning
 
       // Kontrollera om svaret är OK
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorMessage = `HTTP error! status: ${response.status}`;
+        console.error(errorMessage); // Logga felmeddelande
+        throw new Error(errorMessage); // Kasta fel om svaret inte är OK
       }
 
-      // Om svaret är JSON, försök att parsa det
-      const data = JSON.parse(textResponse);
-      console.log(data);
+      // Försök att parsa svaret som JSON
+      const data = await response.json();
+      console.log("Svaret från servern:", data); // Logga svaret för felsökning
+      toast.success("Inloggningen lyckades!");
+      setTimeout(() => {
+        navigera("/"); // Navigera till hemsidan
+      }, 5500);
+
+      // Ingen token hanteras här eftersom backend redan sätter den i cookies
     } catch (error) {
-      console.error("Det gick inte hämta data", error);
+      console.error("Det gick inte att hämta data:", error); // Logga eventuella fel
+      toast.error("Tyvärr gick det inte att logga in, försök igen!");
     }
   };
+
   return (
     <>
-      <div>
-        <h1 className="text-center font-roboto text-2xl">Admin Loggin</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="flex justify-center mt-10">
-            <div className="w-[70%] md:w-[30%]">
-              <TextInput
-                label="Användarnamn"
-                name="name"
-                value={formData.name}
-                onChange={handleOnchange}
-                divStyle="small"
-                inputStyle="small"
-                labelStyle="small"
-                required={true}
-              ></TextInput>
-              <TextInput
-                label="Lösenord"
-                name="password"
-                value={formData.password}
-                onChange={handleOnchange}
-                divStyle="small"
-                inputStyle="small"
-                labelStyle="small"
-                required={true}
-              ></TextInput>
-            </div>
+      <div className="flex justify-center">
+        <div className="border-2 w-[90%] sm:w-[50%] md:w-[50%]">
+          <div>
+            <h1 className="text-center font-roboto text-2xl mt-7">
+              Admin Loggin
+            </h1>
+            <form onSubmit={handleSubmit}>
+              <div className="flex justify-center mt-10">
+                <div className="w-[70%] md:w-[30%]">
+                  <TextInput
+                    label="Användarnamn"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleOnchange}
+                    divStyle="small"
+                    inputStyle="small"
+                    labelStyle="small"
+                    required={true}
+                  ></TextInput>
+                  <TextInput
+                    label="Lösenord"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleOnchange}
+                    divStyle="small"
+                    inputStyle="small"
+                    labelStyle="small"
+                    required={true}
+                  ></TextInput>
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <div className="w-[70%] md:w-[80%]">
+                  <Dropdown
+                    label={formData.hospital || "Välj Sjukhus"}
+                    name="hospital"
+                    items={[
+                      "Alingsås lasarett",
+                      "Angereds Närsjukhus",
+                      "Frölunda specialistsjukhus",
+                      "Kungälvs sjukhus",
+                      "Skaraborgs Sjukhus",
+                      "Södra Älvsborgs Sjukhus",
+                    ]}
+                    onSelect={(value) => handleSelect("hospital", value)}
+                  ></Dropdown>
+                  <Dropdown
+                    label={formData.role || "Välj Behörighet"}
+                    name="role"
+                    items={["Admin", "Super Admin"]}
+                    onSelect={(value) => handleSelect("role", value)}
+                  ></Dropdown>
+                </div>
+              </div>
+              <div className="mt-7 mb-20">
+                <Button
+                  appliedColorClass="blue"
+                  appliedSizeClass="medium"
+                  type="submit"
+                >
+                  Logga in
+                </Button>
+                <ToastContainer />
+              </div>
+            </form>
           </div>
-          <div className="flex justify-center">
-            <div className="w-[70%] md:w-[40%]">
-              <Dropdown
-                label={formData.hospital || "Välj Sjukhus"}
-                name="hospital"
-                items={[
-                  "Alingsås lasarett",
-                  "Angereds Närsjukhus",
-                  "Frölunda specialistsjukhus",
-                  "Kungälvs sjukhus",
-                  "Skaraborgs Sjukhus",
-                  "Södra Älvsborgs Sjukhus",
-                ]}
-                onSelect={(value) => handleSelect("hospital", value)}
-              ></Dropdown>
-              <Dropdown
-                label={formData.role || "Välj Behörighet"}
-                name="role"
-                items={["Admin", "Super Admin"]}
-                onSelect={(value) => handleSelect("role", value)}
-              ></Dropdown>
-            </div>
-          </div>
-          <div className="mt-7 mb-20">
-            <Button
-              appliedColorClass="blue"
-              appliedSizeClass="medium"
-              type="submit"
-            >
-              Logga in
-            </Button>
-          </div>
-        </form>
+        </div>
       </div>
     </>
   );
