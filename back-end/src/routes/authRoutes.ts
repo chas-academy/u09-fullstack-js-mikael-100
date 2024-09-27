@@ -3,6 +3,6 @@ import { loginAdmin } from "../controllers/authController";
 
 const authRouter = Router();
 
-authRouter.post("/", loginAdmin);
+authRouter.post("/login", loginAdmin);
 
 export default authRouter;

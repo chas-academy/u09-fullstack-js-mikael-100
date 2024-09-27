@@ -49,10 +49,18 @@ export const loginAdmin = async (req: Request, res: Response) => {
       { expiresIn: "2h" }
     );
 
+    // Sätt token i en cookie
+    res.cookie("token", token, {
+      httpOnly: true, // Förhindra att cookien nås via JavaScript
+      secure: process.env.NODE_ENV === "production", // Endast över HTTPS i produktion
+      maxAge: 7200000, // 2 timmar i millisekunder
+      sameSite: "none", // För att tillåta cookies i cross-site begärningar (justera efter behov)
+      path: "/", // Gör cookien tillgänglig för hela applikationen
+    });
+
     // Skicka token och admin-datan
     res.json({
       message: "Login Successful",
-      token,
       admin: {
         id: admin._id,
         name: admin.name,

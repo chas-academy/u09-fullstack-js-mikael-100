@@ -27,7 +27,7 @@ const router = createBrowserRouter([
       { path: "payment", element: <Payment /> },
       { path: "adminLogin", element: <AdminLogin /> },
       { path: "adminMenu", element: <AdminMenu /> },
-      { path: "adminUpdateDish", element: <AdminUpdateDish /> },
+      { path: "adminUpdateDish/:id", element: <AdminUpdateDish /> },
       { path: "adminUploadDish", element: <AdminUploadDish /> },
       { path: "adminStatistics", element: <AdminStatestics /> },
       { path: "logout", element: <Logout /> },

@@ -60,6 +60,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     <div className={`relative ${className} font-roboto`}>
       <button
         onClick={toggleDropdown}
+        type="button"
         className={`rounded ${appliedSizeClass} ${appliedColorClass} focus:outline-none flex items-center justify-center mt-6`}
       >
         {label}
