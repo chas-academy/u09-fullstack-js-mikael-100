@@ -29,6 +29,21 @@ export const getOrderById = async (req: Request, res: Response) => {
 export const createOrder = async (req: Request, res: Response) => {
   const { Hospital, FirstName, LastName, PhoneNumber, Department, Orders } =
     req.body;
+
+  // Validera indata (kan justeras beroende på dina krav)
+  if (
+    !Hospital ||
+    !FirstName ||
+    !LastName ||
+    !PhoneNumber ||
+    !Department ||
+    !Orders
+  ) {
+    return res.status(400).json({
+      message: "All fields are required.",
+    });
+  }
+
   const order = new Order({
     Hospital,
     FirstName,
@@ -37,16 +52,18 @@ export const createOrder = async (req: Request, res: Response) => {
     Department,
     Orders,
   });
+
   try {
     const newOrder = await order.save();
     res.status(201).json({
-      message: "A new ordder has been created",
+      message: "A new order has been created",
       order: newOrder,
     });
   } catch (error) {
-    res.status(400).json({
-      message: "Something whent wrong please try again",
-      order: error as any,
+    console.error("Error creating order:", error); // Logga felet för debugging
+    res.status(500).json({
+      message: "Something went wrong, please try again",
+      error: error instanceof Error ? error.message : "Unknown error", // Mer specifik felmeddelande
     });
   }
 };

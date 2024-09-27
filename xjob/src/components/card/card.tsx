@@ -12,7 +12,7 @@ interface CardProps {
 
 const styleDiv = {
   small:
-    "shadow-2xl p-4 mt-4 mb-4 block border-2 border-black flex items-center mx-auto rounded-lg sm:flex-col space-between cursor-pointer transform hover:scale-105 transition-transform duration-300",
+    "shadow-2xl p-4 mt-4 mb-4 block border-2 border-black flex items-center mx-auto rounded-lg sm:flex-col space-between cursor-pointer transform hover:scale-105 transition-transform duration-300 sm:w-[50%] md:w-[40%]",
   medium: "p-6 border border-gray-300 bg-white",
   large: "p-8 border border-gray-500 bg-gray-200",
 };
