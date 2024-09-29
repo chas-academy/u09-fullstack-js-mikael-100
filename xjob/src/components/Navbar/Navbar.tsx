@@ -22,7 +22,7 @@ export const Navbar = () => {
     throw new Error("SomeComponent must be used within an AuthProvider");
   }
 
-  const { setArInloggad, arInloggad } = inloggad;
+  const { setArInloggad, arInloggad, setAdmin } = inloggad;
 
   const loggout = async () => {
     const apiUrl = import.meta.env.VITE_API_URL; // API-url
@@ -37,6 +37,7 @@ export const Navbar = () => {
         const result = await response.json(); // Läs in JSON-svaret
         console.log(result.message); // Loggar meddelandet "Utloggad vart syns detta"
         setArInloggad(false);
+        setAdmin("");
       } else {
         console.error("Utloggning misslyckades.");
       }

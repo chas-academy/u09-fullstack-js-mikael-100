@@ -46,7 +46,7 @@ const AdminLogin = () => {
   if (!authContext) {
     return null; // Hantera fallet när kontexten inte är tillgänglig
   }
-  const { setArInloggad, arInloggad } = authContext;
+  const { setArInloggad, arInloggad, setAdmin, admin } = authContext;
 
   // Ändra namnet på denna funktion till handleSubmit och ta med eventparameter
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -87,6 +87,11 @@ const AdminLogin = () => {
       setArInloggad(true);
       // Försök att parsa svaret som JSON
       const data = await response.json();
+      // Hantera admin-information
+      if (data.admin) {
+        console.log("Inloggad admin:", data.admin.role);
+        setAdmin(data.admin.role);
+      }
       console.log("Svaret från servern:", data); // Logga svaret för felsökning
       navigera("/"); // Navigera till hemsidan
 
@@ -98,6 +103,7 @@ const AdminLogin = () => {
     }
   };
   console.log("Nu är staten satt till inloggad", arInloggad);
+  console.log("Vad är admin nu?", admin);
 
   return (
     <>
