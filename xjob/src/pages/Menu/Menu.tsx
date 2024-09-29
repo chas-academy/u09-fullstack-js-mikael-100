@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Card } from "../../components/card/card";
 import { Link, useNavigate } from "react-router-dom";
 import FilterButton from "../../components/filterButton/FilterButton";
 import { useVarukorgStore } from "../../stores/varukorgStore";
 import { Button } from "../../components/button/button";
 import Cookies from "js-cookie";
+import { AuthContext } from "../../context/AuthContext";
 
+// const inloggad =
 interface MenuItems {
   img: string;
   titel: string;
@@ -27,10 +29,14 @@ const Menu = () => {
   // Här hämtas värdet från variabeln sjukhus från storen
   const { sjukhus } = useVarukorgStore();
 
+  // Använd useContext för att hämta arInloggad från AuthContext
+  const { arInloggad } = useContext(AuthContext); // Hämta arInloggad här
+
   const [cardItem, setCardItem] = useState<MenuItems[]>([]);
   // Button Usestate
   const [buttonVal, setButtonVal] = useState<string[]>([]);
   console.log("Ökar?", buttonVal);
+
   // Håller kolla på knapppar och dess Cssregler och skickar tillbaka de booleanskavärdet till FilterButton som ändrar css.
   const [activeFilters, setActiveFilters] = useState<{
     [key: string]: boolean;
@@ -119,50 +125,49 @@ const Menu = () => {
         {/* Visa sjukhusets måltider om ett sjukhus har valts */}
       </p>
       <div className="mx-auto flex items-center flex-wrap w-[95%] sm:w-[90%]">
-        {cardItem.map((item, index) => (
-          <>
-            <div className="flex-wrap w-[100%] sm:w-[50%] md:w-[50%] xl:w-[30%] mx-auto">
-              <Link
-                key={index}
-                to={`/dish/${item.id}`} // Anpassa sökvägen här om nödvändigt
-              >
-                <Card
-                  key={index}
-                  img={item.img}
-                  titel={item.titel}
-                  price={`${item.price}:-`}
-                  divSize={"small"}
-                  imgSize={"small"}
-                  h2Size={"small"}
-                ></Card>
-              </Link>
-              {token === false && (
-                <div>
-                  <div className="flex flex-row justify-center mb-10">
-                    <div className="mr-6">
-                      <Button
-                        type="submit"
-                        appliedColorClass="blue"
-                        appliedSizeClass="small"
-                        onClick={() => navigera(`/adminUpdateDish/${item.id}`)}
-                      >
-                        Uppdatera
-                      </Button>
-                    </div>
-                    <div className="block-inline ml-6">
-                      <Button
-                        type="submit"
-                        appliedColorClass="red"
-                        appliedSizeClass="small"
-                      >
-                        Ta bort
-                      </Button>
-                    </div>
+        {cardItem.map((item) => (
+          <div
+            key={item.id}
+            className="flex-wrap w-[100%] sm:w-[50%] md:w-[50%] xl:w-[30%] mx-auto"
+          >
+            <Link
+              to={`/dish/${item.id}`} // Anpassa sökvägen här om nödvändigt
+            >
+              <Card
+                img={item.img}
+                titel={item.titel}
+                price={`${item.price}:-`}
+                divSize={"small"}
+                imgSize={"small"}
+                h2Size={"small"}
+              ></Card>
+            </Link>
+            {arInloggad === true && (
+              <div>
+                <div className="flex flex-row justify-center mb-10">
+                  <div className="mr-6">
+                    <Button
+                      type="submit"
+                      appliedColorClass="blue"
+                      appliedSizeClass="small"
+                      onClick={() => navigera(`/adminUpdateDish/${item.id}`)}
+                    >
+                      Uppdatera
+                    </Button>
+                  </div>
+                  <div className="block-inline ml-6">
+                    <Button
+                      type="submit"
+                      appliedColorClass="red"
+                      appliedSizeClass="small"
+                    >
+                      Ta bort
+                    </Button>
                   </div>
                 </div>
-              )}
-            </div>
-          </>
+              </div>
+            )}
+          </div>
         ))}
       </div>
       <p

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../button/button";
 import { Dropdown } from "../dropdown/Dropdown";
+import { AuthContext } from "../../context/AuthContext";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +14,38 @@ export const Navbar = () => {
     setLanguage(item);
     console.log(`Selected Language ${language}`);
   };
+
+  const inloggad = useContext(AuthContext);
+
+  // Kontrollera om kontexten är definierad
+  if (!inloggad) {
+    throw new Error("SomeComponent must be used within an AuthProvider");
+  }
+
+  const { setArInloggad, arInloggad } = inloggad;
+
+  const loggout = async () => {
+    const apiUrl = import.meta.env.VITE_API_URL; // API-url
+
+    try {
+      const response = await fetch(`${apiUrl}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include", // Inkludera  http cookies i begäran om dom finns
+      });
+
+      if (response.ok) {
+        const result = await response.json(); // Läs in JSON-svaret
+        console.log(result.message); // Loggar meddelandet "Utloggad vart syns detta"
+        setArInloggad(false);
+      } else {
+        console.error("Utloggning misslyckades.");
+      }
+    } catch (error) {
+      console.error("Något gick fel");
+    }
+  };
+
+  console.log("Ar inloggad:", arInloggad);
 
   return (
     <>
@@ -34,7 +67,17 @@ export const Navbar = () => {
                 className="h-12 mx-auto"
               />
             </Link>
-            <Button appliedColorClass="black">Logga Ut</Button>
+            {arInloggad ? (
+              <Button
+                type="sumbmit"
+                appliedColorClass="black"
+                onClick={() => loggout()}
+              >
+                Logga Ut
+              </Button>
+            ) : (
+              <button></button>
+            )}
           </div>
           <hr className="border-black my-4 w-[90%] mx-auto" />
           <div>
@@ -202,17 +245,22 @@ export const Navbar = () => {
               </Link>
             </li>
             <hr className="border-black" />
-            <li
-              className="w-full text-center"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              <Link
-                to={"/logout"}
-                className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
+            {arInloggad ? (
+              <li
+                className="w-full text-center"
+                onClick={() => setIsOpen(!isOpen)}
               >
-                Logga Ut
-              </Link>
-            </li>
+                <Link
+                  onClick={() => loggout()}
+                  to={"/"}
+                  className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
+                >
+                  Logga Ut
+                </Link>
+              </li>
+            ) : (
+              <></>
+            )}
             <hr className="border-black" />
           </ul>
         </div>
