@@ -95,23 +95,29 @@ export const Navbar = () => {
                   Varukorg
                 </Link>
               </li>
-              <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
-                <Link
-                  to={"/adminStatistics"}
-                  className="block w-full h-full text-center"
-                >
-                  Statestik
-                </Link>
-              </li>
+              {arInloggad ? (
+                <>
+                  <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                    <Link
+                      to={"/adminStatistics"}
+                      className="block w-full h-full text-center"
+                    >
+                      Statestik
+                    </Link>
+                  </li>
 
-              <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
-                <Link
-                  to={"/adminUploadDish"}
-                  className="block w-full h-full text-center"
-                >
-                  Lägg Till Maträtt
-                </Link>
-              </li>
+                  <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                    <Link
+                      to={"/adminUploadDish"}
+                      className="block w-full h-full text-center"
+                    >
+                      Lägg Till Maträtt
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <></>
+              )}
             </ul>
           </div>
         </div>

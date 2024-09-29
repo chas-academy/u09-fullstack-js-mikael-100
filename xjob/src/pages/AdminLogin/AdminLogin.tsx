@@ -88,10 +88,7 @@ const AdminLogin = () => {
       // Försök att parsa svaret som JSON
       const data = await response.json();
       console.log("Svaret från servern:", data); // Logga svaret för felsökning
-      toast.success("Inloggningen lyckades!");
-      setTimeout(() => {
-        navigera("/"); // Navigera till hemsidan
-      }, 5500);
+      navigera("/"); // Navigera till hemsidan
 
       // Ingen token hanteras här eftersom backend redan sätter den i cookies
     } catch (error) {
