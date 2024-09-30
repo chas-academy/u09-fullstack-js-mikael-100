@@ -73,3 +73,21 @@ export const loginAdmin = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// Något som är viktigt är att exsakt samma iställningar som när man skapade cokkien finns när man ska ta bort cookien
+export const logoutAdmin = async (req: Request, res: Response) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true, // Förhindra att cookien nås via JavaScript
+      secure: process.env.NODE_ENV === "production", // Endast över HTTPS i produktion
+      maxAge: 7200000, // 2 timmar i millisekunder
+      sameSite: "none", // För att tillåta cookies i cross-site begärningar (justera efter behov)
+      path: "/", // Gör cookien tillgänglig för hela applikationen
+    });
+
+    return res.status(200).json({ message: "Utloggad vart syns detta" });
+  } catch (err) {
+    console.error("Logout error:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};

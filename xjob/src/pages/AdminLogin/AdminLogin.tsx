@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import TextInput from "../../components/input/input";
 import { Button } from "../../components/button/button";
 import { Dropdown } from "../../components/dropdown/Dropdown";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const AdminLogin = () => {
   interface FormData {
@@ -37,6 +38,15 @@ const AdminLogin = () => {
   };
 
   const navigera = useNavigate();
+
+  // State som håller koll på om användaren är inloggad
+  const authContext = useContext(AuthContext);
+
+  // Kontrollera om authContext är undefined
+  if (!authContext) {
+    return null; // Hantera fallet när kontexten inte är tillgänglig
+  }
+  const { setArInloggad, arInloggad, setAdmin, admin } = authContext;
 
   // Ändra namnet på denna funktion till handleSubmit och ta med eventparameter
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -73,20 +83,27 @@ const AdminLogin = () => {
         throw new Error(errorMessage); // Kasta fel om svaret inte är OK
       }
 
+      // Sätt arInloggad till true
+      setArInloggad(true);
       // Försök att parsa svaret som JSON
       const data = await response.json();
+      // Hantera admin-information
+      if (data.admin) {
+        console.log("Inloggad admin:", data.admin.role);
+        setAdmin(data.admin.role);
+      }
       console.log("Svaret från servern:", data); // Logga svaret för felsökning
-      toast.success("Inloggningen lyckades!");
-      setTimeout(() => {
-        navigera("/"); // Navigera till hemsidan
-      }, 5500);
+      navigera("/"); // Navigera till hemsidan
 
       // Ingen token hanteras här eftersom backend redan sätter den i cookies
     } catch (error) {
       console.error("Det gick inte att hämta data:", error); // Logga eventuella fel
       toast.error("Tyvärr gick det inte att logga in, försök igen!");
+      setArInloggad(false);
     }
   };
+  console.log("Nu är staten satt till inloggad", arInloggad);
+  console.log("Vad är admin nu?", admin);
 
   return (
     <>

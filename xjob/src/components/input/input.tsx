@@ -1,12 +1,12 @@
 interface TextInputProps {
   label: string;
-  value: string;
+  value: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  divStyle: "small" | "medium" | "large";
-  inputStyle: "small" | "medium" | "large";
-  labelStyle: "small" | "medium" | "large";
+  divStyle?: "small" | "medium" | "large";
+  inputStyle?: "small" | "medium" | "large";
+  labelStyle?: "small" | "medium" | "large";
   name: string;
-  required: boolean;
+  required?: boolean;
 }
 
 const divStyleTailwind = {
@@ -23,7 +23,7 @@ const labelStyleTailwind = {
 
 const inputStyleTailwind = {
   small: "border border-black",
-  medium: "",
+  medium: "border border-black",
   large: "",
 };
 
@@ -31,9 +31,9 @@ const TextInput: React.FC<TextInputProps> = ({
   label,
   value,
   onChange,
-  divStyle,
-  inputStyle,
-  labelStyle,
+  divStyle = "small",
+  inputStyle = "small",
+  labelStyle = "small",
   name,
   required,
 }) => {

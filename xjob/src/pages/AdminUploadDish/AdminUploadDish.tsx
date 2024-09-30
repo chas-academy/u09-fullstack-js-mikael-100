@@ -65,14 +65,7 @@ const formFields: FormField[] = [
     inputClassName: " border border-black rounded w-[100%]",
     containerClassName: " w-[100%] h-[10vw] sticky",
   },
-  {
-    name: "Finns I Lager",
-    label: "Finns I Lager",
-    type: "select",
-    options: ["Ja", "Nej"],
-    inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[10vw] sticky",
-  },
+
   {
     name: "Sjukhus",
     label: "Sjukhus",
@@ -147,8 +140,6 @@ const initialValues: FormValues = {
   Info: "",
   Pris: "",
   Antal: "",
-  Alternativ: "",
-  "Finns I Lager": "",
   Sjukhus: "",
   Glutenfri: false,
   Laktosfri: false,
@@ -174,8 +165,7 @@ const validationSchema: ValidationSchema = {
       : isNaN(Number(value))
       ? "Antal must be a number"
       : null,
-  Alternativ: (value) => (!value ? "Is required" : null),
-  "Finns I Lager": (value) => (!value ? "Is required" : null),
+
   Sjukhus: (value) => (!value ? "Is required" : null),
 };
 
