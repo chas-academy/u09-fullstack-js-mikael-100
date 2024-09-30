@@ -8,9 +8,12 @@ interface AuthContextType {
 }
 
 // Skapa kontexten
-export const AuthContext = createContext<AuthContextType | undefined>(
-  undefined
-);
+export const AuthContext = createContext<AuthContextType>({
+  arInloggad: false,
+  setArInloggad: () => {},
+  admin: "",
+  setAdmin: () => {},
+});
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

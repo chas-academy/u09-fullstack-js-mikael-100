@@ -69,29 +69,24 @@ export const createCuisine = async (req: Request, res: Response) => {
   console.log("Request body:", req.body);
   console.log("Request File", req.file);
 
-  // Konvertera price och quantity till nummer
-  // const {
-  //   hospital,
-  //   dish,
-  //   information,
-  //   allergies,
-  //   image,
-  //   price,
-  //   options,
-  //   quantity,
-  // } = req.body;
-
   const hospital = req.body.Sjukhus;
   const dish = req.body.Rubrik;
   const information = req.body.Info;
-  const allergies = [
-    req.body.Glutenfri,
-    req.body.Laktosfri,
-    req.body.Fläskfri,
-    req.body.Vegetarisk,
-    req.body.Mjölkproteinfri,
-    req.body.Vegan,
+  // Array med allerginamn
+  const allergyKeys = [
+    { name: "Glutenfri", value: req.body.Glutenfri },
+    { name: "Laktosfri", value: req.body.Laktosfri },
+    { name: "Fläskfri", value: req.body.Fläskfri },
+    { name: "Vegetarisk", value: req.body.Vegetarisk },
+    { name: "Mjölkproteinfri", value: req.body.Mjölkproteinfri },
+    { name: "Vegan", value: req.body.Vegan },
   ];
+
+  // Filtrera och skapa allergies-arrayen
+  const allergies = allergyKeys
+    .filter((allergy) => allergy.value === "true") // Behåll endast de med värdet 'true'
+    .map((allergy) => allergy.name); // Extrahera namnen på allergierna
+
   const price = req.body.Pris;
   const options = req.body.Alternativ;
   const quantity = req.body.Antal;

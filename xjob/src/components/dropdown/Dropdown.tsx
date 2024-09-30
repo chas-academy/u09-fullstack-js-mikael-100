@@ -4,12 +4,13 @@ import { useState } from "react";
 interface DropdownProps {
   label: string; // Text som visas på dropdown-knappen
   items: string[]; // En array av strängar som representerar dropdown-alternativen
-  onSelect: (item: string) => void; // Callback-funktion som triggas när ett alternativ väljs
+  onSelect: (item: string, key: string) => void; // Callback-funktion som triggas när ett alternativ väljs
   size?: "small" | "medium" | "large"; // Storleken på dropdown-knappen
   color?: "red" | "blue" | "black" | "default"; // Färg för dropdown-knappen
   className?: string; // Extra CSS-klasser som ska läggas till
   dropdownWidth?: "large" | "default";
   name?: string;
+  value?: string;
 }
 
 // Dropdown-komponenten
@@ -21,6 +22,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   color = "default",
   className = "",
   dropdownWidth = "default",
+  value,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -63,7 +65,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         type="button"
         className={`rounded ${appliedSizeClass} ${appliedColorClass} focus:outline-none flex items-center justify-center mt-6`}
       >
-        {label}
+        {value || label}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
