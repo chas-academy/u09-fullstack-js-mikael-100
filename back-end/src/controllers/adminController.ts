@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 //
 
 export const createAdmin = async (req: Request, res: Response) => {
+  console.log("detta är data som kommer till backend", req);
   try {
     const { name, password, hospital, role } = req.body;
     console.log("Lösenordet", password);

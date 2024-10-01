@@ -15,6 +15,7 @@ import Payment from "./pages/Payment/Payment.tsx";
 import Menu from "./pages/Menu/Menu.tsx";
 import { Logout } from "./components/Navbar/Logout/Logout.tsx";
 import AuthProvider from "./context/AuthContext.tsx";
+import AdminAdd from "./pages/AdminAdd/AdminAdd.tsx";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: "adminUploadDish", element: <AdminUploadDish /> },
       { path: "adminStatistics", element: <AdminStatestics /> },
       { path: "logout", element: <Logout /> },
+      { path: "adminAdd", element: <AdminAdd /> },
     ],
   },
 ]);

@@ -23,7 +23,7 @@ const adminSchema = new Schema<IAdmin>({
       "Södra Älvsborgs Sjukhus",
     ],
   },
-  role: { type: String, enum: ["SuperAdmin", "Admin"] },
+  role: { type: String, enum: ["Super Admin", "Admin"] },
 });
 
 // Skapa modellen
