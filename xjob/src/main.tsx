@@ -16,6 +16,7 @@ import Menu from "./pages/Menu/Menu.tsx";
 import { Logout } from "./components/Navbar/Logout/Logout.tsx";
 import AuthProvider from "./context/AuthContext.tsx";
 import AdminAdd from "./pages/AdminAdd/AdminAdd.tsx";
+import AdminList from "./pages/AdminList/AdminList.tsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       { path: "adminStatistics", element: <AdminStatestics /> },
       { path: "logout", element: <Logout /> },
       { path: "adminAdd", element: <AdminAdd /> },
+      { path: "adminList", element: <AdminList /> },
     ],
   },
 ]);

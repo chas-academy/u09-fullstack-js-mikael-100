@@ -22,7 +22,7 @@ export const Navbar = () => {
     throw new Error("SomeComponent must be used within an AuthProvider");
   }
 
-  const { setArInloggad, arInloggad, setAdmin } = inloggad;
+  const { setArInloggad, arInloggad, setAdmin, admin } = inloggad;
 
   const loggout = async () => {
     const apiUrl = import.meta.env.VITE_API_URL; // API-url
@@ -119,14 +119,26 @@ export const Navbar = () => {
               ) : (
                 <></>
               )}
-              <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
-                <Link
-                  to={"/adminAdd"}
-                  className="block w-full h-full text-center"
-                >
-                  Skapa Admin
-                </Link>
-              </li>
+              {admin === "Super Admin" && (
+                <>
+                  <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                    <Link
+                      to={"/adminAdd"}
+                      className="block w-full h-full text-center"
+                    >
+                      Skapa Admin
+                    </Link>
+                  </li>
+                  <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                    <Link
+                      to={"/adminList"}
+                      className="block w-full h-full text-center"
+                    >
+                      Admin Lista
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
@@ -276,17 +288,29 @@ export const Navbar = () => {
             ) : (
               <></>
             )}
-            <hr className="border-black" />
+            {admin === "Super Admin" && (
+              <>
+                <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                  <Link
+                    to={"/adminAdd"}
+                    className="block w-full h-full text-center"
+                  >
+                    Skapa Admin
+                  </Link>
+                </li>
+                <hr className="border-black" />
 
-            <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
-              <Link
-                to={"/adminAdd"}
-                className="block w-full h-full text-center"
-              >
-                Skapa Admin
-              </Link>
-            </li>
-            <hr className="border-black" />
+                <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                  <Link
+                    to={"/adminList"}
+                    className="block w-full h-full text-center"
+                  >
+                    Admin Lista
+                  </Link>
+                </li>
+                <hr className="border-black" />
+              </>
+            )}
           </ul>
         </div>
       </nav>

@@ -1,7 +1,7 @@
 interface TextInputProps {
   label: string;
-  value: string | number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string | number;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   divStyle?: "small" | "medium" | "large";
   inputStyle?: "small" | "medium" | "large";
   labelStyle?: "small" | "medium" | "large";

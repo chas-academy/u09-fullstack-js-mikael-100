@@ -46,7 +46,8 @@ const AdminLogin = () => {
   if (!authContext) {
     return null; // Hantera fallet när kontexten inte är tillgänglig
   }
-  const { setArInloggad, arInloggad, setAdmin, admin } = authContext;
+  const { setArInloggad, arInloggad, setAdmin, admin, setHospital } =
+    authContext;
 
   // Ändra namnet på denna funktion till handleSubmit och ta med eventparameter
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -91,6 +92,9 @@ const AdminLogin = () => {
       if (data.admin) {
         console.log("Inloggad admin:", data.admin.role);
         setAdmin(data.admin.role);
+      }
+      if (data.admin.hospital) {
+        setHospital(data.admin.hospital);
       }
       console.log("Svaret från servern:", data); // Logga svaret för felsökning
       navigera("/"); // Navigera till hemsidan
