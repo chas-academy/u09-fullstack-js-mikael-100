@@ -11,6 +11,7 @@ const AdminUpdateDish = () => {
   const { id } = useParams();
 
   interface dishProp {
+    [key: string]: string | number | string[];
     dish: string;
     hospital: string;
     image: string;
@@ -103,12 +104,15 @@ const AdminUpdateDish = () => {
     "Vegan",
   ];
 
+  const [image, setImage] = useState<File | null>(null);
+
   const imgUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     if (files && files.length > 0) {
       const imageFile = files[0]; // Ta den första filen
       const imageURL = URL.createObjectURL(imageFile); // Skapa en URL för den valda filen
 
+      setImage(imageFile);
       setDish((prev) => ({
         ...prev,
         image: imageURL, // Uppdatera bildens URL
@@ -121,14 +125,29 @@ const AdminUpdateDish = () => {
   const gorEnPut = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const formData = new FormData();
+
+    Object.keys(dish).forEach((key) => {
+      if (key === "image") {
+        return;
+      }
+      const value = dish[key];
+      formData.append(key, value as string);
+    });
+
+    if (image !== null) {
+      formData.append("image", image as File);
+    }
+    for (const [key, value] of formData) {
+      console.log(key, value);
+    }
+
     try {
       const response = await fetch(`${apiURL}/api/cuisines/${id}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+
         credentials: "include",
-        body: JSON.stringify(dish),
+        body: formData,
       });
 
       if (!response.ok) {

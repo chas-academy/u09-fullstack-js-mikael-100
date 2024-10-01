@@ -119,10 +119,16 @@ export const createCuisine = async (req: Request, res: Response) => {
 // Uppdatera rätt
 
 export const updateCuisine = async (req: Request, res: Response) => {
+  console.log(req.body);
+  console.log(req.file);
   try {
+    let updatedCuisine = req.body;
+    if (req.file) {
+      updatedCuisine.image = req.file?.path;
+    }
     const updateCuisine = await Cuisine.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updatedCuisine,
       { new: true }
     );
     if (!updateCuisine)
