@@ -37,7 +37,16 @@ export const createAdmin = async (req: Request, res: Response) => {
 
 export const getAdmins = async (req: Request, res: Response) => {
   try {
-    const admins = await Admin.find();
+    // Hämta hospital från req
+    const hospital = req.query.hospital as string;
+
+    // Skapa en querifråga för sökning med strängen hospital
+    const query: any = {};
+    if (hospital) {
+      query.hospital = hospital;
+    }
+
+    const admins = await Admin.find(query);
     res.status(200).json(admins);
   } catch (error) {
     res.status(500).json({ messsage: "Server error", error });
