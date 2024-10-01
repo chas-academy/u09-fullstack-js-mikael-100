@@ -100,19 +100,19 @@ const Menu = () => {
   // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
 
   // Denna ska föröska känna av om token finns och visa buttons om den finns
-  const [token, setToken] = useState(true);
-  useEffect(() => {
-    // Hämta token från cookies
-    const token = Cookies.get("token");
+  // const [token, setToken] = useState(true);
+  // useEffect(() => {
+  //   // Hämta token från cookies
+  //   const token = Cookies.get("token");
 
-    console.log("Token finns:", token);
-    if (token) {
-      setToken(true);
-      console.log("jarrrå");
-    } else {
-      setToken(false);
-    }
-  }, []); // Lämna arrayen tom för att köra bara en gång vid komponentens montering
+  //   console.log("Token finns:", token);
+  //   if (token) {
+  //     setToken(true);
+  //     console.log("jarrrå");
+  //   } else {
+  //     setToken(false);
+  //   }
+  // }, []); // Lämna arrayen tom för att köra bara en gång vid komponentens montering
 
   const deleteDish = async (dishId: string) => {
     console.log("triggas", dishId);
