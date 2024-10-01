@@ -23,6 +23,10 @@ interface ApiData {
 }
 
 const Menu = () => {
+  // Denna useState används bara för att kunna trigga en ny fetch när man deletar en rätt
+  // Jag behövde på något sätt trigga fetchen för att kunna uppdatera de rätter som finns kvar
+  // Så fetchTick läggs till useEffektens dependenci array
+  const [fetchTick, setFetchTick] = useState(0);
   // För att navigera på sidan
   const navigera = useNavigate();
 
@@ -72,7 +76,7 @@ const Menu = () => {
       setCardItem(simplifiedData);
     };
     fetchData();
-  }, [buttonVal]);
+  }, [buttonVal, fetchTick]);
 
   useEffect(() => {
     // Logga när cardItem uppdateras
@@ -110,6 +114,26 @@ const Menu = () => {
     }
   }, []); // Lämna arrayen tom för att köra bara en gång vid komponentens montering
 
+  const deleteDish = async (dishId: string) => {
+    console.log("triggas", dishId);
+    const apiURL = import.meta.env.VITE_API_URL;
+
+    try {
+      const response = await fetch(`${apiURL}/api/cuisines/${dishId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error("Deleten misslyckades");
+      }
+      const result = await response.json();
+      setFetchTick((prev) => prev + 1);
+
+      console.log("Rätten raderades", result);
+    } catch (error) {
+      console.error("gick ej deleta", error);
+    }
+  };
   return (
     <>
       <FilterButton
@@ -157,9 +181,12 @@ const Menu = () => {
                   </div>
                   <div className="block-inline ml-6">
                     <Button
-                      type="submit"
+                      type="button"
                       appliedColorClass="red"
                       appliedSizeClass="small"
+                      onClick={() => {
+                        deleteDish(item.id);
+                      }}
                     >
                       Ta bort
                     </Button>

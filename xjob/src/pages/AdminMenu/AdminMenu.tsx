@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "../../components/card/card";
 import { Link, useNavigate } from "react-router-dom";
 import FilterButton from "../../components/filterButton/FilterButton";
@@ -100,6 +100,25 @@ const AdminMenu = () => {
     console.log(allCookies);
   }, []); // Lämna arrayen tom för att köra bara en gång vid komponentens montering
 
+  const deleteDish = async (dishId: string) => {
+    console.log("triggas", dishId);
+    const apiURL = import.meta.env.VITE_API_URL;
+
+    try {
+      const response = await fetch(`${apiURL}/api/cuisines/${dishId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error("Deleten misslyckades");
+      }
+      const result = await response.json();
+      console.log("Rätten raderades", result);
+    } catch (error) {
+      console.error("gick ej deleta", error);
+    }
+  };
+
   return (
     <>
       <FilterButton
@@ -146,9 +165,14 @@ const AdminMenu = () => {
                   </div>
                   <div className="block-inline ml-6">
                     <Button
-                      type="submit"
+                      type="button"
                       appliedColorClass="red"
                       appliedSizeClass="small"
+                      onClick={() => {
+                        console.log("Item:", item); // Logga item för att se dess värde
+                        console.log("Deleting dish with ID:", item.id); // Logga ID:t
+                        deleteDish(item.id);
+                      }}
                     >
                       Ta bort
                     </Button>
