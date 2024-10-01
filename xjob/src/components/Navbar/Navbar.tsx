@@ -119,6 +119,14 @@ export const Navbar = () => {
               ) : (
                 <></>
               )}
+              <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                <Link
+                  to={"/adminAdd"}
+                  className="block w-full h-full text-center"
+                >
+                  Skapa Admin
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -268,6 +276,16 @@ export const Navbar = () => {
             ) : (
               <></>
             )}
+            <hr className="border-black" />
+
+            <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+              <Link
+                to={"/adminAdd"}
+                className="block w-full h-full text-center"
+              >
+                Skapa Admin
+              </Link>
+            </li>
             <hr className="border-black" />
           </ul>
         </div>
