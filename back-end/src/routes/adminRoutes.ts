@@ -11,6 +11,6 @@ const adminRouter = Router();
 adminRouter.post("/", createAdmin);
 adminRouter.get("/", getAdmins);
 adminRouter.put("/:id", updateAdmin);
-adminRouter.post("/:id", deleteAdmin);
+adminRouter.delete("/:id", deleteAdmin);
 
 export default adminRouter;

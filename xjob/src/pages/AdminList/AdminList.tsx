@@ -4,7 +4,7 @@ import { Button } from "../../components/button/button";
 import { AuthContext } from "../../context/AuthContext";
 
 interface Admin {
-  id: string;
+  _id: string;
   hospital: string;
   name: string;
   role: string;
@@ -44,6 +44,34 @@ const AdminList = () => {
     };
     hamtaData();
   }, []);
+
+  const deleteAdmin = async (id: string) => {
+    console.log("detta är idet", id);
+    try {
+      const response = await fetch(`${apiURL}/api/admins/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Något fick fel i fetchen ${errorMessage}`);
+      }
+      const data = await response.json();
+      console.log("Admin Deleted", data);
+      // Denna filter används för att filtrera uppdaterade användare som finns kvar
+      // istället för att göra ett useState och en counter och lägga den i dependenciarrayen
+      // Detta sätt gör att du inte behöver göra en ny fetch för att uppdatera frontenden.
+      const newAdminList = hamtadData.filter((admin) => {
+        if (admin._id !== id) {
+          return admin;
+        }
+      });
+      setHamtadData(newAdminList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="flex justify-center mb-10">
@@ -51,7 +79,7 @@ const AdminList = () => {
           {hamtadData.length > 0 ? (
             hamtadData.map((item) => (
               <>
-                <div key={item.id}>
+                <div key={item._id}>
                   <div className="flex justify-center items-center grid grid-cols-4 gap-4 p-5">
                     <div className="flex justify-center">
                       <p>{item.name}</p>
@@ -67,6 +95,7 @@ const AdminList = () => {
                         type="submit"
                         appliedColorClass="red"
                         appliedSizeClass="medium"
+                        onClick={() => deleteAdmin(item._id)}
                       >
                         Delete
                       </Button>

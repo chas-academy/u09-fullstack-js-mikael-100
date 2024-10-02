@@ -7,8 +7,6 @@ interface OrderArray {
   _id: string;
 }
 
-// ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
-
 // Gör om och gör klart en generell komonent som får fram alla ordrar
 
 interface Orders {
@@ -18,7 +16,7 @@ interface Orders {
   Hospital: string;
   PhoneNumber: string;
   createdAt: string;
-  orders: OrderArray[];
+  Orders: OrderArray[];
 }
 
 const AdminInkomnaOrdrar = () => {
@@ -44,21 +42,16 @@ const AdminInkomnaOrdrar = () => {
     hamtaData();
   }, []);
 
-  console.log("detta är datan", hamtadData);
+  //   console.log("detta är datan", hamtadData[0].Orders[0].dish);
 
   return (
     <>
       {hamtadData.length > 0 &&
-        hamtadData.map((order) => (
-          <div key={order.PhoneNumber}>
-            <p>{order.FirstName}</p>
-            <p>{order.createdAt}</p>
-          </div>
-          //   <GeneralCard
-          //     key={order} // Använd ett unikt ID som key
-          //     data={order} // Skicka ordern som data
-          //     titleFields={Object.keys(order)} // Dynamiskt hämta nycklar som titleFields
-          //   />
+        hamtadData.map((data) => (
+          <GeneralCard
+            key={data.Orders[0]._id} // Använd ett unikt ID som key
+            order={data}
+          />
         ))}
     </>
   );
