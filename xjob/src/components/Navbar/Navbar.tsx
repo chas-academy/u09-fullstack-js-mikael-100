@@ -115,6 +115,14 @@ export const Navbar = () => {
                       Lägg Till Maträtt
                     </Link>
                   </li>
+                  <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                    <Link
+                      to={"/adminInkomnaOrdrar"}
+                      className="block w-full h-full text-center"
+                    >
+                      Inkomna Ordrar
+                    </Link>
+                  </li>
                 </>
               ) : (
                 <></>
@@ -273,18 +281,32 @@ export const Navbar = () => {
             </li>
             <hr className="border-black" />
             {arInloggad ? (
-              <li
-                className="w-full text-center"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                <Link
-                  onClick={() => loggout()}
-                  to={"/"}
-                  className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
+              <>
+                <li
+                  className="w-full text-center"
+                  onClick={() => setIsOpen(!isOpen)}
                 >
-                  Logga Ut
-                </Link>
-              </li>
+                  <Link
+                    onClick={() => loggout()}
+                    to={"/"}
+                    className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
+                  >
+                    Logga Ut
+                  </Link>
+                </li>
+                <li
+                  className="w-full text-center"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <Link
+                    onClick={() => loggout()}
+                    to={"/adminInkomnaOrdrar"}
+                    className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
+                  >
+                    Inkomna Ordrar
+                  </Link>
+                </li>
+              </>
             ) : (
               <></>
             )}

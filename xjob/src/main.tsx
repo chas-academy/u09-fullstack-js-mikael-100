@@ -17,6 +17,7 @@ import { Logout } from "./components/Navbar/Logout/Logout.tsx";
 import AuthProvider from "./context/AuthContext.tsx";
 import AdminAdd from "./pages/AdminAdd/AdminAdd.tsx";
 import AdminList from "./pages/AdminList/AdminList.tsx";
+import AdminInkomnaOrdrar from "./pages/AdminInkomnaOrdrar/AdminInkomnaOrdrar.tsx";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
       { path: "logout", element: <Logout /> },
       { path: "adminAdd", element: <AdminAdd /> },
       { path: "adminList", element: <AdminList /> },
+      { path: "adminInkomnaOrdrar", element: <AdminInkomnaOrdrar /> },
     ],
   },
 ]);

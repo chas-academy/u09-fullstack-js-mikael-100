@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from "react";
 
 interface ButtonProps {
   appliedSizeClass?: "small" | "medium" | "large";
-  appliedColorClass?: "red" | "blue" | "black" | "default";
+  appliedColorClass?: "red" | "blue" | "black" | "default" | "green";
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
   children?: React.ReactNode;
   className?: string;
@@ -12,6 +12,8 @@ interface ButtonProps {
 const colorClasses = {
   red: "bg-red-500 text-white border-red-500 hover:bg-red-700 hover:border-red-700",
   blue: "bg-knapp-bla text-white hover:bg-black",
+  green: "bg-knapp-gron text-white hover:bg-black",
+
   black:
     "bg-white text-black border-black hover:bg-black hover:text-white duration-500",
   default:

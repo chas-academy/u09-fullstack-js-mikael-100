@@ -44,6 +44,7 @@ export const getAdmins = async (req: Request, res: Response) => {
     const query: any = {};
     if (hospital) {
       query.hospital = hospital;
+      query.role = "Admin";
     }
 
     const admins = await Admin.find(query);
@@ -74,6 +75,8 @@ export const updateAdmin = async (req: Request, res: Response) => {
 
 export const deleteAdmin = async (req: Request, res: Response) => {
   const { id } = req.params;
+  console.log("ID from frontend:", id);
+  console.log("Request params:", req.params);
 
   try {
     const admin = await Admin.findByIdAndDelete(id);
