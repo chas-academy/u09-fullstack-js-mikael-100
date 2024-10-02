@@ -2,10 +2,39 @@ import { Request, Response } from "express";
 import Order from "../models/Order";
 
 // Hämta alla Order
+interface OrderQuery {
+  Status: string;
+  Hospital?: string;
+}
 
 export const getAllOrders = async (req: Request, res: Response) => {
   try {
-    const order = await Order.find();
+    const query: OrderQuery = {
+      Status: "pending",
+      Hospital: "",
+    };
+
+    const { Hospital } = req.query;
+
+    // Typkontroll och hantering av Hospital
+    if (typeof Hospital === "string") {
+      // Kontrollera att det är en sträng
+      query.Hospital = decodeURIComponent(Hospital); // Dekoda strängen om nödvändigt
+    }
+
+    // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
+    //  Jag lade in denna för jag antar att du kommer skicka status genom param till backend
+
+    const { Status } = req.params;
+
+    // // Typkontroll och hantering av Hospital
+    if (Status === "Approved") {
+      // Kontrollera att det är en sträng
+      query.Status = decodeURIComponent(Status); // Dekoda strängen om nödvändigt
+    }
+    // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
+
+    const order = await Order.find(query);
     res.json(order);
   } catch (error) {
     res.status(500).json({ message: (error as any).message });

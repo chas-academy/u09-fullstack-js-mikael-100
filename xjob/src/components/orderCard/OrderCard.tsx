@@ -21,8 +21,10 @@ interface Orders {
 
 interface orderProp {
   order: Orders;
+  onApprove: (orderId: string) => void;
+  onPrint: (orderId: string) => void;
 }
-const GeneralCard: React.FC<orderProp> = ({ order }) => {
+const GeneralCard: React.FC<orderProp> = ({ order, onApprove, onPrint }) => {
   return (
     <div className="flex justify-center mb-5">
       <div className="border p-4 rounded-md shadow-md font-roboto w-[100%] sm:w-[60%] md:w-[50%] lg:w-[40%]">
@@ -53,10 +55,20 @@ const GeneralCard: React.FC<orderProp> = ({ order }) => {
           ))}
         </div>
         <div className="flex justify-center justify-between">
-          <Button type="" appliedColorClass="blue" appliedSizeClass="medium">
+          <Button
+            onClick={() => onPrint(order.Orders[0]._id)}
+            type=""
+            appliedColorClass="blue"
+            appliedSizeClass="medium"
+          >
             Skriv Ut
           </Button>
-          <Button type="" appliedColorClass="green" appliedSizeClass="medium">
+          <Button
+            onClick={() => onApprove(order.Orders[0]._id)}
+            type=""
+            appliedColorClass="green"
+            appliedSizeClass="medium"
+          >
             Skickad
           </Button>
         </div>

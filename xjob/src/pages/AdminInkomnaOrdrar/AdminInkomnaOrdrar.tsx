@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import GeneralCard from "../../components/orderCard/OrderCard";
+import { AuthContext } from "../../context/AuthContext";
 
 interface OrderArray {
   dish: string;
@@ -22,14 +23,25 @@ interface Orders {
 const AdminInkomnaOrdrar = () => {
   const [hamtadData, setHamtadData] = useState<Orders[]>([]);
 
+  // Använder useContext för att hämta värden och funktioner från AuthContext
+  const inloggadeVarde = useContext(AuthContext);
+  // Destruktuerar variabeln hospital från inloggadeVarde
+  const { hospital } = inloggadeVarde;
+
   useEffect(() => {
     const apiURL = import.meta.env.VITE_API_URL;
+    console.log("qqqqqqqq", hospital);
     const hamtaData = async () => {
       try {
-        const response = await fetch(`${apiURL}/api/orders`, {
-          method: "GET",
-          credentials: "include",
-        });
+        const response = await fetch(
+          // Använder encodeURIComponent() för att se till att backenden kan läsa variabeln
+          // Om det tex finns mellanslag eller Ö,Ä
+          `${apiURL}/api/orders?Hospital=${encodeURIComponent(hospital)}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
         if (!response.ok) {
           throw new Error("Något gick fel med hämtningen");
         }
@@ -42,15 +54,22 @@ const AdminInkomnaOrdrar = () => {
     hamtaData();
   }, []);
 
-  //   console.log("detta är datan", hamtadData[0].Orders[0].dish);
+  const approveOrder = () => {
+    console.log("Godkänn order");
+  };
 
+  const printOrder = () => {
+    console.log("Printa order");
+  };
   return (
     <>
       {hamtadData.length > 0 &&
         hamtadData.map((data) => (
           <GeneralCard
-            key={data.Orders[0]._id} // Använd ett unikt ID som key
+            key={data.Orders[0]._id}
             order={data}
+            onApprove={approveOrder}
+            onPrint={printOrder}
           />
         ))}
     </>
