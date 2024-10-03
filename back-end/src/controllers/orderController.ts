@@ -8,38 +8,97 @@ interface OrderQuery {
 }
 
 export const getAllOrders = async (req: Request, res: Response) => {
+  const Status = req.query.Status;
+  const { Hospital } = req.query;
+
   try {
     const query: OrderQuery = {
-      Status: "pending",
       Hospital: "",
+      Status: "",
     };
-
-    const { Hospital } = req.query;
 
     // Typkontroll och hantering av Hospital
     if (typeof Hospital === "string") {
-      // Kontrollera att det är en sträng
       query.Hospital = decodeURIComponent(Hospital); // Dekoda strängen om nödvändigt
     }
 
-    // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
-    //  Jag lade in denna för jag antar att du kommer skicka status genom param till backend
-
-    const { Status } = req.params;
-
-    // // Typkontroll och hantering av Hospital
+    // Kontrollera Status
     if (Status === "Approved") {
-      // Kontrollera att det är en sträng
-      query.Status = decodeURIComponent(Status); // Dekoda strängen om nödvändigt
+      query.Status = Status; // Sök efter ordrar med status "Approved"
+    } else if (Status === "pending") {
+      query.Status = Status; // Sök efter ordrar med status "pending" om Status är tom
     }
-    // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
 
     const order = await Order.find(query);
-    res.json(order);
+    console.log("Query sent to database:", query); // Logga den skickade frågan
+    console.log("Found Orders:", order); // Logga de hittade beställningarna
+    res.json(order); // Skicka tillbaka ordrarna som JSON
   } catch (error) {
     res.status(500).json({ message: (error as any).message });
   }
 };
+
+// export const getAllOrders = async (req: Request, res: Response) => {
+//   const Status = req.query.Status;
+
+//   console.log("sss", Status);
+//   try {
+//     const query: OrderQuery = {
+//       Status: "pending",
+//       Hospital: "",
+//     };
+
+//     const { Hospital, Status } = req.query;
+
+//     // Typkontroll och hantering av Hospital
+//     if (typeof Hospital === "string") {
+//       // Kontrollera att det är en sträng
+//       query.Hospital = decodeURIComponent(Hospital); // Dekoda strängen om nödvändigt
+//     }
+
+//     // // Typkontroll och hantering av Hospital
+//     if (Status === "Approved") {
+//       // Kontrollera att det är en sträng
+//       query.Status = decodeURIComponent(Status); // Dekoda strängen om nödvändigt
+//     }
+
+//     const order = await Order.find(query);
+//     res.json(order);
+//   } catch (error) {
+//     res.status(500).json({ message: (error as any).message });
+//   }
+// };
+
+// export const getAllOrders = async (req: Request, res: Response) => {
+//   const Status = req.query.Status;
+
+//   const { Hospital } = req.query;
+
+//   try {
+//     const query: OrderQuery = {
+//       Status: "pending",
+//       Hospital: "",
+//     };
+
+//     // Typkontroll och hantering av Hospital
+//     if (typeof Hospital === "string") {
+//       // Kontrollera att det är en sträng
+//       query.Hospital = decodeURIComponent(Hospital); // Dekoda strängen om nödvändigt
+//     }
+
+//     // // Typkontroll och hantering av Hospital
+//     if (Status === "Approved") {
+//       // Kontrollera att det är en sträng
+//       query.Status = Status;
+//     }
+
+//     const order = await Order.find(query);
+//     console.log("Query sent to database:", query); // Logga den skickade frågan
+//     console.log("Found Orders:", order); // Logga de hittade beställningarna    res.json(order);
+//   } catch (error) {
+//     res.status(500).json({ message: (error as any).message });
+//   }
+// };
 
 // Hämta en specifik Order
 
@@ -100,15 +159,27 @@ export const createOrder = async (req: Request, res: Response) => {
 // Uppdatera Order
 
 export const updateOrder = async (req: Request, res: Response) => {
+  const id = req.params.id; // Hämta ID från params
+  const { Status } = req.body; // Hämta status från request body
+  console.log("Order ID:", id);
+  console.log("New Status:", Status);
+
   try {
-    const updateOrder = await Order.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    if (!updateOrder)
+    // Använd findByIdAndUpdate för att uppdatera Status direkt
+    const updatedOrder = await Order.findByIdAndUpdate(
+      id, // Använd ID direkt för att söka efter ordern
+      { $set: { Status } }, // Använd $set för att uppdatera Status
+      { new: true } // Returnera den uppdaterade ordern
+    );
+
+    if (!updatedOrder) {
+      console.log("No order found with the provided ID");
       return res.status(404).json({ message: "Order not found" });
-    res.json(updateOrder);
+    }
+
+    return res.json(updatedOrder); // Returnera den uppdaterade ordern
   } catch (error) {
-    res.json(404).json({ message: error as any });
+    return res.status(500).json({ message: error }); // Använd felmeddelandet för mer information
   }
 };
 

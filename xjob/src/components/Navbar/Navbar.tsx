@@ -123,6 +123,14 @@ export const Navbar = () => {
                       Inkomna Ordrar
                     </Link>
                   </li>
+                  <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                    <Link
+                      to={"/adminLevereradeOrdrarList"}
+                      className="block w-full h-full text-center"
+                    >
+                      Levererade Ordrar
+                    </Link>
+                  </li>
                 </>
               ) : (
                 <></>
@@ -304,6 +312,18 @@ export const Navbar = () => {
                     className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
                   >
                     Inkomna Ordrar
+                  </Link>
+                </li>
+                <li
+                  className="w-full text-center"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <Link
+                    onClick={() => loggout()}
+                    to={"/adminLevereradeOrdrarList"}
+                    className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
+                  >
+                    Levererade Ordrar
                   </Link>
                 </li>
               </>
