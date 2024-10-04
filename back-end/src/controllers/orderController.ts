@@ -11,6 +11,9 @@ export const getAllOrders = async (req: Request, res: Response) => {
   const Status = req.query.Status;
   const { Hospital } = req.query;
 
+  console.log("Hospital:", Hospital);
+  console.log("Status:", Status);
+
   try {
     const query: OrderQuery = {
       Hospital: "",
@@ -30,6 +33,14 @@ export const getAllOrders = async (req: Request, res: Response) => {
     }
 
     const order = await Order.find(query);
+    // // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
+
+    // if (order.length === 0) {
+    //   // Om inga ordrar hittades, returnera en specifik status och meddelande
+    //   return res.status(404).json({ message: "Inga ordrar hittades." });
+    // }
+    // // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
+
     console.log("Query sent to database:", query); // Logga den skickade frågan
     console.log("Found Orders:", order); // Logga de hittade beställningarna
     res.json(order); // Skicka tillbaka ordrarna som JSON
@@ -161,8 +172,8 @@ export const createOrder = async (req: Request, res: Response) => {
 export const updateOrder = async (req: Request, res: Response) => {
   const id = req.params.id; // Hämta ID från params
   const { Status } = req.body; // Hämta status från request body
-  console.log("Order ID:", id);
-  console.log("New Status:", Status);
+  // console.log("Order ID:", id);
+  // console.log("New Status:", Status);
 
   try {
     // Använd findByIdAndUpdate för att uppdatera Status direkt
@@ -178,8 +189,9 @@ export const updateOrder = async (req: Request, res: Response) => {
     }
 
     return res.json(updatedOrder); // Returnera den uppdaterade ordern
-  } catch (error) {
-    return res.status(500).json({ message: error }); // Använd felmeddelandet för mer information
+  } catch (error: any) {
+    console.error("Error updating order:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
