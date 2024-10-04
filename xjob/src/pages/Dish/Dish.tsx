@@ -98,6 +98,7 @@ const Dish = () => {
               appliedColorClass="blue"
               appliedSizeClass="large"
               onClick={() => skickaVardenTillStorePaSubmit()} // Använd en anonym funktion för att anropa handleChange
+              type={""}
             >
               Beställ
             </Button>
