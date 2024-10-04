@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import GeneralCard from "../../components/orderCard/OrderCard";
 
 const AdminLevereradeOrdrarList = () => {
   const hamtaHospital = useContext(AuthContext);
@@ -41,7 +42,15 @@ const AdminLevereradeOrdrarList = () => {
     console.log(data, "setsakerna"); // Logga data här när det ändras
   }, [data]); // Endast kör när data ändras
 
-  return <>HEj</>;
+  return (
+    <>
+      {data.length > 0 &&
+        data
+          .slice()
+          .reverse()
+          .map((data) => <GeneralCard key={data} order={data}></GeneralCard>)}
+    </>
+  );
 };
 
 export default AdminLevereradeOrdrarList;

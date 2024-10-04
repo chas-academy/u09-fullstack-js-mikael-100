@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import GeneralCard from "../../components/orderCard/OrderCard";
 import { AuthContext } from "../../context/AuthContext";
+import { Button } from "../../components/button/button";
 
 interface OrderArray {
   dish: string;
@@ -160,17 +161,51 @@ const AdminInkomnaOrdrar = () => {
     }
   };
 
+  // function onApprove(_id: any): void {
+  //   throw new Error("Function not implemented.");
+  // }
+
   return (
     <>
-      {hamtadData.length > 0 &&
-        hamtadData.map((data) => (
-          <GeneralCard
-            key={data.Orders[0]._id}
-            order={data}
-            onApprove={() => approveOrder(data._id)}
-            onPrint={(order) => printOrder(order)}
-          />
-        ))}
+      <div>
+        {hamtadData.length > 0 &&
+          hamtadData
+            .slice()
+            .reverse()
+            .map((data) => (
+              <>
+                <div className="flex-col bg-white">
+                  <GeneralCard
+                    key={data.Orders[0]._id}
+                    order={data}
+                    // onApprove={() => approveOrder(data._id)}
+                    // onPrint={(order) => printOrder(order)}
+                  />
+                  <div className="flex justify-center space-x-10 mb-5">
+                    <Button
+                      onClick={() => printOrder(data)}
+                      type=""
+                      appliedColorClass="blue"
+                      appliedSizeClass="medium"
+                    >
+                      Skriv Ut
+                    </Button>
+                    <Button
+                      onClick={() => approveOrder(data._id)}
+                      type=""
+                      appliedColorClass="green"
+                      appliedSizeClass="medium"
+                    >
+                      Skickad
+                    </Button>
+                  </div>
+                  <div className="flex justify-center mb-20">
+                    {/* <hr className="border-black w-[50%]" /> */}
+                  </div>
+                </div>
+              </>
+            ))}
+      </div>
     </>
   );
 };

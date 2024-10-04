@@ -22,15 +22,10 @@ interface Orders {
 
 interface orderProp {
   order: Orders;
-  onApprove: (orderId: string) => void;
-  onPrint: (order: Orders) => void;
+  // onApprove?: (orderId: string) => void;
+  // onPrint?: (order: Orders) => void;
 }
-const GeneralCard: React.FC<orderProp> = ({
-  order,
-  onApprove,
-  onPrint,
-  _id,
-}) => {
+const GeneralCard: React.FC<orderProp> = ({ order, onApprove, onPrint }) => {
   return (
     <div className="flex justify-center mb-5">
       <div className="border p-4 rounded-md shadow-md font-roboto w-[100%] sm:w-[60%] md:w-[50%] lg:w-[40%]">
@@ -60,7 +55,7 @@ const GeneralCard: React.FC<orderProp> = ({
             </div>
           ))}
         </div>
-        <div className="flex justify-center justify-between">
+        {/* <div className="flex justify-center justify-between">
           <Button
             onClick={() => onPrint(order)}
             type=""
@@ -77,7 +72,7 @@ const GeneralCard: React.FC<orderProp> = ({
           >
             Skickad
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
