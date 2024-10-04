@@ -18,6 +18,7 @@ const AdminLevereradeOrdrarList = () => {
           {
             method: "GET",
             // credentials: "include",
+            //
           }
         );
         if (!response.ok) {
