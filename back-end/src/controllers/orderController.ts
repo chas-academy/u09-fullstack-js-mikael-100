@@ -3,7 +3,7 @@ import Order from "../models/Order";
 
 // Hämta alla Order
 interface OrderQuery {
-  Status: string;
+  Status: string | string[];
   Hospital?: string;
 }
 
@@ -32,14 +32,11 @@ export const getAllOrders = async (req: Request, res: Response) => {
       query.Status = Status; // Sök efter ordrar med status "pending" om Status är tom
     }
 
-    const order = await Order.find(query);
-    // // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
+    if (!Status) {
+      query.Status = ["Approved", "Pending"];
+    }
 
-    // if (order.length === 0) {
-    //   // Om inga ordrar hittades, returnera en specifik status och meddelande
-    //   return res.status(404).json({ message: "Inga ordrar hittades." });
-    // }
-    // // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
+    const order = await Order.find(query);
 
     console.log("Query sent to database:", query); // Logga den skickade frågan
     console.log("Found Orders:", order); // Logga de hittade beställningarna
