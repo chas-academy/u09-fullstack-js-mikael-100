@@ -8,6 +8,7 @@ export interface IOrder extends Document {
   PhoneNumber: string;
   Department: string;
   Orders: { dish: string; amount: number }[];
+  Status: string;
 }
 
 // Definiera ett gränssnitt för orderdetaljer
@@ -35,6 +36,7 @@ const OrderSchema: Schema<IOrder> = new Schema({
       amount: { type: Number, required: true, min: 1 },
     },
   ],
+  Status: { type: String, default: "pending" },
 });
 
 const Order = mongoose.model<IOrder>("Order", OrderSchema, "orders");

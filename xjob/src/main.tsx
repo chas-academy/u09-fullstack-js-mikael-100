@@ -18,6 +18,7 @@ import AuthProvider from "./context/AuthContext.tsx";
 import AdminAdd from "./pages/AdminAdd/AdminAdd.tsx";
 import AdminList from "./pages/AdminList/AdminList.tsx";
 import AdminInkomnaOrdrar from "./pages/AdminInkomnaOrdrar/AdminInkomnaOrdrar.tsx";
+import AdminLevereradeOrdrarList from "./pages/AdminLevereradeOrdrarList/AdminLevereradeOrdrarList.tsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       { path: "adminAdd", element: <AdminAdd /> },
       { path: "adminList", element: <AdminList /> },
       { path: "adminInkomnaOrdrar", element: <AdminInkomnaOrdrar /> },
+      {
+        path: "adminLevereradeOrdrarList",
+        element: <AdminLevereradeOrdrarList />,
+      },
     ],
   },
 ]);
