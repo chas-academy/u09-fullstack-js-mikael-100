@@ -3,16 +3,18 @@ import Order from "../models/Order";
 
 // Hämta alla Order
 interface OrderQuery {
-  Status: string;
+  Status: string | string[];
   Hospital?: string;
 }
 
 export const getAllOrders = async (req: Request, res: Response) => {
   const Status = req.query.Status;
-  const { Hospital } = req.query;
+  const { Hospital, StartDate, EndDate } = req.query;
 
   console.log("Hospital:", Hospital);
   console.log("Status:", Status);
+  console.log("StartDate:", StartDate);
+  console.log("EndDate:", EndDate);
 
   try {
     const query: OrderQuery = {
@@ -32,14 +34,41 @@ export const getAllOrders = async (req: Request, res: Response) => {
       query.Status = Status; // Sök efter ordrar med status "pending" om Status är tom
     }
 
-    const order = await Order.find(query);
-    // // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
+    if (!Status) {
+      query.Status = ["Approved", "Pending"];
+    }
 
-    // if (order.length === 0) {
-    //   // Om inga ordrar hittades, returnera en specifik status och meddelande
-    //   return res.status(404).json({ message: "Inga ordrar hittades." });
-    // }
-    // // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
+    // Denna if söker efter valda datum från allmenackan på statestiksidan
+    // För att få fram rätt data skickas datum och hospital in för att få fram rätt ordrar från rätt sjukhus vis rätt tid
+    if (
+      typeof StartDate === "string" &&
+      typeof EndDate === "string" &&
+      typeof Hospital === "string"
+    ) {
+      const decodedHospital = decodeURIComponent(Hospital); // Dekoda strängen om nödvändigt
+
+      // Här omvandlas datumen jag skickar från front end till samma format som createdAt i databasen för att kunna göra sökning
+      // Det är viktigt att datumsträngen följer ett giltigt format (t.ex. ISO 8601). Om StartDate eller EndDate inte är i ett korrekt format kan det leda till ogiltiga datum.
+      const startDate = new Date(StartDate);
+      const endDate = new Date(EndDate);
+
+      const orders = await Order.find({
+        // Här deffineras createdAt för att söka från rätt rad i databasen
+        createdAt: {
+          // $gte (greater than or equal to) och $lt (less than) används tillsammans i query för att skapa ett intervall
+          $gte: startDate,
+          // Genom att lägga till 86400000 (antalet millisekunder i en dag) till endDate (t.ex. "2024-10-03") får du ett datum som representerar midnatt den 4 oktober.
+          // så detta är bara att ta de endatet som kommer in och göra så att det blir midnatt på de endatet
+          $lt: new Date(endDate.getTime() + 86400000),
+        },
+        // Hospital skickas med i denna queri för att enbart få försäljningen på det sjukhus som användaren loggar in ifrån
+        Hospital: decodedHospital, // Inkludera dekodad Hospital i frågan
+      });
+      console.log("detta hittades", orders);
+      return res.json(orders);
+    }
+
+    const order = await Order.find(query);
 
     console.log("Query sent to database:", query); // Logga den skickade frågan
     console.log("Found Orders:", order); // Logga de hittade beställningarna

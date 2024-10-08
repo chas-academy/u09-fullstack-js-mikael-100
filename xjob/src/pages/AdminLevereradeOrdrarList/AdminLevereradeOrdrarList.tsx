@@ -18,7 +18,7 @@ const AdminLevereradeOrdrarList = () => {
           )}`,
           {
             method: "GET",
-            // credentials: "include",
+            credentials: "include",
             //
           }
         );
