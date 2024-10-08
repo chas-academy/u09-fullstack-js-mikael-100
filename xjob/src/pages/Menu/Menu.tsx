@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import FilterButton from "../../components/filterButton/FilterButton";
 import { useVarukorgStore } from "../../stores/varukorgStore";
 import { Button } from "../../components/button/button";
-import Cookies from "js-cookie";
 import { AuthContext } from "../../context/AuthContext";
 
 // const inloggad =

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "../../components/card/card";
 import { Link, useNavigate } from "react-router-dom";
 import FilterButton from "../../components/filterButton/FilterButton";

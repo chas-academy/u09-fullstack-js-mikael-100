@@ -138,6 +138,7 @@ const ShoppingCart = () => {
               amount={`Antal: ${item.amount}`}
             />
             <Button
+              type="button"
               appliedColorClass="red"
               appliedSizeClass="small"
               onClick={() => item._id && removeDish(item._id)}
@@ -158,6 +159,7 @@ const ShoppingCart = () => {
         <>
           <div className="mb-4">
             <Button
+              type="button"
               appliedColorClass="blue"
               appliedSizeClass="large"
               onClick={() =>

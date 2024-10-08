@@ -53,6 +53,7 @@ const Home = () => {
         dropdownWidth="large"
       ></Dropdown>
       <Button
+        type="button"
         appliedColorClass="blue"
         appliedSizeClass="large"
         className="mt-4"

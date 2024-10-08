@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "../button/button";
 
 interface OrderArray {
   dish: string;
@@ -25,7 +24,7 @@ interface orderProp {
   // onApprove?: (orderId: string) => void;
   // onPrint?: (order: Orders) => void;
 }
-const GeneralCard: React.FC<orderProp> = ({ order, onApprove, onPrint }) => {
+const GeneralCard: React.FC<orderProp> = ({ order }) => {
   return (
     <div className="flex justify-center mb-5">
       <div className="border p-4 rounded-md shadow-md font-roboto w-[100%] sm:w-[60%] md:w-[50%] lg:w-[40%]">

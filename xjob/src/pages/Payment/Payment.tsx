@@ -151,6 +151,7 @@ const Payment = () => {
             </div>
             <p className="font-roboto text-center mt-3">{`Att betala: ${totalPris}:-`}</p>
             <Button
+              type="button"
               appliedColorClass="blue"
               appliedSizeClass="medium"
               className="mt-4 mb-4"
