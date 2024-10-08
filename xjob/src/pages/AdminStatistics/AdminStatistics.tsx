@@ -8,8 +8,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Card } from "../../components/card/card";
-import DatePicker from "react-datepicker";
+import { Button } from "../../components/button/button";
 
 const AdminStatestics = () => {
   const apiURL = import.meta.env.VITE_API_URL;
@@ -26,7 +25,8 @@ const AdminStatestics = () => {
     createdAt: string;
   }
 
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
 
   const [data, setData] = useState<dataInterface[]>([]);
 
@@ -101,70 +101,164 @@ const AdminStatestics = () => {
     setFilterData(formateradData); // Sätt de filtrerade ordrarna i filterData
   }, [data]);
 
+  const handleClick = async () => {
+    const apiURL = import.meta.env.VITE_API_URL;
+    console.log("denna loggas");
+    try {
+      const response = await fetch(
+        `${apiURL}/api/orders?Hospital=${encodeURIComponent(
+          hospital
+        )}&StartDate=${startDate}&EndDate=${endDate}`
+      );
+      if (!response.ok) {
+        throw new Error("någor gick fl vid hämtning");
+      }
+
+      const data = await response.json();
+      console.log("detta hittades med datum", data);
+
+      setData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    console.log("ee6666666666", filterData);
-  }, [filterData]);
+    console.log("ee6666666666", data);
+  }, [data]);
 
   return (
     <>
-      <div className="flex flex-row justify-center font-roboto mt-10">
-        <div className="flex flex-row  space-x-20  rounded p-10">
-          <div className="flex flex-col">
-            <label className="text-center font-bold" htmlFor="start">
-              Från
-            </label>
-            <input type="date" id="start" />
+      {filterData && filterData?.length === 0 ? (
+        <div>
+          <div>
+            <div>
+              <div className="flex flex-row justify-center font-roboto mt-10">
+                <div className="flex flex-row  space-x-20  rounded p-10">
+                  <div className="flex flex-col">
+                    <label className="text-center font-bold" htmlFor="start">
+                      Från
+                    </label>
+                    <input
+                      type="date"
+                      id="start"
+                      onChange={(e) => setStartDate(e.target.value)}
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label className="text-center font-bold" htmlFor="end">
+                      Till
+                    </label>
+                    <input
+                      type="date"
+                      id="end"
+                      onChange={(e) => setEndDate(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="mb-7">
+                <Button
+                  type="button"
+                  appliedColorClass="blue"
+                  appliedSizeClass="medium"
+                  onClick={handleClick}
+                >
+                  Se Försäljning
+                </Button>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <label className="text-center font-bold" htmlFor="end">
-              Till
-            </label>
-            <input type="date" id="end" />
+          <div className="p-10 mt-10 mb-20">
+            <p className="text-center font-roboto font-bold">
+              Ingen statestik finns för denna period
+            </p>
           </div>
         </div>
-      </div>
-      <div className="flex justify-center">
-        <hr className="border-black w-[60%]" />
-      </div>
+      ) : (
+        <div>
+          <div>
+            <div className="flex flex-row justify-center font-roboto mt-10">
+              <div className="flex flex-row  space-x-20  rounded p-10">
+                <div className="flex flex-col">
+                  <label className="text-center font-bold" htmlFor="start">
+                    Från
+                  </label>
+                  <input
+                    type="date"
+                    id="start"
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label className="text-center font-bold" htmlFor="end">
+                    Till
+                  </label>
+                  <input
+                    type="date"
+                    id="end"
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="mb-7">
+              <Button
+                type="button"
+                appliedColorClass="blue"
+                appliedSizeClass="medium"
+                onClick={handleClick}
+              >
+                Se Försäljning
+              </Button>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <hr className="border-black w-[60%]" />
+          </div>
+          <div className="mb-40 mx-auto font-roboto w-[90%]">
+            <div className="mt-10">
+              <ResponsiveContainer width={"100%"} height={300}>
+                <BarChart data={filterData}>
+                  <Tooltip
+                    content={(props) => {
+                      // Kolla om props.payload finns och har data
+                      if (!props.payload || props.payload.length === 0)
+                        return null; // Returnera null om inget att visa
 
-      <div className="mb-40 mx-auto font-roboto w-[90%]">
-        <div className="mt-10">
-          <ResponsiveContainer width={"100%"} height={300}>
-            <BarChart data={filterData}>
-              <Tooltip
-                content={(props) => {
-                  // Kolla om props.payload finns och har data
-                  if (!props.payload || props.payload.length === 0) return null; // Returnera null om inget att visa
-
-                  return (
-                    <div className="text-center">
-                      {props.payload.map((item) => (
-                        <div
-                          className="bg-primary text-black py-2 px-4 rounded shadow-lg"
-                          key={item.payload.name} // Använd item.payload.name som key
-                        >
-                          <p className="font-bold">{item.value} st</p>
-                          <p>{item.payload.name}</p>{" "}
-                          {/* Kolla att name är rätt */}
+                      return (
+                        <div className="text-center">
+                          {props.payload.map((item) => (
+                            <div
+                              className="bg-primary text-black py-2 px-4 rounded shadow-lg"
+                              key={item.payload.name} // Använd item.payload.name som key
+                            >
+                              <p className="font-bold">{item.value} st</p>
+                              <p>{item.payload.name}</p>{" "}
+                              {/* Kolla att name är rätt */}
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  );
-                }}
-              />
-              <YAxis dataKey="" />
-              <XAxis
-                dataKey="name"
-                textAnchor="end"
-                tickFormatter={(value) => {
-                  return value.length > 10 ? value.slice(0, 10) + "..." : value; // Förkorta vid behov
-                }}
-              />{" "}
-              <Bar dataKey="uv" fill="#8884d8" />
-            </BarChart>
-          </ResponsiveContainer>
+                      );
+                    }}
+                  />
+                  <YAxis dataKey="" />
+                  <XAxis
+                    dataKey="name"
+                    textAnchor="end"
+                    tickFormatter={(value) => {
+                      return value.length > 10
+                        ? value.slice(0, 10) + "..."
+                        : value; // Förkorta vid behov
+                    }}
+                  />{" "}
+                  <Bar dataKey="uv" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
