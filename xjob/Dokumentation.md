@@ -19,7 +19,3 @@ Personas Userstories:
 Figma:
 
 `https://www.figma.com/design/gIeCsAanRsYpUV3S2zrazW/U09?node-id=0-1&node-type=canvas&t=O4TtRCYopSZvERn9-0`
-
-Trello för produkt ägare:
-
-`https://trello.com/b/tV72AYI6/examen-app`
