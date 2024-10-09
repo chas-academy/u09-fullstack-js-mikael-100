@@ -41,6 +41,7 @@ export const loginAdmin = async (req: Request, res: Response) => {
         .status(401)
         .json({ message: "Invalid credentials: password mismatch" });
     }
+    // console.log("Admin's namehhhhhhhhhhh:", admin?.role);
 
     // Skapa JWT Token
     const token = jwt.sign(
@@ -55,7 +56,7 @@ export const loginAdmin = async (req: Request, res: Response) => {
       secure: process.env.NODE_ENV === "production", // Endast över HTTPS i produktion
       maxAge: 7200000, // 2 timmar i millisekunder
       sameSite: "none", // För att tillåta cookies i cross-site begärningar (justera efter behov)
-      path: "/", // Gör cookien tillgänglig för hela applikationen
+      // path: "/", // Gör cookien tillgänglig för hela applikationen
     });
 
     // Skicka token och admin-datan

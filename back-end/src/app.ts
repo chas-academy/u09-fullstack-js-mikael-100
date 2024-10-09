@@ -8,6 +8,10 @@ import authRouter from "./routes/authRoutes";
 import uploadConfigRoutes from "./routes/uploadConfigRoutes";
 import path from "path";
 import cookieParser from "cookie-parser";
+import {
+  authenticateAdminSuperAdmin,
+  authenticateSuperAdmin,
+} from "./middleweare/authMiddleware";
 
 const app: Express = express();
 
@@ -54,8 +58,8 @@ app.get("/", (req: Request, res: Response) => {
 // Här nedan länkas de olika Routers endpoints som kan användas för get och post.
 app.use("/api/cuisines", cuisineRouter);
 app.use("/api/orders", orderRouter);
-app.use("/api/admins", adminRouter);
+app.use("/api/admins", authenticateSuperAdmin, adminRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/uploads", uploadConfigRoutes);
+app.use("/api/uploads", authenticateAdminSuperAdmin, uploadConfigRoutes);
 
 export default app;
