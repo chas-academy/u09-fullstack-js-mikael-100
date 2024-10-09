@@ -7,13 +7,14 @@ import {
   deleteOrder,
 } from "../controllers/orderController";
 import exp from "constants";
+import { authenticateAdminSuperAdmin } from "../middleweare/authMiddleware";
 
 const orderRouter = Router();
 
 orderRouter.get("/", getAllOrders);
 orderRouter.get("/:id", getOrderById);
 orderRouter.post("/", createOrder);
-orderRouter.put("/:id", updateOrder);
-orderRouter.delete("/:id", deleteOrder);
+orderRouter.put("/:id", authenticateAdminSuperAdmin, updateOrder);
+orderRouter.delete("/:id", authenticateAdminSuperAdmin, deleteOrder);
 
 export default orderRouter;

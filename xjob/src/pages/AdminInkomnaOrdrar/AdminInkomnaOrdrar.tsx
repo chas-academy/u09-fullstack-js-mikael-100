@@ -192,7 +192,7 @@ const AdminInkomnaOrdrar = () => {
                     </Button>
                     <Button
                       onClick={() => approveOrder(data._id)}
-                      type=""
+                      type="button"
                       appliedColorClass="green"
                       appliedSizeClass="medium"
                     >
