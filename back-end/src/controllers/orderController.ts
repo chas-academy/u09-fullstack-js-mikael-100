@@ -169,17 +169,27 @@ const transporter = nodemailer.createTransport({
 // Skapa en Order
 
 export const createOrder = async (req: Request, res: Response) => {
-  const { Hospital, FirstName, LastName, PhoneNumber, Department, Orders } =
-    req.body;
+  const {
+    Hospital,
+    FirstName,
+    LastName,
+    PhoneNumber,
+    Department,
+    Orders,
+    Mail,
+    TotalSum,
+  } = req.body;
 
-  // Validera indata (kan justeras beroende på dina krav)
+  // Validera indata
   if (
     !Hospital ||
     !FirstName ||
     !LastName ||
     !PhoneNumber ||
     !Department ||
-    !Orders
+    !Orders ||
+    !Mail ||
+    !TotalSum
   ) {
     return res.status(400).json({
       message: "All fields are required.",
@@ -191,8 +201,10 @@ export const createOrder = async (req: Request, res: Response) => {
     FirstName,
     LastName,
     PhoneNumber,
+    Mail,
     Department,
     Orders,
+    TotalSum,
   });
 
   try {
@@ -211,13 +223,14 @@ export const createOrder = async (req: Request, res: Response) => {
 
     await transporter.sendMail({
       from: process.env.MAIL_MAIL,
-      to: "MaadMike@hotmail.se",
+      to: Mail,
       subject: `Hej ${FirstName} ${LastName}, Här kommer din Orderbekräftelse från Skaraborgs Sjukhus\n`,
       text:
         `Hej ${FirstName} ${LastName} Här kommer din orderbekräftelse från ${Hospital}:\n` +
         `Din beställning kommer att levereras till ${Department}\n\n` +
         `Din beställning består av:\n` +
-        `${ordersString}\n\n`,
+        `${ordersString}\n\n` +
+        `Total summa: ${TotalSum}:-`,
     });
 
     res.status(201).json({

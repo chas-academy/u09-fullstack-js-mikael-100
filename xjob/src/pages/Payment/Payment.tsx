@@ -18,8 +18,6 @@ const Payment = () => {
     amount: string;
   }
 
-  // const itemVarukorg: Item[] = location.state || {}; // Hämta den skickade datan
-
   // Update the destructuring to provide a default value
   const { itemVarukorg, totalPris = 0 } = location.state || {}; // Set default to 0
 
@@ -39,6 +37,7 @@ const Payment = () => {
     lastName: "",
     phoneNumber: "",
     department: "",
+    mail: "",
   });
 
   // Handle change sköter uppdateringen av de som skrivs i inputsen till useState formData
@@ -63,6 +62,8 @@ const Payment = () => {
       LastName: formData.lastName,
       PhoneNumber: formData.phoneNumber,
       Department: formData.department,
+      Mail: formData.mail,
+      TotalSum: totalPris,
     };
 
     // Logga orderData
@@ -130,6 +131,16 @@ const Payment = () => {
               name="phoneNumber"
               label="Telefonummer *"
               value={formData.phoneNumber}
+              onChange={handleChange}
+              divStyle={"small"}
+              inputStyle={"small"}
+              labelStyle={"small"}
+              required={true}
+            ></TextInput>
+            <TextInput
+              name="mail"
+              label="Mail *"
+              value={formData.mail}
               onChange={handleChange}
               divStyle={"small"}
               inputStyle={"small"}
