@@ -23,6 +23,7 @@ const AdminStatestics = () => {
   interface dataInterface {
     Orders: Order[];
     createdAt: string;
+    TotalSum: string;
   }
 
   const [startDate, setStartDate] = useState<string>("");
@@ -62,6 +63,9 @@ const AdminStatestics = () => {
     }[]
   >();
 
+  // Filtrera och summera TotalSum baserat på valt datumintervall
+  const [totalSum, setTotalSum] = useState<number>(0);
+
   useEffect(() => {
     const today = new Date(); // Idag
     const lastWeek = new Date(today); // Skapa en ny date-instans för att manipulera
@@ -75,27 +79,35 @@ const AdminStatestics = () => {
 
     // REDUCE
 
-    // Använd reduce för att summera amount för varje rätt (dish)
+    // Använd reduce för att summera amount och TotalSum för varje rätt (dish)
     const dishPlusTotalAmount = nylistaOrderData.reduce((acc, order) => {
       order.Orders.forEach((currentOrder) => {
         const dishName = currentOrder.dish;
+        const orderTotalSum = Number(order.TotalSum) || 0; // Omvandla TotalSum till nummer
 
-        // Om rätten redan finns i ackumulatorn, addera mängden, annars sätt första värdet
+        // Om rätten redan finns i ackumulatorn, addera mängden och TotalSum, annars sätt första värdet
         if (acc[dishName]) {
-          acc[dishName] += currentOrder.amount;
+          acc[dishName].amount += currentOrder.amount;
+          acc[dishName].totalSum += orderTotalSum;
         } else {
-          acc[dishName] = currentOrder.amount;
+          acc[dishName] = {
+            amount: currentOrder.amount,
+            totalSum: orderTotalSum,
+          };
         }
       });
       return acc;
-    }, {} as { [key: string]: number }); // Ackumulator är ett objekt med rättens namn som nyckel och mängd som värde
+    }, {} as { [key: string]: { amount: number; totalSum: number } }); // Ackumulator är ett objekt med rättens namn som nyckel, och en objekt med amount och totalSum som värden
 
     // Formatera datan till rätt värde för recharts
-
     const formateradData = Object.keys(dishPlusTotalAmount).map((key) => ({
       name: key,
-      uv: dishPlusTotalAmount[key],
+      uv: dishPlusTotalAmount[key].amount, // eller använd totalSum här om det behövs
+      totalSum: dishPlusTotalAmount[key].totalSum, // Lägg till totalSum om du vill visa det
     }));
+
+    // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
+    // ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
 
     // Här kan du använda nylistaOrderData, till exempel sätta det i state
     setFilterData(formateradData); // Sätt de filtrerade ordrarna i filterData
@@ -117,7 +129,17 @@ const AdminStatestics = () => {
       const data = await response.json();
       console.log("detta hittades med datum", data);
 
+      // Sumera summan på alla ordrar som har fetchats
+
+      const total = data.reduce((acc: number, order: { TotalSum: string }) => {
+        // Omvandlar TotalSumman till nummer
+        const orderTotalSum = Number(order.TotalSum) || 0;
+        // Lägg till det omvandlade värdet till ackumulatorn
+        return acc + orderTotalSum;
+      }, 0); // Startvärde för ackumulatorn är 0
+
       setData(data);
+      setTotalSum(total); // Spara det beräknade värdet i state
     } catch (error) {
       console.log(error);
     }
@@ -216,6 +238,11 @@ const AdminStatestics = () => {
           <div className="flex justify-center">
             <hr className="border-black w-[60%]" />
           </div>
+          {/* Total summa för perioden */}
+          <div className="text-center font-roboto mt-3">
+            Total Summa för perioden: <br />
+            {totalSum}:-
+          </div>
           <div className="mb-40 mx-auto font-roboto w-[90%]">
             <div className="mt-10">
               <ResponsiveContainer width={"100%"} height={300}>
@@ -235,7 +262,9 @@ const AdminStatestics = () => {
                             >
                               <p className="font-bold">{item.value} st</p>
                               <p>{item.payload.name}</p>{" "}
-                              {/* Kolla att name är rätt */}
+                              {item.payload.totalSum > 0 && (
+                                <p>Total summa: {item.payload.totalSum}</p>
+                              )}
                             </div>
                           ))}
                         </div>
