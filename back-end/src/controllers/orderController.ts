@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Order from "../models/Order";
+import nodemailer from "nodemailer";
 
 // Hämta alla Order
 interface OrderQuery {
@@ -152,6 +153,19 @@ export const getOrderById = async (req: Request, res: Response) => {
   }
 };
 
+// Innan Create Order så skapar jag en transport-konfiguration för nodemailer som kan skicka mail till kund
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  host: "smtp-Connection.gmail.com",
+  port: 587,
+  secure: true,
+  auth: {
+    user: "SkaraborgsSjukhus@gmail.com",
+    pass: process.env.MAIL_PASSWORD,
+  },
+});
+
 // Skapa en Order
 
 export const createOrder = async (req: Request, res: Response) => {
@@ -183,6 +197,29 @@ export const createOrder = async (req: Request, res: Response) => {
 
   try {
     const newOrder = await order.save();
+
+    // Skapa ordersString genom att mappa över varje order
+    // const ordersString = Orders.map((order: string, index: number) =>`Order ${index + 1}: ${order.dish} - Amount: ${order.amount}`).join("\n");
+
+    const ordersString = Orders.map(
+      (order: { dish: string; amount: number }, index: number) => {
+        return `Order ${index + 1}: ${order.dish} - Antal: ${order.amount}`;
+      }
+    ).join("\n");
+
+    // Skicka Mail
+
+    await transporter.sendMail({
+      from: process.env.MAIL_MAIL,
+      to: "MaadMike@hotmail.se",
+      subject: `Hej ${FirstName} ${LastName}, Här kommer din Orderbekräftelse från Skaraborgs Sjukhus\n`,
+      text:
+        `Hej ${FirstName} ${LastName} Här kommer din orderbekräftelse från ${Hospital}:\n` +
+        `Din beställning kommer att levereras till ${Department}\n\n` +
+        `Din beställning består av:\n` +
+        `${ordersString}\n\n`,
+    });
+
     res.status(201).json({
       message: "A new order has been created",
       order: newOrder,
