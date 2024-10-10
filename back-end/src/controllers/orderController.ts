@@ -198,25 +198,26 @@ export const createOrder = async (req: Request, res: Response) => {
   try {
     const newOrder = await order.save();
 
-    // Omforma Orders till en sträng
-    const ordersString = Orders.map((order: { name: any; quantity: any }) => {
-      return `Item: ${order.name}, Quantity: ${order.quantity}`;
-    }).join("\n");
+    // Skapa ordersString genom att mappa över varje order
+    // const ordersString = Orders.map((order: string, index: number) =>`Order ${index + 1}: ${order.dish} - Amount: ${order.amount}`).join("\n");
+
+    const ordersString = Orders.map(
+      (order: { dish: string; amount: number }, index: number) => {
+        return `Order ${index + 1}: ${order.dish} - Antal: ${order.amount}`;
+      }
+    ).join("\n");
 
     // Skicka Mail
 
     await transporter.sendMail({
       from: process.env.MAIL_MAIL,
       to: "MaadMike@hotmail.se",
-      subject: `Hej ${FirstName} ${LastName}, Här kommer din Orderbekräftelse från Skaraborgs Sjukhus`,
+      subject: `Hej ${FirstName} ${LastName}, Här kommer din Orderbekräftelse från Skaraborgs Sjukhus\n`,
       text:
-        `A new order has been created:\n\n` +
-        `Hospital: ${Hospital}\n` +
-        `First Name: ${FirstName}\n` +
-        `Last Name: ${LastName}\n` +
-        `Phone Number: ${PhoneNumber}\n` +
-        `Department: ${Department}\n` +
-        `Orders:\n${ordersString}\n`,
+        `Hej ${FirstName} ${LastName} Här kommer din orderbekräftelse från ${Hospital}:\n` +
+        `Din beställning kommer att levereras till ${Department}\n\n` +
+        `Din beställning består av:\n` +
+        `${ordersString}\n\n`,
     });
 
     res.status(201).json({
