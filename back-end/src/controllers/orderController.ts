@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Order from "../models/Order";
 import nodemailer from "nodemailer";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 // Hämta alla Order
 interface OrderQuery {
@@ -192,11 +193,40 @@ export const updateOrder = async (req: Request, res: Response) => {
   // console.log("Order ID:", id);
   // console.log("New Status:", Status);
 
+  console.log("Cookies:", req.cookies); // Logga alla cookies
+  const token = req.cookies["token"];
+  console.log("Tokenjjjjjjjjjjjjjjjjjjjjjjjj:", token); // Logga token
+
+  console.log("Lennnart");
+
+  const JWT_SECRET2 = process.env.JWT_SECRET;
+
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Access denied. No token provided." });
+  }
+
   try {
+    // Verifiera och dekryptera token
+
+    if (!JWT_SECRET2) {
+      throw new Error("JWT secret is not defined.");
+    }
+
+    const decoded = jwt.verify(token, JWT_SECRET2); // Verifiera token med den hemliga nyckeln
+    console.log("Decoded token:", decoded); // Logga den dekrypterade informationen
+
+    const { name } = decoded as JwtPayload;
+
+    const OrderApprovedBy = name;
+
+    console.log("IIIIIIIIIIIII", name);
+
     // Använd findByIdAndUpdate för att uppdatera Status direkt
     const updatedOrder = await Order.findByIdAndUpdate(
       id, // Använd ID direkt för att söka efter ordern
-      { $set: { Status } }, // Använd $set för att uppdatera Status
+      { $set: { Status, OrderApprovedBy } }, // Använd $set för att uppdatera Status
       { new: true } // Returnera den uppdaterade ordern
     );
 
