@@ -19,7 +19,7 @@ export interface Iorder {
   amount: number;
 }
 
-// Skapa ett schema för orderdetaljer
+// Skapa ett schema för orderdetaljern
 const OrderDetailSchema: Schema<Iorder> = new Schema({
   dish: { type: String, required: true },
   amount: { type: Number, required: true, min: 1 }, // Antal ska vara ett positivt tal
