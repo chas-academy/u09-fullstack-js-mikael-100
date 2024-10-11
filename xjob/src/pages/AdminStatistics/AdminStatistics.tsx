@@ -293,21 +293,3 @@ const AdminStatestics = () => {
 };
 
 export default AdminStatestics;
-
-{
-  /* <ResponsiveContainer width="100%" height={300}>
-            <BarChart
-              data={filterData}
-              margin={{ top: 20, right: 30, left: 20, bottom: 200 }}
-            >
-              <XAxis
-                dataKey="name"
-                textAnchor="end"
-                tickFormatter={(value) => {
-                  return value.length > 10 ? value.slice(0, 10) + "..." : value; // Förkorta vid behov
-                }}
-              />
-              <Bar dataKey="uv" fill="#8884d8" />
-            </BarChart>
-          </ResponsiveContainer> */
-}

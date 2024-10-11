@@ -1,5 +1,4 @@
 import mongoose, { Document, Schema, Model } from "mongoose";
-import bcrypt from "bcrypt";
 
 interface IAdmin extends Document {
   name: string;

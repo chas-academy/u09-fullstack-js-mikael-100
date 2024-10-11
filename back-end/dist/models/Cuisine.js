@@ -1,0 +1,42 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = __importStar(require("mongoose"));
+// Detta är Mongoose Scheme
+const CuisineSchema = new mongoose_1.Schema({
+    hospital: { type: String, required: true },
+    dish: { type: String, required: true },
+    information: { type: String, required: true },
+    allergies: { type: [String], required: true },
+    image: { type: String, default: "", required: false },
+    price: { type: Number, required: true },
+    options: { type: [String], required: true },
+    quantity: { type: Number, required: true },
+    createdAt: { type: Date, default: Date.now },
+});
+// Här är den skapade modellen som sedan exporteras och tas in av controllern. Den första "Cuisine" visar på att detta är namnet på Collectionen i databasen om inte en Collection redan skulle ha detta namn i plural skulle den ha skapats.
+// Men om det redan finns en collection som du vill använda bör du skriva det namet som ett tredje argument i skapandet av modellen altså "cuisines".
+const Cuisine = mongoose_1.default.model("Cuisine", CuisineSchema, "cuisines");
+exports.default = Cuisine;

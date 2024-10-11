@@ -194,9 +194,6 @@ const AdminUploadDish: React.FC = () => {
     if (values["Välj Fil"]) {
       // console.log("Selected file:", fileInput.files[0]);
       console.log("Selected file:", values["Välj Fil"]);
-
-      // formData.append("Välj Fil", fileInput.files[0]);
-      // formData.append("image", values["Välj Fil"] as File);
     } else {
       console.log("No file selected or file input is null");
     }
