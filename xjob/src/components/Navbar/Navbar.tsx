@@ -263,18 +263,6 @@ export const Navbar = () => {
                 Statestik
               </Link>
             </li>
-            {/* <hr className="border-black" /> */}
-            {/* <li
-              className="w-full text-center"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              <Link
-                to={"/adminLogin"}
-                className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
-              >
-                Admin
-              </Link>
-            </li> */}
             <hr className="border-black" />
             <li
               className="w-full text-center"

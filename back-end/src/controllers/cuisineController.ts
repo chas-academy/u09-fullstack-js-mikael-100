@@ -4,16 +4,6 @@ import { request } from "http";
 
 // Hämtar alla Rätter
 
-// export const getAllCuisines = async (req: Request, res: Response) => {
-//   try {
-//     const cuisines = await Cuisine.find();
-
-//     res.json(cuisines);
-//   } catch (error) {
-//     res.status(500).json({ message: (error as any).message });
-//   }
-// };
-
 export const getAllCuisines = async (req: Request, res: Response) => {
   try {
     const filterParam = req.query.filter as string;

@@ -1,4 +1,4 @@
-import express, { Express, NextFunction, Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
 import cuisineRouter from "./routes/cuisineRoutes";
 import cors from "cors";
 // import multer from "multer";

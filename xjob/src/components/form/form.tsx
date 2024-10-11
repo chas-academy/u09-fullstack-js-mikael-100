@@ -42,20 +42,6 @@ interface Errors {
   [key: string]: string;
 }
 
-// // Här nedan finn några type Guards som hjälper till att kolla typerna
-// const isFileInput = (target: EventTarget | null): target is HTMLInputElement =>
-//   target instanceof HTMLInputElement && target.type === "file";
-
-// const isCheckboxInput = (
-//   target: EventTarget | null
-// ): target is HTMLInputElement =>
-//   target instanceof HTMLInputElement && target.type === "checkbox";
-
-// const isSelectOrTextarea = (
-//   target: EventTarget | null
-// ): target is HTMLSelectElement | HTMLTextAreaElement =>
-//   target instanceof HTMLSelectElement || target instanceof HTMLTextAreaElement;
-
 //   Huvud komponenten
 const FlexibleForm: React.FC<FlexibleFormProps> = ({
   fields,

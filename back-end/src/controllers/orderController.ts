@@ -79,68 +79,6 @@ export const getAllOrders = async (req: Request, res: Response) => {
   }
 };
 
-// export const getAllOrders = async (req: Request, res: Response) => {
-//   const Status = req.query.Status;
-
-//   console.log("sss", Status);
-//   try {
-//     const query: OrderQuery = {
-//       Status: "pending",
-//       Hospital: "",
-//     };
-
-//     const { Hospital, Status } = req.query;
-
-//     // Typkontroll och hantering av Hospital
-//     if (typeof Hospital === "string") {
-//       // Kontrollera att det är en sträng
-//       query.Hospital = decodeURIComponent(Hospital); // Dekoda strängen om nödvändigt
-//     }
-
-//     // // Typkontroll och hantering av Hospital
-//     if (Status === "Approved") {
-//       // Kontrollera att det är en sträng
-//       query.Status = decodeURIComponent(Status); // Dekoda strängen om nödvändigt
-//     }
-
-//     const order = await Order.find(query);
-//     res.json(order);
-//   } catch (error) {
-//     res.status(500).json({ message: (error as any).message });
-//   }
-// };
-
-// export const getAllOrders = async (req: Request, res: Response) => {
-//   const Status = req.query.Status;
-
-//   const { Hospital } = req.query;
-
-//   try {
-//     const query: OrderQuery = {
-//       Status: "pending",
-//       Hospital: "",
-//     };
-
-//     // Typkontroll och hantering av Hospital
-//     if (typeof Hospital === "string") {
-//       // Kontrollera att det är en sträng
-//       query.Hospital = decodeURIComponent(Hospital); // Dekoda strängen om nödvändigt
-//     }
-
-//     // // Typkontroll och hantering av Hospital
-//     if (Status === "Approved") {
-//       // Kontrollera att det är en sträng
-//       query.Status = Status;
-//     }
-
-//     const order = await Order.find(query);
-//     console.log("Query sent to database:", query); // Logga den skickade frågan
-//     console.log("Found Orders:", order); // Logga de hittade beställningarna    res.json(order);
-//   } catch (error) {
-//     res.status(500).json({ message: (error as any).message });
-//   }
-// };
-
 // Hämta en specifik Order
 
 export const getOrderById = async (req: Request, res: Response) => {
