@@ -54,11 +54,12 @@ const Menu = () => {
   useEffect(() => {
     const fetchData = async () => {
       const valtSjukhus = sjukhus;
+      const Page = "Menu";
       // För att kunna beta från localhoast till netlify senare så gjorde jag en miljövariabel av http//localhoast:5000 och importerade den istället
       const apiURL = import.meta.env.VITE_API_URL;
       const filterQuery = buttonVal.join(","); // Om ditt API accepterar filter som en kommaseparerad sträng
       const response = await fetch(
-        `${apiURL}/api/cuisines/?filter=${filterQuery}&hospital=${valtSjukhus}`
+        `${apiURL}/api/cuisines/?filter=${filterQuery}&hospital=${valtSjukhus}&Page=${Page}`
       );
       const data: ApiData[] = await response.json();
 
