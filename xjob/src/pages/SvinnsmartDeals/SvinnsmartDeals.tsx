@@ -119,7 +119,7 @@ const SvinnsmartDeals = () => {
                         type="submit"
                         appliedColorClass="blue"
                         appliedSizeClass="small"
-                        onClick={() => navigera(`/adminUpdateDish/${item.id}`)}
+                        onClick={() => navigera(`/adminUpdateDish/${item._id}`)}
                       >
                         Uppdatera
                       </Button>
