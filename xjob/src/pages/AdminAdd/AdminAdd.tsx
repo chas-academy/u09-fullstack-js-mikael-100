@@ -75,23 +75,25 @@ const AdminAdd = () => {
               </div>
             </div>
             <div className="mt-10">
-              <Dropdown
-                label={formData.hospital}
-                items={[
-                  "Alingsås lasarett",
-                  "Angereds Närsjukhus",
-                  "Frölunda specialistsjukhus",
-                  "Kungälvs sjukhus",
-                  "Skaraborgs Sjukhus",
-                  "Södra Älvsborgs Sjukhus",
-                ]}
-                onSelect={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    hospital: e,
-                  }))
-                }
-              ></Dropdown>
+              <div className="relative z-10">
+                <Dropdown
+                  label={formData.hospital}
+                  items={[
+                    "Alingsås lasarett",
+                    "Angereds Närsjukhus",
+                    "Frölunda specialistsjukhus",
+                    "Kungälvs sjukhus",
+                    "Skaraborgs Sjukhus",
+                    "Södra Älvsborgs Sjukhus",
+                  ]}
+                  onSelect={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      hospital: e,
+                    }))
+                  }
+                ></Dropdown>
+              </div>
             </div>
             <Dropdown
               label={formData.role}
