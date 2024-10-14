@@ -208,10 +208,12 @@ const AdminUploadDish: React.FC = () => {
       console.log("No file selected or file input is null");
     }
 
+    const apiURL = import.meta.env.VITE_API_URL;
+
     // Debugga innehållet i formData
     console.log("FormData entries:", Array.from(formData.entries()));
 
-    fetch("http://localhost:5000/api/cuisines", {
+    fetch(`${apiURL}/api/cuisines`, {
       method: "POST",
       body: formData,
     })

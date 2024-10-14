@@ -62,8 +62,26 @@ const Home = () => {
         Beställ
       </Button>
       <DialogBox
-        h1Text="Rubrik"
-        pText="Himmelska Smaker erbjuder en unik kulinarisk upplevelse med en meny som blandar lokala råvaror med internationella influenser. Atmosfären är elegant och avslappnad, med mjuka belysningar och stilren inredning. Gästerna välkomnas med vänlig service och en meny som inkluderar både klassiska rätter och kreativa nytillskott. Specialiteterna varierar från saftiga biffar och fräscha skaldjur till utsökta vegetariska alternativ. Restaurangen är perfekt för både romantiska middagar och familjesammankomster, med en vinkällare som erbjuder ett noggrant utvalt sortiment av viner. Här är varje måltid en fest för smaklökarna."
+        h1Text="Vällkommen till Gastronomen"
+        pText={
+          <>
+            Genom denna app får du möjlighet att enkelt välja det sjukhus du
+            vill beställa från. När du har gjort ditt val, trycker du bara på
+            Beställ för att se dina måltidsalternativ på det sjukhus du besöker.
+            <br />
+            <br />
+            Oavsett om du är patient, anhörig eller besökare, vill vi göra det
+            enklare för dig att få tillgång till goda och hälsosamma måltider
+            under din vistelse.
+            <br />
+            <br />
+            Utforska dina alternativ och njut av måltider som är anpassade efter
+            dina behov och önskemål!
+            <br />
+            <br />
+            Tack för att du väljer oss!
+          </>
+        }
         divStyle={"bigBox"}
         h1Style={"bigBox"}
         pStyle={"bigBox"}

@@ -240,10 +240,14 @@ const AdminStatestics = () => {
             <hr className="border-black w-[60%]" />
           </div>
           {/* Total summa för perioden */}
-          <div className="text-center font-roboto mt-3">
-            Total Summa för perioden: <br />
-            {totalSum}:-
-          </div>
+          {totalSum === 0 ? (
+            ""
+          ) : (
+            <div className="text-center font-roboto mt-3">
+              Total Summa för perioden: <br />
+              {totalSum}:-
+            </div>
+          )}
           <div className="mb-40 mx-auto font-roboto w-[90%]">
             <div className="mt-10">
               <ResponsiveContainer width={"100%"} height={300}>

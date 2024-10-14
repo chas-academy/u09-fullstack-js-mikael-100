@@ -2,7 +2,7 @@ import React from "react";
 
 interface dialogBoxProps {
   h1Text: string;
-  pText: string;
+  pText: string | React.ReactNode;
   divStyle: string;
   h1Style: string;
   pStyle: string;
