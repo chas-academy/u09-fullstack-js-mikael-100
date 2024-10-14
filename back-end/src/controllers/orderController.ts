@@ -117,6 +117,7 @@ export const createOrder = async (req: Request, res: Response) => {
     Orders,
     Mail,
     TotalSum,
+    Page,
   } = req.body;
 
   // Validera indata

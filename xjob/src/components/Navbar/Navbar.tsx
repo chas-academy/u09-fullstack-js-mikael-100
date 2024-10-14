@@ -90,6 +90,14 @@ export const Navbar = () => {
               </li>
               <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
                 <Link
+                  to={"/svinnsmartDeals"}
+                  className="block w-full h-full text-center"
+                >
+                  Svinnsmart Deals
+                </Link>
+              </li>
+              <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                <Link
                   to={"/shoppingCart"}
                   className="block w-full h-full text-center"
                 >
@@ -237,6 +245,18 @@ export const Navbar = () => {
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
               >
                 Menu
+              </Link>
+            </li>
+            <hr className="border-black" />
+            <li
+              className="w-full text-center hover:text-blue-600"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <Link
+                to={"/svinnsmartDeals"}
+                className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
+              >
+                Svinnsmart Deals
               </Link>
             </li>
             <hr className="border-black" />

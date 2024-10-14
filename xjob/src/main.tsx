@@ -19,6 +19,7 @@ import AdminAdd from "./pages/AdminAdd/AdminAdd.tsx";
 import AdminList from "./pages/AdminList/AdminList.tsx";
 import AdminInkomnaOrdrar from "./pages/AdminInkomnaOrdrar/AdminInkomnaOrdrar.tsx";
 import AdminLevereradeOrdrarList from "./pages/AdminLevereradeOrdrarList/AdminLevereradeOrdrarList.tsx";
+import SvinnsmartDeals from "./pages/SvinnsmartDeals/SvinnsmartDeals.tsx";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "adminLevereradeOrdrarList",
         element: <AdminLevereradeOrdrarList />,
+      },
+      {
+        path: "svinnsmartDeals",
+        element: <SvinnsmartDeals />,
       },
     ],
   },

@@ -147,6 +147,8 @@ const FlexibleForm: React.FC<FlexibleFormProps> = ({
     event.preventDefault();
     if (validate()) {
       onSubmit(values);
+      setValues(initialValues); // Nollställ formulärvärdena
+      setImagePreview("/images/defaultBild.png"); // Återställ bildförhandsvisning
     }
   };
 
