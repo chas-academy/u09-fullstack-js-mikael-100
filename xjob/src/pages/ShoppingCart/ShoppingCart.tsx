@@ -148,7 +148,12 @@ const ShoppingCart = () => {
           </div>
         ))
       ) : (
-        <p className="flex justify-center p-4">Varukorgen är tom......</p>
+        <div>
+          <p className="flex justify-center p-4 mt-10">
+            Varukorgen är tom......
+          </p>
+          <div className="h-[50vh]"></div>
+        </div>
       )}
       {totalPris > 0 && (
         <p className="flex justify-end font-bold font-roboto p-4">

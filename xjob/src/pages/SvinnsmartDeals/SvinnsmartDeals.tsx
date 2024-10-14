@@ -87,7 +87,7 @@ const SvinnsmartDeals = () => {
   return (
     <>
       <div>
-        <p className="font-roboto font-bold p-6 text-center w-full text-xl md:text-3xl sm:text-2xl">
+        <p className="font-roboto p-6 text-center w-full text-xl md:text-3xl sm:text-2xl mt-10">
           {sjukhus === null
             ? "Gå till startsidan och välj Sjukhus för att kunna se dina måltidsalternativ"
             : `${sjukhus} Måltider`}{" "}
@@ -142,14 +142,20 @@ const SvinnsmartDeals = () => {
             </div>
           ))}
         </div>
-        <p
-          className="cursor-pointer  hover:underline text-center mb-4"
-          onClick={() => navigera("/")}
-        >
-          {cardItem.length === 0
-            ? "Klicka här för att återvända till startsidan och göra ett nytt val av sjukhus"
-            : ""}
-        </p>
+        {cardItem.length === 0 ? (
+          <div>
+            <p
+              className="cursor-pointer  hover:underline text-center mb-10 mt-10"
+              onClick={() => navigera("/")}
+            >
+              Tyvär finns det inga Svinnsmart Deals för tillfället.<br></br>
+              Klicka här för att återvända till startsidan
+            </p>
+            <div className="h-[50vh]"></div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );
