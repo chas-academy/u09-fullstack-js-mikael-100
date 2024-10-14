@@ -67,7 +67,7 @@ export const createCuisine = async (req: Request, res: Response) => {
   const hospital = req.body.Sjukhus;
   const dish = req.body.Rubrik;
   const information = req.body.Info;
-  const Page = req.body.Hallbarhet;
+  const Page = req.body.Page;
   console.log("kooomigen", Page);
 
   // Array med allerginamn

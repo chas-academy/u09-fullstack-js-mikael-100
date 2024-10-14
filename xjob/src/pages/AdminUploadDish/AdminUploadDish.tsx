@@ -149,7 +149,7 @@ const initialValues: FormValues = {
   Pris: "",
   Antal: "",
   Sjukhus: "",
-  Page: "Menu",
+  Page: "",
   Glutenfri: false,
   Laktosfri: false,
   Fläskfri: false,
@@ -218,6 +218,7 @@ const AdminUploadDish: React.FC = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        // alert("Maträtt Tillagd i databasen");
       })
       .catch((error) => {
         console.error("Error:", error);

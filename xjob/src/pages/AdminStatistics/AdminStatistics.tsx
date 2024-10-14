@@ -18,6 +18,7 @@ const AdminStatestics = () => {
     amount: number;
     dish: string;
     _id: string;
+    Page: string;
   }
 
   interface dataInterface {
