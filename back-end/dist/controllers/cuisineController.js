@@ -10,6 +10,7 @@ const getAllCuisines = async (req, res) => {
     try {
         const filterParam = req.query.filter;
         const filters = filterParam ? filterParam.split(",") : [];
+        const Page = req.query.Page;
         // Hämta valt sjukhus från query-parametrar som jag skickar från frontend
         const valtSjukhus = req.query.hospital;
         // Om inget sjukhus är valt, returnera en tom array eller ett meddelande
@@ -23,6 +24,9 @@ const getAllCuisines = async (req, res) => {
         if (filters.length > 0) {
             // Använd $all för att matcha alla filtervärden i 'allergies'
             query.allergies = { $all: filters.map((f) => new RegExp(f, "i")) };
+        }
+        if (Page) {
+            query.Page = Page;
         }
         // Om valtsjukhus skickas med så binds det värdet in i query.hospital
         if (valtSjukhus) {
@@ -59,6 +63,8 @@ const createCuisine = async (req, res) => {
     const hospital = req.body.Sjukhus;
     const dish = req.body.Rubrik;
     const information = req.body.Info;
+    const Page = req.body.Page;
+    console.log("kooomigen", Page);
     // Array med allerginamn
     const allergyKeys = [
         { name: "Glutenfri", value: req.body.Glutenfri },
@@ -84,6 +90,7 @@ const createCuisine = async (req, res) => {
         price,
         options,
         quantity,
+        Page,
     });
     try {
         const newCuisine = await cuisine.save();
