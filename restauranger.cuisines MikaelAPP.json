@@ -13,10 +13,11 @@
     "Fläskfri",
     "Laktosfri"
   ],
-  "image": "",
+  "image": "uploads\\1.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -32,10 +33,11 @@
     "Glutenfri",
     "Fläskfri"
   ],
-  "image": "",
+  "image": "uploads\\2.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -51,10 +53,11 @@
     "Laktosfri",
     "Mjölkproteinfri"
   ],
-  "image": "",
+  "image": "uploads\\3.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -70,10 +73,11 @@
     "Glutenfri",
     "Fläskfri"
   ],
-  "image": "",
+  "image": "uploads\\4.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -88,10 +92,11 @@
   "allergies": [
     "Glutenfri"
   ],
-  "image": "",
+  "image": "uploads\\5.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -107,10 +112,11 @@
     "Fläskfri",
     "Glutenfri"
   ],
-  "image": "",
+  "image": "uploads\\1.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -126,10 +132,11 @@
     "Fläskfri",
     "Glutenfri"
   ],
-  "image": "",
+  "image": "uploads\\2.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -145,10 +152,11 @@
     "Fläskfri",
     "Glutenfri"
   ],
-  "image": "",
+  "image": "uploads\\3.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -161,12 +169,14 @@
   "dish": "VEGETARISK LASAGE",
   "information": "Vegetarisk lasange gjord på sojafärs och röda linser. Serveras med vitlöksbröd.",
   "allergies": [
-    "Fläskfri"
+    "Fläskfri",
+    "Vegetarisk"
   ],
-  "image": "",
+  "image": "uploads\\4.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -181,12 +191,14 @@
   "allergies": [
     "Fläskfri",
     "Laktosfri",
-    "Mjölkproteinfri"
+    "Mjölkproteinfri",
+    "Vegan"
   ],
-  "image": "",
+  "image": "uploads\\5.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -201,10 +213,11 @@
   "allergies": [
     "Glutenfri"
   ],
-  "image": "",
+  "image": "uploads\\1.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -219,10 +232,11 @@
   "allergies": [
     "Glutenfri"
   ],
-  "image": "",
+  "image": "uploads\\2.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -238,10 +252,11 @@
     "Glutenfri",
     "Fläskfri"
   ],
-  "image": "",
+  "image": "uploads\\3.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
 },
 {
   "_id": {
@@ -259,8 +274,71 @@
     "Laktosfri",
     "Mjölkproteinfri"
   ],
-  "image": "",
+  "image": "uploads\\4.png",
   "price": 90,
   "options": "Kylda Portionsrätter",
-  "quantity": 100
+  "quantity": 100,
+  "Page": "Menu"
+},
+{
+  "_id": {
+    "$oid": "670d4fd2f1248f48efc5737e"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "Revben 40 pack",
+  "information": "Revben 40 pack med utgångsdatum den 10/14-2024",
+  "allergies": [],
+  "image": "uploads\\1728925650447.png",
+  "price": 200,
+  "options": [
+    "Kött"
+  ],
+  "quantity": 3,
+  "Page": "Svinnsmart Deals",
+  "createdAt": {
+    "$date": "2024-10-14T17:07:30.474Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "670d5032f1248f48efc57380"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "Laktosfri Mellan Mjölk 6-pack",
+  "information": "Laktosfri Mellan Mjölk med utgångsdatum 20/10-2024",
+  "allergies": [],
+  "image": "uploads\\1728925746608.png",
+  "price": 20,
+  "options": [
+    "Mejeri"
+  ],
+  "quantity": 3,
+  "Page": "Svinnsmart Deals",
+  "createdAt": {
+    "$date": "2024-10-14T17:09:06.628Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "670e413b603d995bd5814ecb"
+  },
+  "hospital": "Skaraborgs Sjukhus",
+  "dish": "Falafel låda 10st",
+  "information": "Falafel låda 10st utgångsdatum 20/10-2024",
+  "allergies": [
+    ""
+  ],
+  "image": "uploads\\1728991011879.png",
+  "price": 12,
+  "options": [
+    "Övrigt"
+  ],
+  "quantity": 6,
+  "Page": "Svinnsmart Deals",
+  "createdAt": {
+    "$date": "2024-10-15T10:17:31.138Z"
+  },
+  "__v": 0
 }]

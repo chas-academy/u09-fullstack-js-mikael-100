@@ -12,6 +12,10 @@ Kom Igång
 
 [Kom Igång](https://docs.google.com/document/d/1BM6bbfsiGWUe3rgZa5HcqzoMSv4OthK_O0ElBbp4apc/edit?usp=sharing)
 
+API Dokumentation
+
+[Api Dokumentation](https://docs.google.com/document/d/1cNPGAwM0TxzY5kbLT9aWdGzS1tMcY2mi0xB3GWwTqP0/edit?usp=sharing)
+
 Dagbok (Dokumentation):
 
 [Dagbok](https://docs.google.com/document/d/1ch3j9_ipzjUTAv48f4dtpFDgzneyxJajwDHMfR-j_fQ/edit?usp=sharing)
