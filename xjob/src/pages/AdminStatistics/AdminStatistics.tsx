@@ -18,6 +18,7 @@ const AdminStatestics = () => {
     amount: number;
     dish: string;
     _id: string;
+    Page: string;
   }
 
   interface dataInterface {
@@ -239,10 +240,14 @@ const AdminStatestics = () => {
             <hr className="border-black w-[60%]" />
           </div>
           {/* Total summa för perioden */}
-          <div className="text-center font-roboto mt-3">
-            Total Summa för perioden: <br />
-            {totalSum}:-
-          </div>
+          {totalSum === 0 ? (
+            ""
+          ) : (
+            <div className="text-center font-roboto mt-3">
+              Total Summa för perioden: <br />
+              {totalSum}:-
+            </div>
+          )}
           <div className="mb-40 mx-auto font-roboto w-[90%]">
             <div className="mt-10">
               <ResponsiveContainer width={"100%"} height={300}>
@@ -257,13 +262,17 @@ const AdminStatestics = () => {
                         <div className="text-center">
                           {props.payload.map((item) => (
                             <div
-                              className="bg-primary text-black py-2 px-4 rounded shadow-lg"
+                              className="bg-primary text-black py-4 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105"
                               key={item.payload.name} // Använd item.payload.name som key
                             >
-                              <p className="font-bold">{item.value} st</p>
-                              <p>{item.payload.name}</p>{" "}
+                              <p className="font-bold text-xl mb-1">
+                                {item.value} st
+                              </p>
+                              <p className="text-lg">{item.payload.name}</p>{" "}
                               {item.payload.totalSum > 0 && (
-                                <p>Total summa: {item.payload.totalSum}</p>
+                                <p className="text-sm text-gray-500 mt-2">
+                                  Total summa: {item.payload.totalSum} kr
+                                </p>
                               )}
                             </div>
                           ))}
@@ -271,8 +280,9 @@ const AdminStatestics = () => {
                       );
                     }}
                   />
-                  <YAxis dataKey="" />
+                  <YAxis dataKey="" axisLine={false} />
                   <XAxis
+                    axisLine={false}
                     dataKey="name"
                     textAnchor="end"
                     tickFormatter={(value) => {
@@ -281,7 +291,7 @@ const AdminStatestics = () => {
                         : value; // Förkorta vid behov
                     }}
                   />{" "}
-                  <Bar dataKey="uv" fill="#8884d8" />
+                  <Bar dataKey="uv" fill="#4A90E2" radius={[10, 10, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

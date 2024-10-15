@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../button/button";
 import { Dropdown } from "../dropdown/Dropdown";
 import { AuthContext } from "../../context/AuthContext";
@@ -24,6 +24,8 @@ export const Navbar = () => {
 
   const { setArInloggad, arInloggad, setAdmin, admin } = inloggad;
 
+  const navigera = useNavigate();
+
   const loggout = async () => {
     const apiUrl = import.meta.env.VITE_API_URL; // API-url
 
@@ -38,6 +40,7 @@ export const Navbar = () => {
         console.log(result.message); // Loggar meddelandet "Utloggad vart syns detta"
         setArInloggad(false);
         setAdmin("");
+        navigera("/");
       } else {
         console.error("Utloggning misslyckades.");
       }
@@ -86,6 +89,14 @@ export const Navbar = () => {
               <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
                 <Link to={"/menu"} className="block w-full h-full text-center">
                   Meny
+                </Link>
+              </li>
+              <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                <Link
+                  to={"/svinnsmartDeals"}
+                  className="block w-full h-full text-center"
+                >
+                  Svinnsmart Deals
                 </Link>
               </li>
               <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
@@ -236,7 +247,19 @@ export const Navbar = () => {
                 to={"/menu"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
               >
-                Menu
+                Meny
+              </Link>
+            </li>
+            <hr className="border-black" />
+            <li
+              className="w-full text-center hover:text-blue-600"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <Link
+                to={"/svinnsmartDeals"}
+                className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
+              >
+                Svinnsmart Deals
               </Link>
             </li>
             <hr className="border-black" />
@@ -251,32 +274,33 @@ export const Navbar = () => {
                 Varukorg
               </Link>
             </li>
-            <hr className="border-black" />
-            <li
-              className="w-full text-center"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              <Link
-                to={"/adminStatistics"}
-                className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
-              >
-                Statestik
-              </Link>
-            </li>
-            <hr className="border-black" />
-            <li
-              className="w-full text-center"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              <Link
-                to={"/adminUploadDish"}
-                className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
-              >
-                Lägg Till Maträtt
-              </Link>
-            </li>
+
             {arInloggad ? (
               <>
+                <hr className="border-black" />
+                <li
+                  className="w-full text-center"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <Link
+                    to={"/adminStatistics"}
+                    className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
+                  >
+                    Statestik
+                  </Link>
+                </li>
+                <hr className="border-black" />
+                <li
+                  className="w-full text-center"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <Link
+                    to={"/adminUploadDish"}
+                    className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
+                  >
+                    Lägg Till Maträtt
+                  </Link>
+                </li>
                 <hr className="border-black" />
                 <li
                   className="w-full text-center"

@@ -82,6 +82,14 @@ const formFields: FormField[] = [
     containerClassName: " w-[100%] h-[10vw] sticky",
   },
   {
+    name: "Page",
+    label: "Sida genemot kund",
+    type: "select",
+    options: ["Menu", "Svinnsmart Deals"],
+    inputClassName: " border border-black rounded w-[100%]",
+    containerClassName: " w-[100%] h-[10vw] sticky",
+  },
+  {
     name: "Glutenfri",
     label: "Glutenfri",
     type: "checkbox",
@@ -141,6 +149,7 @@ const initialValues: FormValues = {
   Pris: "",
   Antal: "",
   Sjukhus: "",
+  Page: "",
   Glutenfri: false,
   Laktosfri: false,
   Fläskfri: false,
@@ -177,6 +186,7 @@ const AdminUploadDish: React.FC = () => {
     const formData = new FormData();
     console.log("Selected file:", values["Välj Fil"]);
 
+    // console.log("Form values:", values);
     // Lägg till varje fält från values till formData
     Object.keys(values).forEach((key) => {
       const value = values[key];
@@ -198,16 +208,19 @@ const AdminUploadDish: React.FC = () => {
       console.log("No file selected or file input is null");
     }
 
+    const apiURL = import.meta.env.VITE_API_URL;
+
     // Debugga innehållet i formData
     console.log("FormData entries:", Array.from(formData.entries()));
 
-    fetch("http://localhost:5000/api/cuisines", {
+    fetch(`${apiURL}/api/cuisines`, {
       method: "POST",
       body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        // alert("Maträtt Tillagd i databasen");
       })
       .catch((error) => {
         console.error("Error:", error);

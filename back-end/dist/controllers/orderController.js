@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteOrder = exports.updateOrder = exports.createOrder = exports.getOrderById = exports.getAllOrders = void 0;
 const Order_1 = __importDefault(require("../models/Order"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const getAllOrders = async (req, res) => {
     const Status = req.query.Status;
     const { Hospital, StartDate, EndDate } = req.query;
@@ -93,7 +94,7 @@ const transporter = nodemailer_1.default.createTransport({
 });
 // Skapa en Order
 const createOrder = async (req, res) => {
-    const { Hospital, FirstName, LastName, PhoneNumber, Department, Orders, Mail, TotalSum, } = req.body;
+    const { Hospital, FirstName, LastName, PhoneNumber, Department, Orders, Mail, TotalSum, Page, } = req.body;
     // Validera indata
     if (!Hospital ||
         !FirstName ||
@@ -155,10 +156,29 @@ const updateOrder = async (req, res) => {
     const { Status } = req.body; // Hämta status från request body
     // console.log("Order ID:", id);
     // console.log("New Status:", Status);
+    console.log("Cookies:", req.cookies); // Logga alla cookies
+    const token = req.cookies["token"];
+    console.log("Tokenjjjjjjjjjjjjjjjjjjjjjjjj:", token); // Logga token
+    console.log("Lennnart");
+    const JWT_SECRET2 = process.env.JWT_SECRET;
+    if (!token) {
+        return res
+            .status(401)
+            .json({ message: "Access denied. No token provided." });
+    }
     try {
+        // Verifiera och dekryptera token
+        if (!JWT_SECRET2) {
+            throw new Error("JWT secret is not defined.");
+        }
+        const decoded = jsonwebtoken_1.default.verify(token, JWT_SECRET2); // Verifiera token med den hemliga nyckeln
+        console.log("Decoded token:", decoded); // Logga den dekrypterade informationen
+        const { name } = decoded;
+        const OrderApprovedBy = name;
+        console.log("IIIIIIIIIIIII", name);
         // Använd findByIdAndUpdate för att uppdatera Status direkt
         const updatedOrder = await Order_1.default.findByIdAndUpdate(id, // Använd ID direkt för att söka efter ordern
-        { $set: { Status } }, // Använd $set för att uppdatera Status
+        { $set: { Status, OrderApprovedBy } }, // Använd $set för att uppdatera Status
         { new: true } // Returnera den uppdaterade ordern
         );
         if (!updatedOrder) {

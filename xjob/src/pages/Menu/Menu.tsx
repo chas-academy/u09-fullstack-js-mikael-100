@@ -54,11 +54,12 @@ const Menu = () => {
   useEffect(() => {
     const fetchData = async () => {
       const valtSjukhus = sjukhus;
+      const Page = "Menu";
       // För att kunna beta från localhoast till netlify senare så gjorde jag en miljövariabel av http//localhoast:5000 och importerade den istället
       const apiURL = import.meta.env.VITE_API_URL;
       const filterQuery = buttonVal.join(","); // Om ditt API accepterar filter som en kommaseparerad sträng
       const response = await fetch(
-        `${apiURL}/api/cuisines/?filter=${filterQuery}&hospital=${valtSjukhus}`
+        `${apiURL}/api/cuisines/?filter=${filterQuery}&hospital=${valtSjukhus}&Page=${Page}`
       );
       const data: ApiData[] = await response.json();
 
@@ -118,18 +119,34 @@ const Menu = () => {
   };
   return (
     <>
-      <FilterButton
-        onFilterChange={onFilterChange2}
-        buttonSize={"small"}
-        divSize={"small"}
-        activeFilters={activeFilters}
-      ></FilterButton>
-      <p className="font-roboto font-bold p-6 text-center w-full text-xl md:text-3xl sm:text-2xl">
-        {sjukhus === null
-          ? "Gå till startsidan och välj Sjukhus för att kunna se dina måltidsalternativ"
-          : `${sjukhus} Måltider`}{" "}
-        {/* Visa sjukhusets måltider om ett sjukhus har valts */}
-      </p>
+      {sjukhus === null ? (
+        <div>
+          <p className="font-roboto p-6 text-center w-full text-xl md:text-3xl sm:text-2xl mt-10">
+            Gå till startsidan och välj Sjukhus för att kunna se dina
+            måltidsalternativ"
+          </p>
+          <p
+            className="cursor-pointer  hover:underline text-center mb-4"
+            onClick={() => navigera("/")}
+          >
+            Klicka här för att återvända till startsidan och göra ett nytt val
+            av sjukhus
+          </p>
+          <div className="h-[50vh]"></div>
+        </div>
+      ) : (
+        <>
+          <p className="font-roboto font-bold p-6 text-center w-full text-xl md:text-3xl sm:text-2xl">
+            {sjukhus} Måltider
+          </p>
+          <FilterButton
+            onFilterChange={onFilterChange2}
+            buttonSize={"small"}
+            divSize={"small"}
+            activeFilters={activeFilters}
+          ></FilterButton>
+        </>
+      )}{" "}
       <div className="mx-auto flex items-center flex-wrap w-[95%] sm:w-[90%]">
         {cardItem.map((item) => (
           <div
@@ -179,14 +196,6 @@ const Menu = () => {
           </div>
         ))}
       </div>
-      <p
-        className="cursor-pointer  hover:underline text-center mb-4"
-        onClick={() => navigera("/")}
-      >
-        {cardItem.length === 0
-          ? "Klicka här för att återvända till startsidan och göra ett nytt val av sjukhus"
-          : ""}
-      </p>
     </>
   );
 };

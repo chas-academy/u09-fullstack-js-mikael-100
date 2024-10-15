@@ -10,6 +10,7 @@ export interface ICuisine extends Document {
   options: string[];
   quantity: number;
   createdAt?: Date;
+  Page: string;
 }
 
 // Detta är Mongoose Scheme
@@ -24,6 +25,7 @@ const CuisineSchema: Schema<ICuisine> = new Schema({
   options: { type: [String], required: true },
   quantity: { type: Number, required: true },
   createdAt: { type: Date, default: Date.now },
+  Page: { type: String, required: true },
 });
 
 // Här är den skapade modellen som sedan exporteras och tas in av controllern. Den första "Cuisine" visar på att detta är namnet på Collectionen i databasen om inte en Collection redan skulle ha detta namn i plural skulle den ha skapats.

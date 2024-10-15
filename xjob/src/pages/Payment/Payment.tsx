@@ -18,7 +18,6 @@ const Payment = () => {
     amount: string;
   }
 
-  // Update the destructuring to provide a default value
   const { itemVarukorg, totalPris = 0 } = location.state || {}; // Set default to 0
 
   console.log("Location state:", location.state);

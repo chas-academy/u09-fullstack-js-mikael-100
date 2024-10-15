@@ -20,7 +20,7 @@ interface Orders {
   createdAt: string;
   Orders: OrderArray[];
   _id: string;
-  OrderApprovedBy?: string;
+  OrderApprovedBy: string;
 }
 
 const AdminInkomnaOrdrar = () => {

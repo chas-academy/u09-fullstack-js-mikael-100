@@ -112,7 +112,7 @@ const AdminLogin = () => {
   return (
     <>
       <div className="flex justify-center">
-        <div className="border-2 w-[90%] sm:w-[50%] md:w-[50%]">
+        <div className=" w-[90%] sm:w-[50%] md:w-[50%] bg-gray-300 rounded mb-10 mt-10">
           <div>
             <h1 className="text-center font-roboto text-2xl mt-7">
               Admin Loggin
@@ -144,19 +144,21 @@ const AdminLogin = () => {
               </div>
               <div className="flex justify-center">
                 <div className="w-[70%] md:w-[80%]">
-                  <Dropdown
-                    label={formData.hospital || "Välj Sjukhus"}
-                    name="hospital"
-                    items={[
-                      "Alingsås lasarett",
-                      "Angereds Närsjukhus",
-                      "Frölunda specialistsjukhus",
-                      "Kungälvs sjukhus",
-                      "Skaraborgs Sjukhus",
-                      "Södra Älvsborgs Sjukhus",
-                    ]}
-                    onSelect={(value) => handleSelect("hospital", value)}
-                  ></Dropdown>
+                  <div className="relative z-10">
+                    <Dropdown
+                      label={formData.hospital || "Välj Sjukhus"}
+                      name="hospital"
+                      items={[
+                        "Alingsås lasarett",
+                        "Angereds Närsjukhus",
+                        "Frölunda specialistsjukhus",
+                        "Kungälvs sjukhus",
+                        "Skaraborgs Sjukhus",
+                        "Södra Älvsborgs Sjukhus",
+                      ]}
+                      onSelect={(value) => handleSelect("hospital", value)}
+                    ></Dropdown>
+                  </div>
                   <Dropdown
                     label={formData.role || "Välj Behörighet"}
                     name="role"
