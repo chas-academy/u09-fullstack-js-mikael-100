@@ -8,7 +8,9 @@ Istallations guide lokal Server:
 
 [Installation](https://docs.google.com/document/d/15FxEFAA9HR2C5S6gG9XC6ppE3krcW4N_k-4rgf7fdjM/edit?usp=sharing)
 
-Installation
+Kom Igång
+
+[Kom Igång](https://docs.google.com/document/d/1BM6bbfsiGWUe3rgZa5HcqzoMSv4OthK_O0ElBbp4apc/edit?usp=sharing)
 
 Dagbok (Dokumentation):
 
@@ -17,10 +19,6 @@ Dagbok (Dokumentation):
 Dagbok (Dokumentation) Summerad av ChatGpt:
 
 [Dagbok ChatGPT](https://docs.google.com/document/d/1J2BZc_aWHLM0i9ILkSAIBkA2S48r_MHNEGTzphdYFCE/edit?usp=sharing)
-
-Kom Igång
-
-[Kom Igång](https://docs.google.com/document/d/1BM6bbfsiGWUe3rgZa5HcqzoMSv4OthK_O0ElBbp4apc/edit?usp=sharing)
 
 Personas Userstories:
 
