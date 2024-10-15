@@ -45,6 +45,7 @@ const OrderSchema = new mongoose_1.Schema({
     ],
     Status: { type: String, default: "pending" },
     TotalSum: { type: String },
+    OrderApprovedBy: { type: String },
 });
 const Order = mongoose_1.default.model("Order", OrderSchema, "orders");
 exports.default = Order;
