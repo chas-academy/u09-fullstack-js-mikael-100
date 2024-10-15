@@ -5,13 +5,9 @@ import cors from "cors";
 import orderRouter from "./routes/orderRoutes";
 import adminRouter from "./routes/adminRoutes";
 import authRouter from "./routes/authRoutes";
-import uploadConfigRoutes from "./routes/uploadConfigRoutes";
 import path from "path";
 import cookieParser from "cookie-parser";
-import {
-  authenticateAdminSuperAdmin,
-  authenticateSuperAdmin,
-} from "./middleweare/authMiddleware";
+import { authenticateSuperAdmin } from "./middleweare/authMiddleware";
 
 const app: Express = express();
 
@@ -60,6 +56,5 @@ app.use("/api/cuisines", cuisineRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/admins", authenticateSuperAdmin, adminRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/uploads", authenticateAdminSuperAdmin, uploadConfigRoutes);
 
 export default app;
