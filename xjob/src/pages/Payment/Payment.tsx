@@ -103,73 +103,77 @@ const Payment = () => {
 
   return (
     <>
-      <div className="flex justify-center mt-10 mb-20">
-        <div className="w-[70%] sm:w-[50%] md:w-[50%] lg:w-[30%]">
-          <form action="" onSubmit={handlePayment}>
-            <TextInput
-              label="Förnamn *"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              divStyle={"small"}
-              inputStyle={"small"}
-              labelStyle={"small"}
-              required={true}
-            ></TextInput>
-            <TextInput
-              label="Efternamn *"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              divStyle={"small"}
-              inputStyle={"small"}
-              labelStyle={"small"}
-              required={true}
-            ></TextInput>
-            <TextInput
-              name="phoneNumber"
-              label="Telefonummer *"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              divStyle={"small"}
-              inputStyle={"small"}
-              labelStyle={"small"}
-              required={true}
-            ></TextInput>
-            <TextInput
-              name="mail"
-              label="Mail *"
-              value={formData.mail}
-              onChange={handleChange}
-              divStyle={"small"}
-              inputStyle={"small"}
-              labelStyle={"small"}
-              required={true}
-            ></TextInput>
-            <TextInput
-              name="department"
-              label="Avdelning *"
-              value={formData.department}
-              onChange={handleChange}
-              divStyle={"small"}
-              inputStyle={"small"}
-              labelStyle={"small"}
-              required={true}
-            ></TextInput>
-            <div className="flex justify-center">
-              <hr className="border-t border-black mt-20 w-[80%]" />
+      <div className="flex justify-center mb-10 mt-10">
+        <div className="bg-gray-200 rounded w-[100vw] sm:w-[50vw] md:sm:w-[40vw]">
+          <div className="flex justify-center mt-10 mb-20">
+            <div className="w-[70%] sm:w-[50%] md:w-[70%] lg:w-[50%]">
+              <form action="" onSubmit={handlePayment}>
+                <TextInput
+                  label="Förnamn *"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  divStyle={"small"}
+                  inputStyle={"small"}
+                  labelStyle={"small"}
+                  required={true}
+                ></TextInput>
+                <TextInput
+                  label="Efternamn *"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  divStyle={"small"}
+                  inputStyle={"small"}
+                  labelStyle={"small"}
+                  required={true}
+                ></TextInput>
+                <TextInput
+                  name="phoneNumber"
+                  label="Telefonummer *"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  divStyle={"small"}
+                  inputStyle={"small"}
+                  labelStyle={"small"}
+                  required={true}
+                ></TextInput>
+                <TextInput
+                  name="mail"
+                  label="Mail *"
+                  value={formData.mail}
+                  onChange={handleChange}
+                  divStyle={"small"}
+                  inputStyle={"small"}
+                  labelStyle={"small"}
+                  required={true}
+                ></TextInput>
+                <TextInput
+                  name="department"
+                  label="Avdelning *"
+                  value={formData.department}
+                  onChange={handleChange}
+                  divStyle={"small"}
+                  inputStyle={"small"}
+                  labelStyle={"small"}
+                  required={true}
+                ></TextInput>
+                <div className="flex justify-center">
+                  <hr className="border-t border-black mt-20 w-[80%]" />
+                </div>
+                <p className="font-roboto text-center mt-3">{`Att betala: ${totalPris}:-`}</p>
+                <Button
+                  type="button"
+                  appliedColorClass="blue"
+                  appliedSizeClass="medium"
+                  className="mt-4 mb-4"
+                >
+                  Betala
+                </Button>
+                <ToastContainer />
+              </form>
             </div>
-            <p className="font-roboto text-center mt-3">{`Att betala: ${totalPris}:-`}</p>
-            <Button
-              type="button"
-              appliedColorClass="blue"
-              appliedSizeClass="medium"
-              className="mt-4 mb-4"
-            >
-              Betala
-            </Button>
-            <ToastContainer />
-          </form>
+          </div>
         </div>
       </div>
     </>
