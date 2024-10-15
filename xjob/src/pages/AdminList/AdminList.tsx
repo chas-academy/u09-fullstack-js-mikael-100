@@ -73,8 +73,9 @@ const AdminList = () => {
 
   return (
     <>
+      {/* <h1 className="text-center font-bold text-2xl">Admin Lista</h1> */}
       <div className="flex justify-center mb-10">
-        <div className="sm:w-[50%] md:w-[50%] lg:w-[50%] bg-gray-200 rounded">
+        <div className="sm:w-[50%] md:w-[50%] lg:w-[50%]  rounded">
           {hamtadData.length > 0 ? (
             hamtadData.map((item) => (
               <>

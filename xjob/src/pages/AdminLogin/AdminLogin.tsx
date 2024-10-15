@@ -112,7 +112,7 @@ const AdminLogin = () => {
   return (
     <>
       <div className="flex justify-center">
-        <div className="border-2 w-[90%] sm:w-[50%] md:w-[50%]">
+        <div className=" w-[90%] sm:w-[50%] md:w-[50%] bg-gray-300 rounded mb-10 mt-10">
           <div>
             <h1 className="text-center font-roboto text-2xl mt-7">
               Admin Loggin
