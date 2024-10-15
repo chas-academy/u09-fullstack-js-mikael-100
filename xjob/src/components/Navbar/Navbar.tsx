@@ -114,7 +114,7 @@ export const Navbar = () => {
                       to={"/adminStatistics"}
                       className="block w-full h-full text-center"
                     >
-                      Statestik
+                      Statistik
                     </Link>
                   </li>
 
@@ -286,7 +286,7 @@ export const Navbar = () => {
                     to={"/adminStatistics"}
                     className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
                   >
-                    Statestik
+                    Statistik
                   </Link>
                 </li>
                 <hr className="border-black" />
