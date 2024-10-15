@@ -99,9 +99,7 @@ const SvinnsmartDeals = () => {
               key={item._id}
               className="flex-wrap w-[100%] sm:w-[50%] md:w-[50%] xl:w-[30%] mx-auto"
             >
-              <Link
-                to={`/dish/${item._id}`} // Anpassa sökvägen här om nödvändigt
-              >
+              <Link to={`/dish/${item._id}`}>
                 <Card
                   img={`${apiURL}/${item.image}`}
                   titel={item.dish}

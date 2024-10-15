@@ -247,7 +247,7 @@ export const Navbar = () => {
                 to={"/menu"}
                 className="block w-full p-5 hover:text-blue-600 hover:bg-black hover:text-white transition-colors duration-500"
               >
-                Menu
+                Meny
               </Link>
             </li>
             <hr className="border-black" />
