@@ -4,6 +4,8 @@ import FlexibleForm, {
   FormValues,
   ValidationSchema,
 } from "../../components/form/form";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 
 // Här defineras formuläret. här skrivs name, label, type, placeholder och options in
 // Element kommer att renderas utifrån vilka val man gör i dessa object i arrayen.
@@ -218,25 +220,35 @@ const AdminUploadDish: React.FC = () => {
       body: formData,
       credentials: "include",
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Http Error Response");
+        }
+        return response.json();
+      })
       .then((data) => {
         console.log("Success:", data);
         // alert("Maträtt Tillagd i databasen");
+        toast.success("Uppladdningen Lyckades");
       })
       .catch((error) => {
         console.error("Error:", error);
+        toast.error("Något gick fel med uppladdningen");
       });
   };
 
   return (
     <>
-      <div className="mx-auto sm:w-[70vw] md:w-[50vw] xl:w-[40vw] p-5">
-        <FlexibleForm
-          fields={formFields}
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        />
+      <div>
+        <div className="mx-auto sm:w-[70vw] md:w-[50vw] xl:w-[40vw] p-5">
+          <FlexibleForm
+            fields={formFields}
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          />
+        </div>
+        <ToastContainer />
       </div>
     </>
   );

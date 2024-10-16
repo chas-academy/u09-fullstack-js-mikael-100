@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import GeneralCard from "../../components/orderCard/OrderCard";
 import { AuthContext } from "../../context/AuthContext";
 import { Button } from "../../components/button/button";
+import { toast, ToastContainer } from "react-toastify";
 
 interface OrderArray {
   dish: string;
@@ -153,12 +154,14 @@ const AdminInkomnaOrdrar = () => {
 
       const data = await response.json();
       console.log("Ordern är godkänd", data);
+      toast.success("Order godkänd");
       if (data) {
         setCount((prev) => prev + 1);
         console.log("Ordern är godkänd", count);
       }
     } catch (error) {
       console.log(error);
+      toast.error("Kunde inte godkänna order");
     }
   };
 
@@ -206,6 +209,7 @@ const AdminInkomnaOrdrar = () => {
                 </div>
               </>
             ))}
+        <ToastContainer />
       </div>
     </>
   );

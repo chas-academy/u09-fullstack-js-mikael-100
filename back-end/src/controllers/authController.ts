@@ -56,7 +56,7 @@ export const loginAdmin = async (req: Request, res: Response) => {
       maxAge: 7200000, // 2 timmar i millisekunder
 
       // För att tillåta cookies i cross-site begärningar (justera efter behov)
-      sameSite: "none",
+      // sameSite: "none",
     });
 
     // Skicka token och admin-datan
