@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ImgComponent from "../../components/img/img";
 import TextInput from "../../components/input/input";
 import TextAreaInput from "../../components/textArea/textArea";
@@ -107,8 +107,6 @@ const AdminUpdateDish = () => {
 
   const [image, setImage] = useState<File | null>(null);
 
-  const navigera = useNavigate();
-
   const imgUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     if (files && files.length > 0) {
@@ -152,8 +150,8 @@ const AdminUpdateDish = () => {
         credentials: "include",
         body: formData,
       });
-      // navigera("/");
-      toast.success("Order uppdaterad");
+
+      toast.success("Uppdateringen lyckades");
 
       if (!response.ok) {
         throw new Error("Uppdatering misslyckades");
