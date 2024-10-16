@@ -88,7 +88,7 @@ const Dish = () => {
                 pStyle={"smalBox"}
               ></DialogBox>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-10 sm:mt-20">
               <p className="font-bold mb-5">{`Styck pris ${dish.price}:-`}</p>
             </div>
             <div>
