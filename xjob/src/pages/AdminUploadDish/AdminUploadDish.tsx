@@ -38,7 +38,7 @@ const formFields: FormField[] = [
     type: "number",
     placeholder: "",
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[10vw] sticky",
+    containerClassName: " w-[100%] h-[15vw] md:h-[7vw] sticky mt-3",
   },
   {
     name: "Antal",
@@ -46,7 +46,7 @@ const formFields: FormField[] = [
     type: "number",
     placeholder: "...",
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[10vw] sticky",
+    containerClassName: " w-[100%] h-[15vw] md:h-[7vw] sticky",
   },
   {
     name: "Alternativ",
@@ -63,7 +63,7 @@ const formFields: FormField[] = [
       "Övrigt",
     ],
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[10vw] sticky",
+    containerClassName: " w-[100%] h-[15vw] md:h-[7vw] sticky",
   },
 
   {
@@ -79,7 +79,7 @@ const formFields: FormField[] = [
       "Södra Älvsborgs Sjukhus",
     ],
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[10vw] sticky",
+    containerClassName: " w-[100%] h-[15vw] md:h-[7vw] sticky",
   },
   {
     name: "Page",
@@ -87,15 +87,15 @@ const formFields: FormField[] = [
     type: "select",
     options: ["Menu", "Svinnsmart Deals"],
     inputClassName: " border border-black rounded w-[100%]",
-    containerClassName: " w-[100%] h-[10vw] sticky",
+    containerClassName: " w-[100%] h-[15vw] md:h-[7vw] sticky",
   },
   {
     name: "Glutenfri",
     label: "Glutenfri",
     type: "checkbox",
     inputClassName: "flex mx-auto w-[30%]",
-    containerClassName: " inline-block w-1/3 mt-4",
-    labelClassName: "flex justify-center",
+    containerClassName: " inline-block w-1/3 mt-4 sm:mt-0",
+    labelClassName: "flex justify-center mt-5",
   },
   {
     name: "Laktosfri",
