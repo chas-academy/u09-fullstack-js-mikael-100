@@ -275,6 +275,30 @@ export const Navbar = () => {
               </Link>
             </li>
 
+            {admin === "Super Admin" && (
+              <>
+                <hr className="border-black" />
+                <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                  <Link
+                    to={"/adminAdd"}
+                    className="block w-full h-full text-center"
+                  >
+                    Skapa Admin
+                  </Link>
+                </li>
+                <hr className="border-black" />
+
+                <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                  <Link
+                    to={"/adminList"}
+                    className="block w-full h-full text-center"
+                  >
+                    Admin Lista
+                  </Link>
+                </li>
+              </>
+            )}
+
             {arInloggad ? (
               <>
                 <hr className="border-black" />
@@ -343,7 +367,7 @@ export const Navbar = () => {
             ) : (
               <></>
             )}
-            {admin === "Super Admin" && (
+            {/* {admin === "Super Admin" && (
               <>
                 <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
                   <Link
@@ -365,7 +389,7 @@ export const Navbar = () => {
                 </li>
                 <hr className="border-black" />
               </>
-            )}
+            )} */}
           </ul>
         </div>
       </nav>

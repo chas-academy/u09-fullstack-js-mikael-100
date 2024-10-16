@@ -1,5 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 
+// Definiera ett gränssnitt för orderdetaljer
+
 export interface IOrder extends Document {
   createdAt: Date;
   Hospital: string;
@@ -14,17 +16,7 @@ export interface IOrder extends Document {
   OrderApprovedBy: string;
 }
 
-// Definiera ett gränssnitt för orderdetaljer
-export interface Iorder {
-  dish: string;
-  amount: number;
-}
-
-// Skapa ett schema för orderdetaljern
-const OrderDetailSchema: Schema<Iorder> = new Schema({
-  dish: { type: String, required: true },
-  amount: { type: Number, required: true, min: 1 }, // Antal ska vara ett positivt tal
-});
+// // Skapa ett schema för orderdetaljern
 
 const OrderSchema: Schema<IOrder> = new Schema({
   createdAt: { type: Date, default: Date.now },

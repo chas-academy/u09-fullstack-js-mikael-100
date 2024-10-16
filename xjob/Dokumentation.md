@@ -4,7 +4,7 @@ När du kommit hit så har du klarat av första steget som är att clona ner pro
 
 Gå nu in på länken nedan för ställa in allting så att du kan starta och använda applikationen på lokal server. Om du inte vill starta appen lokalt på din dator kan du hoppa till rubriken `Kom Igång` som har en Netlify länk med en deployad version av appen.
 
-Istallations guide lokal Server:
+Istallations guide lokalServer:
 
 [Installation](https://docs.google.com/document/d/15FxEFAA9HR2C5S6gG9XC6ppE3krcW4N_k-4rgf7fdjM/edit?usp=sharing)
 

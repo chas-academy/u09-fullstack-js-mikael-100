@@ -87,12 +87,17 @@ const SvinnsmartDeals = () => {
   return (
     <>
       <div>
-        <p className="font-roboto p-6 text-center w-full text-xl md:text-3xl sm:text-2xl mt-10">
-          {sjukhus === null
-            ? "Gå till startsidan och välj Sjukhus för att kunna se dina måltidsalternativ"
-            : `${sjukhus} Måltider`}{" "}
-          {/* Visa sjukhusets måltider om ett sjukhus har valts */}
-        </p>
+        <div className="mt-10 mb-20">
+          <p className="font-roboto text-center w-full text-xl md:text-3xl sm:text-2xl mb-5 font-bold">
+            {sjukhus === null
+              ? "Gå till startsidan och välj Sjukhus för att kunna se dina måltidsalternativ"
+              : `${sjukhus} Måltider`}{" "}
+            {/* Visa sjukhusets måltider om ett sjukhus har valts */}
+          </p>
+          <div className="flex justify-center">
+            <hr className="border-black w-[80vw] md:w-[50vw]" />
+          </div>
+        </div>
         <div className="mx-auto flex items-center flex-wrap w-[95%] sm:w-[90%]">
           {cardItem.map((item) => (
             <div
