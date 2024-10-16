@@ -6,6 +6,7 @@ import TextAreaInput from "../../components/textArea/textArea";
 import { Dropdown } from "../../components/dropdown/Dropdown";
 import CheckBoxComponent from "../../components/checkbox/checkboxComponent";
 import { Button } from "../../components/button/button";
+import { toast, ToastContainer } from "react-toastify";
 
 const AdminUpdateDish = () => {
   const { id } = useParams();
@@ -151,12 +152,15 @@ const AdminUpdateDish = () => {
         credentials: "include",
         body: formData,
       });
-      navigera("/");
+      // navigera("/");
+      toast.success("Order uppdaterad");
+
       if (!response.ok) {
         throw new Error("Uppdatering misslyckades");
       }
     } catch (error) {
       console.error("Något gick fel", error);
+      toast.error("Något gick fel med uppdateringen");
     }
   };
 
@@ -316,6 +320,7 @@ const AdminUpdateDish = () => {
           </div>
         </div>
       </form>
+      <ToastContainer />
     </>
   );
 };

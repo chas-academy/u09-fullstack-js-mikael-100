@@ -169,7 +169,7 @@ export const Navbar = () => {
             </ul>
           </div>
         </div>
-        <div className="block sm:hidden flex justify-center items-center w-full justify-between ">
+        <div className="block sm:hidden flex justify-center items-center w-full justify-between relative z-20">
           {/* Detta ska vara dropdownen med språk */}
           <Dropdown
             label={language}
@@ -278,7 +278,10 @@ export const Navbar = () => {
             {admin === "Super Admin" && (
               <>
                 <hr className="border-black" />
-                <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                <li
+                  className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
                   <Link
                     to={"/adminAdd"}
                     className="block w-full h-full text-center"
@@ -288,7 +291,10 @@ export const Navbar = () => {
                 </li>
                 <hr className="border-black" />
 
-                <li className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500">
+                <li
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="flex-1 p-4 hover:bg-black hover:text-white transition-colors duration-500"
+                >
                   <Link
                     to={"/adminList"}
                     className="block w-full h-full text-center"
