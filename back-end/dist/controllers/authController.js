@@ -52,7 +52,7 @@ const loginAdmin = async (req, res) => {
       httpOnly: true, // Förhindra att cookien nås via JavaScript
       secure: process.env.NODE_ENV === "production", // Endast över HTTPS i produktion
       maxAge: 7200000, // 2 timmar i millisekunder
-      // För att tillåta cookies i cross-site begärningar (justera efter behov)
+      // För att tillåta cookies i cross-site begärningar (justera efter behov som du har)
       sameSite: "none",
     });
     // Skicka token och admin-datan
