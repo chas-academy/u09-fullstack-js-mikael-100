@@ -216,6 +216,7 @@ const AdminUploadDish: React.FC = () => {
     fetch(`${apiURL}/api/cuisines`, {
       method: "POST",
       body: formData,
+      credentials: "include",
     })
       .then((response) => response.json())
       .then((data) => {

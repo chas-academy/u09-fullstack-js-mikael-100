@@ -136,18 +136,25 @@ const Menu = () => {
         </div>
       ) : (
         <>
-          <p className="font-roboto font-bold p-6 text-center w-full text-xl md:text-3xl sm:text-2xl">
-            {sjukhus} Måltider
-          </p>
-          <FilterButton
-            onFilterChange={onFilterChange2}
-            buttonSize={"small"}
-            divSize={"small"}
-            activeFilters={activeFilters}
-          ></FilterButton>
+          <div className="mt-10 mb-10">
+            <p className="font-roboto font-bold  text-center w-full text-xl md:text-3xl sm:text-2xl">
+              {sjukhus} Måltider
+            </p>
+            <div className="flex justify-center">
+              <hr className="border-black w-[80vw] md:w-[50vw] mt-5 sm:mb-10" />
+            </div>
+          </div>
+          <div className="mb-10 sm:mb-20">
+            <FilterButton
+              onFilterChange={onFilterChange2}
+              buttonSize={"small"}
+              divSize={"small"}
+              activeFilters={activeFilters}
+            ></FilterButton>
+          </div>
         </>
       )}{" "}
-      <div className="mx-auto flex items-center flex-wrap w-[95%] sm:w-[90%]">
+      <div className="mx-auto flex items-center flex-wrap w-[95%] sm:w-[90%] font-roboto">
         {cardItem.map((item) => (
           <div
             key={item.id}

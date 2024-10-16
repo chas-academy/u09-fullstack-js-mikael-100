@@ -124,71 +124,75 @@ const ShoppingCart = () => {
   console.log("varukorg", itemVarukorg);
   return (
     <>
-      {/* Kontrollera att itemVarukorg är en array och inte är tom */}
-      {Array.isArray(itemVarukorg) && itemVarukorg.length > 0 ? (
-        itemVarukorg.map((item, index) => (
-          // Använd item.id som key, och fall tillbaka på index endast om item.id är undefined
-          <div key={item.id || index}>
-            <Card
-              img={item.image}
-              titel={item.dish}
-              divSize="small"
-              imgSize="small"
-              h2Size="small"
-              amount={`Antal: ${item.amount}`}
-            />
-            <Button
-              type="button"
-              appliedColorClass="red"
-              appliedSizeClass="small"
-              onClick={() => item._id && removeDish(item._id)}
-            >
-              Ta bort vara
-            </Button>
+      <div className="font-roboto">
+        {/* Kontrollera att itemVarukorg är en array och inte är tom */}
+        {Array.isArray(itemVarukorg) && itemVarukorg.length > 0 ? (
+          itemVarukorg.map((item, index) => (
+            // Använd item.id som key, och fall tillbaka på index endast om item.id är undefined
+            <div key={item.id || index}>
+              <Card
+                img={item.image}
+                titel={item.dish}
+                divSize="small"
+                imgSize="small"
+                h2Size="small"
+                amount={`Antal: ${item.amount}`}
+              />
+              <Button
+                type="button"
+                appliedColorClass="red"
+                appliedSizeClass="small"
+                onClick={() => item._id && removeDish(item._id)}
+              >
+                Ta bort vara
+              </Button>
+            </div>
+          ))
+        ) : (
+          <div>
+            <p className="flex justify-center p-4 mt-10">
+              Varukorgen är tom......
+            </p>
+            <div className="h-[50vh]"></div>
           </div>
-        ))
-      ) : (
-        <div>
-          <p className="flex justify-center p-4 mt-10">
-            Varukorgen är tom......
-          </p>
-          <div className="h-[50vh]"></div>
-        </div>
-      )}
-      {totalPris > 0 && (
-        <p className="flex justify-end font-bold font-roboto p-4">
-          Summa: {totalPris}
-        </p>
-      )}{" "}
-      {Array.isArray(itemVarukorg) && itemVarukorg.length > 0 && (
-        <>
-          <div className="mb-4">
-            <Button
-              type="button"
-              appliedColorClass="blue"
-              appliedSizeClass="large"
-              onClick={() =>
-                navigera("/payment", {
-                  state: {
-                    itemVarukorg,
-                    totalPris,
-                  },
-                })
-              }
-            >
-              Betala
-            </Button>
-          </div>
-          <div className="mb-7 mt-7">
-            <p
-              onClick={() => navigera("/menu")}
-              className="cursor-pointer text-black-500 font-bold flex justify-center md:text-2xl hover:underline"
-            >
-              Klicka här för att handla fler saker från Menyn
+        )}
+        {totalPris > 0 && (
+          <div className="justify-center">
+            <p className="text-center font-bold font-roboto p-4 mt-10 mb-5">
+              Summa: {totalPris}
             </p>
           </div>
-        </>
-      )}
+        )}{" "}
+        {Array.isArray(itemVarukorg) && itemVarukorg.length > 0 && (
+          <>
+            <div className="mb-4">
+              <Button
+                type="button"
+                appliedColorClass="blue"
+                appliedSizeClass="large"
+                onClick={() =>
+                  navigera("/payment", {
+                    state: {
+                      itemVarukorg,
+                      totalPris,
+                    },
+                  })
+                }
+              >
+                Betala
+              </Button>
+            </div>
+            <div className="mb-7 mt-7">
+              <p
+                onClick={() => navigera("/menu")}
+                className="cursor-pointer text-black-500 flex justify-center md:text-2xl hover:underline mt-10"
+              >
+                Klicka här för att handla fler saker från Menyn
+              </p>
+            </div>
+          </>
+        )}
+      </div>
     </>
   );
 };

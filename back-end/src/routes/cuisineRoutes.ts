@@ -8,6 +8,7 @@ import {
   deleteCuisine,
 } from "../controllers/cuisineController";
 import path from "path";
+import { authenticateAdminSuperAdmin } from "../middleweare/authMiddleware";
 
 // Detta är uppsättnings för multer att spara filen i backend och ge den en väg samt tillåta endpointen att kunna ta emot File.
 const destination = multer.diskStorage({
@@ -24,8 +25,18 @@ const cuisineRouter = Router();
 
 cuisineRouter.get("/", getAllCuisines);
 cuisineRouter.get("/:id", getCuisineById);
-cuisineRouter.post("/", upload.single("image"), createCuisine);
-cuisineRouter.put("/:id", upload.single("image"), updateCuisine);
+cuisineRouter.post(
+  "/",
+  upload.single("image"),
+  authenticateAdminSuperAdmin,
+  createCuisine
+);
+cuisineRouter.put(
+  "/:id",
+  upload.single("image"),
+  authenticateAdminSuperAdmin,
+  updateCuisine
+);
 cuisineRouter.delete("/:id", deleteCuisine);
 
 export default cuisineRouter;

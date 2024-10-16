@@ -70,38 +70,40 @@ const Dish = () => {
     <>
       {dish ? (
         <>
-          <div className="md:flex items-center justify-center">
-            <div className="w-full sm:w-[40%] mx-auto">
-              <Cover
-                src={dish.image}
-                alt={dish.dish}
-                size="large"
-                divSize="large"
-              />
+          <div className="font-roboto">
+            <div className="md:flex items-center justify-center">
+              <div className="w-full sm:w-[40%] mx-auto">
+                <Cover
+                  src={dish.image}
+                  alt={dish.dish}
+                  size="large"
+                  divSize="large"
+                />
+              </div>
+              <DialogBox
+                h1Text={dish.dish}
+                pText={dish.information}
+                divStyle={"smalBox"}
+                h1Style={"smalBox"}
+                pStyle={"smalBox"}
+              ></DialogBox>
             </div>
-            <DialogBox
-              h1Text={dish.dish}
-              pText={dish.information}
-              divStyle={"smalBox"}
-              h1Style={"smalBox"}
-              pStyle={"smalBox"}
-            ></DialogBox>
-          </div>
-          <div className="flex justify-center">
-            <p className="font-bold mb-5">{`Styck pris ${dish.price}:-`}</p>
-          </div>
-          <div>
-            <AntalSelector onValueChange={handleChange}></AntalSelector>
-          </div>
-          <div className="mb-8 mt-3">
-            <Button
-              appliedColorClass="blue"
-              appliedSizeClass="large"
-              onClick={() => skickaVardenTillStorePaSubmit()} // Använd en anonym funktion för att anropa handleChange
-              type={""}
-            >
-              Beställ
-            </Button>
+            <div className="flex justify-center">
+              <p className="font-bold mb-5">{`Styck pris ${dish.price}:-`}</p>
+            </div>
+            <div>
+              <AntalSelector onValueChange={handleChange}></AntalSelector>
+            </div>
+            <div className="mb-8 mt-3">
+              <Button
+                appliedColorClass="blue"
+                appliedSizeClass="large"
+                onClick={() => skickaVardenTillStorePaSubmit()} // Använd en anonym funktion för att anropa handleChange
+                type={""}
+              >
+                Beställ
+              </Button>
+            </div>
           </div>
         </>
       ) : (
