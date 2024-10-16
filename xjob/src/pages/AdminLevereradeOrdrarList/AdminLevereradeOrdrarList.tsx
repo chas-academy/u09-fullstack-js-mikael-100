@@ -44,11 +44,13 @@ const AdminLevereradeOrdrarList = () => {
 
   return (
     <>
-      {data.length > 0 &&
-        data
-          .slice()
-          .reverse()
-          .map((data) => <GeneralCard key={data} order={data}></GeneralCard>)}
+      <div>
+        {data.length > 0 &&
+          data
+            .slice()
+            .reverse()
+            .map((data) => <GeneralCard key={data} order={data}></GeneralCard>)}
+      </div>
     </>
   );
 };
