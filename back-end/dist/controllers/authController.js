@@ -50,7 +50,11 @@ const loginAdmin = async (req, res) => {
     // Sätt token i en cookie
     res.cookie("token", token, {
       httpOnly: true, // Förhindra att cookien nås via JavaScript
-      secure: process.env.NODE_ENV === "production", // Endast över HTTPS i produktion
+      // Tillåter att cookien skickas över HTTP
+      secure: false,
+      // Endast över HTTPS i produktion
+      //   secure: process.env.NODE_ENV === "production",
+
       maxAge: 7200000, // 2 timmar i millisekunder
       // För att tillåta cookies i cross-site begärningar (justera efter behov som du har)
       sameSite: "None",
