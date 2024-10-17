@@ -4,6 +4,8 @@ När du kommit hit så har du klarat av första steget som är att clona ner pro
 
 Gå nu in på länken nedan för ställa in allting så att du kan starta och använda applikationen på lokal server. Om du inte vill starta appen lokalt på din dator kan du hoppa till rubriken `Kom Igång` som har en Netlify länk med en deployad version av appen.
 
+Om du fortfarande känner att du har svårt att förstå hur appen fungerar!? Ta och gå in på sista länken som heter Demo Video där finner du en dropbox-länk till en video demonstration av appen.
+
 Istallations guide lokalServer:
 
 [Installation](https://docs.google.com/document/d/15FxEFAA9HR2C5S6gG9XC6ppE3krcW4N_k-4rgf7fdjM/edit?usp=sharing)
@@ -31,3 +33,7 @@ Personas Userstories:
 Figma:
 
 [Figma](https://www.figma.com/design/gIeCsAanRsYpUV3S2zrazW/U09?node-id=0-1&node-type=canvas&t=O4TtRCYopSZvERn9-0)
+
+Demo Video:
+
+[Demo Video](https://www.dropbox.com/scl/fi/i0uklaucvhdghj0f4izfe/U09-2.mp4?rlkey=0c0f292zux6mbisjk981rnacc&st=4c72owye&dl=0)
